@@ -24,7 +24,7 @@ const App = () => {
         <img src={coatOfArms} className='w-[55vw] mt-[20vw]' />
 
         <div className='flex justify-center flex-col items-center'>
-          <img src={fingerprintIcon} className='w-[25vw] mt-[32vw]' />
+          <img src={fingerprintIcon} className='w-[25vw] mt-[30vw]' />
 
           <p className='text-[3.5vw] font-normal text-white mt-[4vw]'>
             Scan fingerprint to Login
