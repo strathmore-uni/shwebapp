@@ -23,11 +23,13 @@ const App = () => {
       <div className='flex justify-center flex-col items-center'>
         <img src={coatOfArms} className='w-[55vw] mt-[20vw]' />
 
-        <img src={fingerprintIcon} className='w-[20vw] mt-[38vw]' />
+        <div className='flex justify-center flex-col items-center'>
+          <img src={fingerprintIcon} className='w-[25vw] mt-[32vw]' />
 
-        <p className='text-[3vw] font-normal text-white mt-[3vw]'>
-          Scan fingerprint to Login
-        </p>
+          <p className='text-[3.5vw] font-normal text-white mt-[4vw]'>
+            Scan fingerprint to Login
+          </p>
+        </div>
       </div>
     </div>
   )
