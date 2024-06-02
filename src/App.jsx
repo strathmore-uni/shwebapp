@@ -36,14 +36,14 @@ const App = () => {
 
       <div style={{ display: notMobileScreen ? 'none' : 'block' }}>
         <div className='flex justify-center flex-col items-center'>
-          <img src={coatOfArms} className='w-[55vw] mt-[20vw]'
+          <img src={coatOfArms} className='w-[55vw] mt-[10vw]'
             style={{
               width: `${coatLarge}vw`,
               transition: 'width 0.4s ease-in-out'
             }} 
           />
 
-          <div className='flex justify-center flex-col items-center cursor-pointer border' onClick={secondScreen}
+          <div className='flex justify-center flex-col items-center cursor-pointer' onClick={secondScreen}
             style={{
               opacity: `${fingerVisible}`,
               transition: 'opacity 0.2s ease-in-out',
