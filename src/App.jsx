@@ -8,12 +8,14 @@ const App = () => {
   const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
 
   const [coatLarge, setCoatLarge] = useState(55);
+  const [coatTop, setcoatTop] = useState(20);
   const [fingerVisible, setfingerVisible] = useState(1);
   const [fingerDisplay, setfingerDisplay] = useState("block");
 
   const secondScreen = () => {
     setCoatLarge(30);
     setfingerVisible(0);
+    setcoatTop(10);
 
     // Set a timeout to hide the element after 3 seconds
     setTimeout(() => {
@@ -36,10 +38,11 @@ const App = () => {
 
       <div style={{ display: notMobileScreen ? 'none' : 'block' }}>
         <div className='flex justify-center flex-col items-center'>
-          <img src={coatOfArms} className='w-[55vw] mt-[10vw]'
+          <img src={coatOfArms} className='w-[55vw] mt-[20vw]'
             style={{
               width: `${coatLarge}vw`,
-              transition: 'width 0.4s ease-in-out'
+              transition: 'width 0.4s ease-in-out, marginTop 0.5s ease-in-out',
+              marginTop: `${coatTop}vw`
             }} 
           />
 
