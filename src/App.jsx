@@ -12,10 +12,15 @@ const App = () => {
   const [fingerVisible, setfingerVisible] = useState(1);
   const [fingerDisplay, setfingerDisplay] = useState("block");
 
+  
+  //Registration Page
+  const [menuhide, setMenuHide] = useState("none");
+
   const secondScreen = () => {
     setCoatLarge(30);
     setfingerVisible(0);
     setcoatTop(10);
+    setMenuHide("block");
 
     // Set a timeout to hide the element after 3 seconds
     setTimeout(() => {
@@ -63,8 +68,12 @@ const App = () => {
           </div>
 
 
-          <div className='text-white text-[3.5vw] mt-[10vw] text-center'>
-            <div className='w-[70vw] h-[9vw] border rounded-[1.3vw] pt-[1.2vw]'>
+          <div className='text-white text-[4vw] mt-[10vw] text-center'
+            style={{
+              display: `${menuhide}`
+            }}
+          >
+            <div className='w-[80vw] border rounded-[1.3vw] py-[2.5vw]'>
               <p>
                 Registration
               </p>
