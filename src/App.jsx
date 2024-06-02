@@ -10,7 +10,7 @@ const App = () => {
   const [coatLarge, setCoatLarge] = useState(55);
   const [coatTop, setcoatTop] = useState(20);
   const [fingerVisible, setfingerVisible] = useState(1);
-  const [fingerDisplay, setfingerDisplay] = useState("block");
+  const [fingerDisplay, setfingerDisplay] = useState("visible");
 
   
   //Registration Page
@@ -24,8 +24,8 @@ const App = () => {
 
     // Set a timeout to hide the element after 3 seconds
     setTimeout(() => {
-      setfingerDisplay("none");
-    }, 1);
+      setfingerDisplay("hidden");
+    }, 3);
   }
 
   return (
@@ -51,15 +51,16 @@ const App = () => {
             }} 
           />
 
-          <div className='flex justify-center flex-col items-center cursor-pointer' onClick={secondScreen}
+          <div className='flex justify-center flex-col items-center cursor-pointer absolute bottom-[10vw]' onClick={secondScreen}
             style={{
               opacity: `${fingerVisible}`,
               transition: 'opacity 0.2s ease-in-out',
-              display: `${fingerDisplay}`
+              // display: `${fingerDisplay}`
+              // visibility: `${fingerDisplay}`
             }}
           >
             <div className='flex justify-center flex-col items-center'>
-              <img src={fingerprintIcon} className='w-[25vw] mt-[30vw]' />
+              <img src={fingerprintIcon} className='w-[25vw]' />
 
               <p className='text-[3.5vw] font-normal text-white mt-[4vw]'>
                 Scan fingerprint to Login
@@ -68,7 +69,7 @@ const App = () => {
           </div>
 
 
-          <div className='text-white text-[4vw] mt-[10vw] text-center'
+          <div className='text-white text-[4vw] absolute top-[60vw] text-center'
             style={{
               display: `${menuhide}`
             }}
