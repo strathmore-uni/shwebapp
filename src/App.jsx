@@ -79,6 +79,18 @@ const App = () => {
                 Registration
               </p>
             </div>
+
+            <div className='w-[80vw] border rounded-[1.3vw] my-[5vw] py-[2.5vw]'>
+              <p>
+                Appointment Arrival
+              </p>
+            </div>
+
+            <div className='w-[80vw] border rounded-[1.3vw] py-[2.5vw]'>
+              <p>
+                Checked-In
+              </p>
+            </div>
           </div>
         </div>
       </div>
