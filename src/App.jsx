@@ -61,6 +61,15 @@ const App = () => {
               </p>
             </div>
           </div>
+
+
+          <div className='text-white text-[3.5vw] mt-[10vw] text-center'>
+            <div className='w-[70vw] h-[9vw] border rounded-[1.3vw] pt-[1.2vw]'>
+              <p>
+                Registration
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
