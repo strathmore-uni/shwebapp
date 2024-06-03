@@ -50,6 +50,8 @@ const App = () => {
     setMenuHide("none");
     setSignOutVisible("none");
     setCameraVisible("block");
+    setCoatLarge(20);
+    setcoatTop(5);
   }
 
   return (
@@ -67,7 +69,7 @@ const App = () => {
 
       <div style={{ display: notMobileScreen ? 'none' : 'block' }}>
         <div className='flex justify-center flex-col items-center'>
-          <img src={coatOfArms} className='w-[55vw] mt-[20vw]'
+          <img src={coatOfArms} className='w-[55vw] mt-[20vw] z-10'
             style={{
               width: `${coatLarge}vw`,
               transition: 'width 0.4s ease-in-out, marginTop 0.5s ease-in-out',
@@ -125,7 +127,7 @@ const App = () => {
             <img src={signOut} className='w-[16vw]' />
           </div>
 
-          <div className='w-[80vw]'
+          <div className='w-[80vw] absolute top-[10vw]'
             style={{
               display: `${cameraVisible}`
             }}
