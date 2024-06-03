@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { coatOfArms, fingerprintIcon } from './assets'
+import { coatOfArms, fingerprintIcon, signOut } from './assets'
 import { useMediaQuery } from 'react-responsive'
 
 const App = () => {
@@ -11,6 +11,7 @@ const App = () => {
   const [coatTop, setcoatTop] = useState(20);
   const [fingerVisible, setfingerVisible] = useState(1);
   const [fingerDisplay, setfingerDisplay] = useState("visible");
+  const [signOutVisible, setSignOutVisible] = useState("none")
 
   
   //Registration Page
@@ -21,6 +22,20 @@ const App = () => {
     setfingerVisible(0);
     setcoatTop(10);
     setMenuHide("block");
+    setSignOutVisible("block")
+
+    // Set a timeout to hide the element after 3 seconds
+    setTimeout(() => {
+      setfingerDisplay("hidden");
+    }, 3);
+  }
+
+  const firstScreen = () => {
+    setCoatLarge(55);
+    setfingerVisible(1);
+    setcoatTop(20);
+    setMenuHide("none");
+    setSignOutVisible("none")
 
     // Set a timeout to hide the element after 3 seconds
     setTimeout(() => {
@@ -74,23 +89,31 @@ const App = () => {
               display: `${menuhide}`
             }}
           >
-            <div className='w-[80vw] border rounded-[1.3vw] py-[2.5vw]'>
+            <div className='w-[80vw] border rounded-[1.3vw] py-[2.5vw] cursor-pointer'>
               <p>
                 Registration
               </p>
             </div>
 
-            <div className='w-[80vw] border rounded-[1.3vw] my-[5vw] py-[2.5vw]'>
+            <div className='w-[80vw] border rounded-[1.3vw] my-[5vw] py-[2.5vw] cursor-pointer'>
               <p>
                 Appointment Arrival
               </p>
             </div>
 
-            <div className='w-[80vw] border rounded-[1.3vw] py-[2.5vw]'>
+            <div className='w-[80vw] border rounded-[1.3vw] py-[2.5vw] cursor-pointer'>
               <p>
                 Checked-In
               </p>
-            </div>
+            </div>            
+          </div>
+
+          <div className='absolute bottom-[11vw] cursor-pointer' onClick={firstScreen}
+            style={{
+              display: `${signOutVisible}`
+            }}
+          >
+            <img src={signOut} className='w-[16vw]' />
           </div>
         </div>
       </div>
