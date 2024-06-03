@@ -133,6 +133,10 @@ const App = () => {
             }}
           >
             <Webcamera />
+
+            <p className='text-[3.5vw] font-normal text-center text-white mt-[4vw]'>
+              Scan ID to Register Person
+            </p>
           </div>
         </div>
       </div>
