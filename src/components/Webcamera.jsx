@@ -4,7 +4,11 @@ import Webcam from 'react-webcam'
 const Webcamera = () => {
   return (
     <div>
-        <Webcam />
+        <Webcam
+            videoConstraints={{
+                facingMode: 'environment',
+            }}
+        />
     </div>
   )
 }
