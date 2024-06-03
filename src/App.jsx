@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { coatOfArms, fingerprintIcon, signOut } from './assets'
 import { useMediaQuery } from 'react-responsive'
+import Webcamera from './components/Webcamera'
 
 const App = () => {
 
@@ -11,7 +12,9 @@ const App = () => {
   const [coatTop, setcoatTop] = useState(20);
   const [fingerVisible, setfingerVisible] = useState(1);
   const [fingerDisplay, setfingerDisplay] = useState("visible");
-  const [signOutVisible, setSignOutVisible] = useState("none")
+  const [signOutVisible, setSignOutVisible] = useState("none");
+  const [registrationButton, setRegistrationButton] = useState("block");
+  const [cameraVisible, setCameraVisible] = useState("none");
 
   
   //Registration Page
@@ -41,6 +44,12 @@ const App = () => {
     setTimeout(() => {
       setfingerDisplay("hidden");
     }, 3);
+  }
+
+  const cameraScreen = () => {
+    setMenuHide("none");
+    setSignOutVisible("none");
+    setCameraVisible("block");
   }
 
   return (
@@ -89,7 +98,7 @@ const App = () => {
               display: `${menuhide}`
             }}
           >
-            <div className='w-[80vw] border rounded-[1.3vw] py-[2.5vw] cursor-pointer'>
+            <div className='w-[80vw] border rounded-[1.3vw] py-[2.5vw] cursor-pointer' onClick={cameraScreen}>
               <p>
                 Registration
               </p>
@@ -114,6 +123,14 @@ const App = () => {
             }}
           >
             <img src={signOut} className='w-[16vw]' />
+          </div>
+
+          <div className='w-[80vw]'
+            style={{
+              display: `${cameraVisible}`
+            }}
+          >
+            <Webcamera />
           </div>
         </div>
       </div>
