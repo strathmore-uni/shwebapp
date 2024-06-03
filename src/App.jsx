@@ -51,7 +51,7 @@ const App = () => {
     setSignOutVisible("none");
     setCameraVisible("block");
     setCoatLarge(20);
-    setcoatTop(5);
+    setcoatTop(3);
   }
 
   return (
@@ -127,7 +127,7 @@ const App = () => {
             <img src={signOut} className='w-[16vw]' />
           </div>
 
-          <div className='w-[80vw] absolute top-[10vw]'
+          <div className='w-[80vw] absolute top-[13vw]'
             style={{
               display: `${cameraVisible}`
             }}
