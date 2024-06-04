@@ -17,7 +17,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-responsive": "^10.0.0",
-    "react-webcam": "^7.2.0"
+    "react-webcam": "^7.2.0",
+    "text-from-image": "^1.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
