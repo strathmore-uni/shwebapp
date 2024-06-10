@@ -60,6 +60,10 @@ const Webcamera = () => {
       alert('Failed to upload the image. Please try again.');
     }
   }, [webcamRef]);
+
+
+  const noName = [results[3], results[4]];
+  console.log(noName);
   
 
   // const capture = async () => {
@@ -152,7 +156,22 @@ const Webcamera = () => {
                 <ul>
                   {results.map((result, index) => (
                     <li key={index}>
-                      {result[1]} (at position {JSON.stringify(result[0])})
+                      {/* {result[1]} (at position {JSON.stringify(result[0])}) */}
+                      {result[1]}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {noName.length > 0 && (
+              <div>
+                <h2>Results</h2>
+                <ul>
+                  {results.map((noName, index) => (
+                    <li key={index}>
+                      {/* {result[1]} (at position {JSON.stringify(result[0])}) */}
+                      {/* {result[1]} */}
+                      {noName[1]}
                     </li>
                   ))}
                 </ul>
