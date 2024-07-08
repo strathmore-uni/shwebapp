@@ -62,8 +62,8 @@ const Webcamera = () => {
   }, [webcamRef]);
 
 
-  const noName = [results[3], results[4]];
-  console.log(noName);
+  // const noName = [results[3], results[4]];
+  console.log(results[2]);
   
 
   // const capture = async () => {
@@ -146,37 +146,34 @@ const Webcamera = () => {
         </div>   */}
 
         <div className='text-white'>
-            <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit}>
               <input type="file" accept="image/*" onChange={handleImageChange} />
               <button type="submit">Upload</button>
-            </form>
+            </form> */}
             {results.length > 0 && (
               <div>
                 <h2>Results</h2>
-                <ul>
-                  {results.map((result, index) => (
-                    <li key={index}>
-                      {/* {result[1]} (at position {JSON.stringify(result[0])}) */}
-                      {result[1]}
-                    </li>
-                  ))}
-                </ul>
+                <p>
+                  {results[3][1]}
+                </p>
+
+                <p>
+                {results[4][1]}
+                </p>
               </div>
             )}
-            {noName.length > 0 && (
+            {/* {noName.length > 0 && (
               <div>
                 <h2>Results</h2>
                 <ul>
                   {results.map((noName, index) => (
-                    <li key={index}>
-                      {/* {result[1]} (at position {JSON.stringify(result[0])}) */}
-                      {/* {result[1]} */}
+                    <li key={index}>                      
                       {noName[1]}
                     </li>
                   ))}
                 </ul>
               </div>
-            )}
+            )} */}
         </div>      
     </div>
   )
