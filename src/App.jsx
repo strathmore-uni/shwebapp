@@ -5,6 +5,7 @@ import { useMediaQuery } from 'react-responsive'
 import Webcamera from './components/Webcamera'
 import Loginpage from './pages/Loginpage'
 import { Menupage } from './pages/Menupage'
+import Fillinfopage from './pages/Fillinfopage'
 
 const App = () => {
 
@@ -152,6 +153,7 @@ const App = () => {
           <Route path="shwebapp/" element={<Loginpage />}></Route>
           <Route path="shwebapp/menu" element={<Menupage />}></Route>
           <Route path="shwebapp/camera" element={<Webcamera />}></Route>
+          <Route path="shwebapp/fill" element={<Fillinfopage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

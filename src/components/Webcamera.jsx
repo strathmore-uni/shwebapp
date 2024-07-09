@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import Webcam from 'react-webcam'
+import { Link } from 'react-router-dom'
 // import Tesseract from 'tesseract.js'
 // import { createCanvas, loadImage } from 'canvas'
 import axios from 'axios'
@@ -173,7 +174,15 @@ const Webcamera = () => {
                 </ul>
               </div>
             )} */}
-        </div>      
+        </div>  
+        
+        <div className='flex justify-center mt-[5vw]'>
+          <Link to="/shwebapp/fill">
+            <p className='border-[0.45vw] rounded-[1vw] text-center text-white py-[1vw] w-[40vw]'>
+              Next
+            </p> 
+          </Link> 
+        </div>
     </div>
   )
 }
