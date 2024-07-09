@@ -20,6 +20,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-responsive": "^10.0.0",
+    "react-router-dom": "^6.24.1",
     "react-webcam": "^7.2.0",
     "tesseract.js": "^5.1.0",
     "text-from-image": "^1.1.1"

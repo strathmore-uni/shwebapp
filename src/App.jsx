@@ -1,62 +1,65 @@
 import React, { useState } from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { coatOfArms, fingerprintIcon, signOut } from './assets'
 import { useMediaQuery } from 'react-responsive'
 import Webcamera from './components/Webcamera'
+import Loginpage from './pages/Loginpage'
+import { Menupage } from './pages/Menupage'
 
 const App = () => {
 
-  const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
-  const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
+  // const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
+  // const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
 
-  const [coatLarge, setCoatLarge] = useState(55);
-  const [coatTop, setcoatTop] = useState(20);
-  const [fingerVisible, setfingerVisible] = useState(1);
-  const [fingerDisplay, setfingerDisplay] = useState("visible");
-  const [signOutVisible, setSignOutVisible] = useState("none");
-  const [registrationButton, setRegistrationButton] = useState("block");
-  const [cameraVisible, setCameraVisible] = useState("none");
+  // const [coatLarge, setCoatLarge] = useState(55);
+  // const [coatTop, setcoatTop] = useState(20);
+  // const [fingerVisible, setfingerVisible] = useState(1);
+  // const [fingerDisplay, setfingerDisplay] = useState("visible");
+  // const [signOutVisible, setSignOutVisible] = useState("none");
+  // const [registrationButton, setRegistrationButton] = useState("block");
+  // const [cameraVisible, setCameraVisible] = useState("none");
 
   
-  //Registration Page
-  const [menuhide, setMenuHide] = useState("none");
+  // //Registration Page
+  // const [menuhide, setMenuHide] = useState("none");
 
-  const secondScreen = () => {
-    setCoatLarge(30);
-    setfingerVisible(0);
-    setcoatTop(10);
-    setMenuHide("block");
-    setSignOutVisible("block")
+  // const secondScreen = () => {
+  //   setCoatLarge(30);
+  //   setfingerVisible(0);
+  //   setcoatTop(10);
+  //   setMenuHide("block");
+  //   setSignOutVisible("block")
 
-    // Set a timeout to hide the element after 3 seconds
-    setTimeout(() => {
-      setfingerDisplay("hidden");
-    }, 3);
-  }
+  //   // Set a timeout to hide the element after 3 seconds
+  //   setTimeout(() => {
+  //     setfingerDisplay("hidden");
+  //   }, 3);
+  // }
 
-  const firstScreen = () => {
-    setCoatLarge(55);
-    setfingerVisible(1);
-    setcoatTop(20);
-    setMenuHide("none");
-    setSignOutVisible("none")
+  // const firstScreen = () => {
+  //   setCoatLarge(55);
+  //   setfingerVisible(1);
+  //   setcoatTop(20);
+  //   setMenuHide("none");
+  //   setSignOutVisible("none")
 
-    // Set a timeout to hide the element after 3 seconds
-    setTimeout(() => {
-      setfingerDisplay("hidden");
-    }, 3);
-  }
+  //   // Set a timeout to hide the element after 3 seconds
+  //   setTimeout(() => {
+  //     setfingerDisplay("hidden");
+  //   }, 3);
+  // }
 
-  const cameraScreen = () => {
-    setMenuHide("none");
-    setSignOutVisible("none");
-    setCameraVisible("block");
-    setCoatLarge(20);
-    setcoatTop(3);
-  }
+  // const cameraScreen = () => {
+  //   setMenuHide("none");
+  //   setSignOutVisible("none");
+  //   setCameraVisible("block");
+  //   setCoatLarge(20);
+  //   setcoatTop(3);
+  // }
 
   return (
     <div>
-      <div style={{ display: mobileScreen ? 'none' : 'block' }}>
+      {/* <div style={{ display: mobileScreen ? 'none' : 'block' }}>
         <div className='absolute top-[13vw] flex text-white left-[10vw]'>
           <img src={coatOfArms} className='w-[35vw]' />
 
@@ -132,6 +135,8 @@ const App = () => {
               display: `${cameraVisible}`
             }}
           >
+            
+
             <Webcamera />
 
             <p className='text-[3.5vw] font-normal text-center text-white mt-[4vw]'>
@@ -139,7 +144,16 @@ const App = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
+
+      
+      <BrowserRouter>
+        <Routes>
+          <Route path="shwebapp/" element={<Loginpage />}></Route>
+          <Route path="shwebapp/menu" element={<Menupage />}></Route>
+          <Route path="shwebapp/camera" element={<Webcamera />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }

@@ -134,11 +134,11 @@ const Webcamera = () => {
         />
 
         <button onClick={capture}>Capture photo</button>
-          {imgSrc && (
+          {/* {imgSrc && (
             <img
               src={imgSrc}
             />
-          )}
+          )} */}
 
         {/* <div>
           <h2 className='text-white'>{recognizedText}</h2>
@@ -151,8 +151,7 @@ const Webcamera = () => {
               <button type="submit">Upload</button>
             </form> */}
             {results.length > 0 && (
-              <div>
-                <h2>Results</h2>
+              <div>                
                 <p>
                   {results[3][1]}
                 </p>
