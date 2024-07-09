@@ -11,33 +11,30 @@ const Fillinfopage = () => {
         </div>
 
         <div className='flex justify-center'>
-            <div className='w-[85vw] pb-[4vw] bg-white bg-opacity-10 text-white mt-[10vw] border-[0.05vw] rounded-[6vw] pl-[4vw]'>
-                <p className='text-[3.8vw] mt-[4vw] font-semibold'>
+            <div className='w-[85vw] pb-[6vw] bg-white bg-opacity-10 text-white mt-[10vw] border-[0.05vw] rounded-[6vw] pl-[4vw]'>
+                <p className='text-[3.8vw] mt-[5vw] font-semibold'>
                     REQUIRED
                 </p>
 
                 <div className='pt-[2vw]'>
                     <label>
-                        Enter phone number : <br />
-                         <input name="telnumber" type="number" placeholder='Enter phone number' className='text-black mt-[0.5vw] rounded-[1vw] pl-[1vw]'/>
-                    </label>
+                        <p className='mb-[1vw]'>
+                            Enter phone number :    
+                        </p>                                           
 
-                    <br />
-
+                        <input name="telnumber" type="number" placeholder='Phone number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'/>
+                    </label>                 
+               
                     <label>
-                        Enter Check-in time : <br />
-                         <input name="telnumber" type="number" placeholder='should be automatic' className='text-black mt-[0.5vw] rounded-[1vw]'/>
-                    </label>
+                        <p className='mb-[1vw] mt-[3vw]'>
+                            Enter Department Headed :    
+                        </p> 
 
-                    <br />
-
-                    <label>
-                        Enter Destination : <br />
-                         <input name="telnumber" type="text" placeholder='should be automatic' className='text-black mt-[0.5vw] rounded-[1vw]'/>
+                        <input name="telnumber" type="text" placeholder='Department Headed' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'/>
                     </label>
                 </div>
                 
-                <div className='flex justify-center text-[3.8vw] mt-[6vw]'>
+                <div className='flex justify-center text-[3.8vw] mt-[8vw]'>
                     <p className='border-[0.45vw] rounded-[1vw] text-center text-white py-[1vw] cursor-pointer w-[40vw]'>
                         Done
                     </p>
