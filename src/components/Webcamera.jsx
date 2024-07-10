@@ -7,7 +7,7 @@ import axios from 'axios'
 import Fillinfopage from '../pages/Fillinfopage'
 // import { parse } from 'mrz'
 
-const Webcamera = ({ setSharedString, setiDname }) => {
+const Webcamera = ({ setSharedString, setiDname,myphone }) => {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const history = useNavigate();
@@ -176,7 +176,8 @@ const navigateToNextPage = () => {
               <button type="submit">Upload</button>
             </form> */}
             {results.length > 0 && (
-              <div>                
+              <div>    
+                <p>{myphone}</p>            
                 <p>
                   {results[3][1]}
                 </p>

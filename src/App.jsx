@@ -6,11 +6,13 @@ import Webcamera from './components/Webcamera'
 import Loginpage from './pages/Loginpage'
 import { Menupage } from './pages/Menupage'
 import Fillinfopage from './pages/Fillinfopage'
+import Mypage from './pages/Mypage'
 
 const App = () => {
-
+  const[myphone,setmyphone]=useState('')
   const [sharedString, setSharedString] = useState('');
   const [iDname, setiDname] = useState('');
+
 
   // const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
   // const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
@@ -156,8 +158,9 @@ const App = () => {
         <Routes>
           <Route path="shwebapp/" element={<Loginpage />}></Route>
           <Route path="shwebapp/menu" element={<Menupage />}></Route>
-          <Route path="shwebapp/camera" element={<Webcamera setSharedString={setSharedString} setiDname={setiDname} />}></Route>
-          <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} />}></Route>
+          <Route path='/mypage' element={<Mypage myphone={myphone} />} />
+          <Route path="shwebapp/camera" element={<Webcamera  setSharedString={setSharedString} setiDname={setiDname} />}></Route>
+          <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
