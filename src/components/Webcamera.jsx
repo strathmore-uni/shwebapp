@@ -1,13 +1,16 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import Webcam from 'react-webcam'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 // import Tesseract from 'tesseract.js'
 // import { createCanvas, loadImage } from 'canvas'
 import axios from 'axios'
+import Fillinfopage from '../pages/Fillinfopage'
 // import { parse } from 'mrz'
 
-const Webcamera = () => {
-
+const Webcamera = ({ setSharedString, setiDname }) => {
+  const [id, setId] = useState('');
+  const [name, setName] = useState('');
+  const history = useNavigate();
   const webcamRef = React.useRef(null);
   const [imgSrc, setImgSrc] = React.useState(null);
 
@@ -63,8 +66,29 @@ const Webcamera = () => {
   }, [webcamRef]);
 
 
+useEffect(() => {
+  const sendDetails = () => {
+    if (Object.keys(results).length > 0) {
+     
+      return {
+        id: results[3][1], 
+        name: results[4][1]
+      };
+    }
+
+    return { id: '', name: '' }; 
+  };
+
+  const { id, name } = sendDetails();
+  setSharedString(id);
+  setiDname(name);
+ 
+}, [results]); 
+const navigateToNextPage = () => {
+  history('/shwebapp/fill', { state: { id, name } });
+};
   // const noName = [results[3], results[4]];
-  console.log(results[2]);
+  // console.log(results[2]);
   
 
   // const capture = async () => {
@@ -177,12 +201,13 @@ const Webcamera = () => {
         </div>  
         
         <div className='flex justify-center mt-[5vw]'>
-          <Link to="/shwebapp/fill">
-            <p className='border-[0.45vw] rounded-[1vw] text-center text-white py-[1vw] w-[40vw]'>
-              Next
-            </p> 
-          </Link> 
-        </div>
+        <button onClick={navigateToNextPage} className='border-[0.45vw] rounded-[1vw] text-center text-white py-[1vw] w-[40vw]'>
+          Next
+        </button>
+      </div>
+    
+
+
     </div>
   )
 }

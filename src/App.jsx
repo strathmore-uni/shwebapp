@@ -9,6 +9,9 @@ import Fillinfopage from './pages/Fillinfopage'
 
 const App = () => {
 
+  const [sharedString, setSharedString] = useState('');
+  const [iDname, setiDname] = useState('');
+
   // const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
   // const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
 
@@ -57,6 +60,7 @@ const App = () => {
   //   setCoatLarge(20);
   //   setcoatTop(3);
   // }
+  
 
   return (
     <div>
@@ -152,8 +156,8 @@ const App = () => {
         <Routes>
           <Route path="shwebapp/" element={<Loginpage />}></Route>
           <Route path="shwebapp/menu" element={<Menupage />}></Route>
-          <Route path="shwebapp/camera" element={<Webcamera />}></Route>
-          <Route path="shwebapp/fill" element={<Fillinfopage />}></Route>
+          <Route path="shwebapp/camera" element={<Webcamera setSharedString={setSharedString} setiDname={setiDname} />}></Route>
+          <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
