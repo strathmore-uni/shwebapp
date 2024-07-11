@@ -4,6 +4,7 @@ import { coatOfArms, fingerprintIcon, signOut } from './assets'
 import { useMediaQuery } from 'react-responsive'
 import Webcamera from './components/Webcamera'
 import Loginpage from './pages/Loginpage'
+import Checkinpage from './pages/Checkinpage'
 import { Menupage } from './pages/Menupage'
 import Fillinfopage from './pages/Fillinfopage'
 import Mypage from './pages/Mypage'
@@ -13,18 +14,10 @@ const App = () => {
   const[department,setDepartment]=useState('');
   const [sharedString, setSharedString] = useState('');
   const [iDname, setiDname] = useState('');
-const [datetime,setDateTime]= useState('');
+  const [datetime,setDateTime]= useState('');
 
 
-const myarray = [
-
-{myphone},
-{department},
-{sharedString},
-{iDname},
-{datetime}
-  
-]
+const myarray = [{myphone}, {department}, {sharedString}, {iDname}, {datetime}]
 
 console.log(myarray);
 
@@ -172,6 +165,7 @@ console.log(myarray);
         <Routes>
           <Route path="shwebapp/" element={<Loginpage />}></Route>
           <Route path="shwebapp/menu" element={<Menupage />}></Route>
+          <Route path="shwebapp/checkedin" element={<Checkinpage sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department} myphone={myphone} />}></Route>
           <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department}   />} />
           <Route path="shwebapp/camera" element={<Webcamera  setSharedString={setSharedString} setiDname={setiDname} />}></Route>
           <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} />}></Route>

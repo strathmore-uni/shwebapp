@@ -20,11 +20,13 @@ export const Menupage = () => {
                     </p>
                 </div>
 
-                <div className='w-[80vw] border rounded-[1.3vw] py-[2.5vw] cursor-pointer'>
-                    <p>
-                        Checked-In
-                    </p>
-                </div>            
+                <Link to="/shwebapp/checkedin">
+                    <div className='w-[80vw] border rounded-[1.3vw] py-[2.5vw] cursor-pointer'>
+                        <p>
+                            Checked-In
+                        </p>
+                    </div>
+                </Link>            
             </div>
         </div>
     </div>

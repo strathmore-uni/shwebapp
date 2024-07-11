@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { coatOfArms } from '../assets'
 
 export default function Mypage({myphone, sharedString, iDname,datetime,department,setFulldata}) {
@@ -89,9 +90,11 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
           </div>
 
           <div className='flex justify-center text-[3.8vw] my-[3vw]'>
-            <p className='border-[0.45vw] rounded-[1vw] text-center text-black bg-white font-semibold py-[1vw] cursor-pointer w-[60vw]' >
-              COMPLETE REGISTRATION
-            </p>
+            <Link to="/shwebapp/menu">
+              <p className='border-[0.45vw] rounded-[1vw] text-center text-black bg-white font-semibold py-[1vw] cursor-pointer w-[60vw]' >
+                COMPLETE REGISTRATION
+              </p>
+            </Link>
           </div>
         </div>
       </div>
