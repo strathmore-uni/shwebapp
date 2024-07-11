@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { coatOfArms } from '../assets'
 
-export default function Mypage({myphone, sharedString, iDname,}) {
-  console.log(myphone)
+export default function Mypage({myphone, sharedString, iDname,datetime,department,setFulldata}) {
+
+
+
+
   return (
     <div>
       {/* <h1 className='text-white'>Mypage{myphone}</h1> */}
@@ -47,7 +50,7 @@ export default function Mypage({myphone, sharedString, iDname,}) {
                 </p>
 
                 <p className='font-bold pl-[1.5vw]'>
-                  TODO
+                   {datetime}
                 </p>
               </div>
 
@@ -67,7 +70,7 @@ export default function Mypage({myphone, sharedString, iDname,}) {
                 </p>
                 
                 <p className='font-bold pl-[1.5vw]'>
-                  Sample
+                 {department}
                 </p>
               </label>
 

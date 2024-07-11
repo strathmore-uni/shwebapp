@@ -10,9 +10,23 @@ import Mypage from './pages/Mypage'
 
 const App = () => {
   const[myphone,setmyphone]=useState('')
+  const[department,setDepartment]=useState('');
   const [sharedString, setSharedString] = useState('');
   const [iDname, setiDname] = useState('');
+const [datetime,setDateTime]= useState('');
 
+
+const myarray = [
+
+{myphone},
+{department},
+{sharedString},
+{iDname},
+{datetime}
+  
+]
+
+console.log(myarray);
 
   // const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
   // const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
@@ -158,9 +172,9 @@ const App = () => {
         <Routes>
           <Route path="shwebapp/" element={<Loginpage />}></Route>
           <Route path="shwebapp/menu" element={<Menupage />}></Route>
-          <Route path='/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname} />} />
+          <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department}   />} />
           <Route path="shwebapp/camera" element={<Webcamera  setSharedString={setSharedString} setiDname={setiDname} />}></Route>
-          <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} />}></Route>
+          <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

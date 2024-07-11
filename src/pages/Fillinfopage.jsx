@@ -2,28 +2,39 @@ import React, { useEffect, useState } from 'react';
 import { coatOfArms, cameraIcon } from '../assets';
 import { useNavigate } from 'react-router-dom';
 
-const Fillinfopage = ({ sharedString, iDname,setmyphone }) => {
+const Fillinfopage = ({ sharedString, iDname,setmyphone,setDateTime,setDepartment }) => {
   console.log(sharedString, iDname);
 const navigate = useNavigate();
   const [phoneno, setphoneno] = useState('');
+
+  const [showTime] = useState(getFormattedDate())
   
   const [dept, setdept] = useState('');
 
 
+
   const handlesubmit = () => {
-    console.log(phoneno);
-    navigate('/mypage')
-    return {phoneno:''};
-  }
- 
+    setDepartment(dept);
   setmyphone(phoneno);
 
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    navigate('/shwebapp/mypage')
+ 
+  }
 
-  const date = new Date();
-    const showTime = ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + " - " + ('0' + date.getDate()).slice(-2) + ' ' + monthNames[date.getMonth()] + ' ' + date.getFullYear();  //Check-in Time Function
+  
+  //Date and Time function to update the usestate
+  function getFormattedDate() {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-  console.log(date);
+    const date = new Date();
+    const showTime = ('0' + date.getHours()).slice(-2) + ':' + 
+                     ('0' + date.getMinutes()).slice(-2) + ' - ' + 
+                     ('0' + date.getDate()).slice(-2) + ' ' + 
+                     monthNames[date.getMonth()] + ' ' + date.getFullYear();
+    return showTime;
+  }
+  setDateTime(showTime);
+  console.log(showTime)
 
   return (
     <div>
