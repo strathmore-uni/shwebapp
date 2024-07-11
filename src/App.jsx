@@ -158,7 +158,7 @@ const App = () => {
         <Routes>
           <Route path="shwebapp/" element={<Loginpage />}></Route>
           <Route path="shwebapp/menu" element={<Menupage />}></Route>
-          <Route path='/mypage' element={<Mypage myphone={myphone} />} />
+          <Route path='/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname} />} />
           <Route path="shwebapp/camera" element={<Webcamera  setSharedString={setSharedString} setiDname={setiDname} />}></Route>
           <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} />}></Route>
         </Routes>

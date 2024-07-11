@@ -1,7 +1,7 @@
 import React from 'react'
 import { coatOfArms } from '../assets'
 
-export default function Mypage({myphone}) {
+export default function Mypage({myphone, sharedString, iDname,}) {
   console.log(myphone)
   return (
     <div>
@@ -27,7 +27,7 @@ export default function Mypage({myphone}) {
                 </p>
 
                 <p className='font-bold pl-[1.5vw]'>
-                  Sample
+                  {iDname}
                 </p>
               </div>
 
@@ -37,7 +37,7 @@ export default function Mypage({myphone}) {
                 </p>
 
                 <p className='font-bold pl-[1.5vw]'>
-                  Sample
+                  {sharedString}
                 </p>
               </div>
 

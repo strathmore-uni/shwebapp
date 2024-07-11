@@ -18,9 +18,12 @@ const navigate = useNavigate();
  
   setmyphone(phoneno);
 
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
   const date = new Date();
-    const showTime = date.getHours() 
-        + ':' + date.getMinutes();  //Check-in Time Function
+    const showTime = ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + " - " + ('0' + date.getDate()).slice(-2) + ' ' + monthNames[date.getMonth()] + ' ' + date.getFullYear();  //Check-in Time Function
+
+  console.log(date);
 
   return (
     <div>
