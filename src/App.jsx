@@ -16,10 +16,11 @@ const App = () => {
   const [iDname, setiDname] = useState('');
   const [datetime,setDateTime]= useState('');
 
+const myarray = [myphone, department, sharedString, iDname, datetime];
 
-const myarray = [{myphone}, {department}, {sharedString}, {iDname}, {datetime}]
+const obj = Object.assign({}, { info: myarray });
 
-console.log(myarray);
+console.log(obj);
 
   // const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
   // const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
