@@ -1,10 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { coatOfArms } from '../assets'
+import axios from 'axios';
 
 export default function Mypage({myphone, sharedString, iDname,datetime,department,setFulldata}) {
 
+  const handleSubmit = async () => {
+    // Create an object with the state variables
+    const data = {
+      phone: myphone,
+      department: department,
+      sharedString: sharedString,
+      idName: iDname,
+      dateTime: datetime,
+    };
 
+    try {
+      // Send the data to the backend
+      const response = await axios.post('http://localhost:5000/api/data', data);
+      console.log(response.data); // Log the response from the server
+      // Reset the fields if needed
+      // setMyPhone('');
+      // setDepartment('');
+      // setSharedString('');
+      // setIDname('');
+      // setDateTime('');
+    } catch (error) {
+      console.error('Error submitting data:', error);
+    }
+  };
 
 
   return (
@@ -91,7 +115,7 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
 
           <div className='flex justify-center text-[3.8vw] my-[3vw]'>
             <Link to="/shwebapp/menu">
-              <p className='border-[0.45vw] rounded-[1vw] text-center text-black bg-white font-semibold py-[1vw] cursor-pointer w-[60vw]' >
+              <p className='border-[0.45vw] rounded-[1vw] text-center text-black bg-white font-semibold py-[1vw] cursor-pointer w-[60vw]' onClick={handleSubmit} >
                 COMPLETE REGISTRATION
               </p>
             </Link>
