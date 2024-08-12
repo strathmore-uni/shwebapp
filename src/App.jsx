@@ -23,7 +23,7 @@ const obj = Object.assign({}, { info: myarray });
 console.log(obj);
 
   // const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
-  // const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
+  const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
 
   // const [coatLarge, setCoatLarge] = useState(55);
   // const [coatTop, setcoatTop] = useState(20);
@@ -162,7 +162,7 @@ console.log(obj);
       </div> */}
 
       
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Routes>
           <Route path="shwebapp/" element={<Loginpage />}></Route>
           <Route path="shwebapp/menu" element={<Menupage />}></Route>
@@ -171,7 +171,20 @@ console.log(obj);
           <Route path="shwebapp/camera" element={<Webcamera  setSharedString={setSharedString} setiDname={setiDname} />}></Route>
           <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} />}></Route>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
+
+      <div style={{ display: notMobileScreen ? 'none' : 'block' }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="shwebapp/" element={<Loginpage />}></Route>
+            <Route path="shwebapp/menu" element={<Menupage />}></Route>
+            <Route path="shwebapp/checkedin" element={<Checkinpage sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department} myphone={myphone} />}></Route>
+            <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department}   />} />
+            <Route path="shwebapp/camera" element={<Webcamera  setSharedString={setSharedString} setiDname={setiDname} />}></Route>
+            <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   )
 }
