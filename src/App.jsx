@@ -8,6 +8,8 @@ import Checkinpage from './pages/Checkinpage'
 import { Menupage } from './pages/Menupage'
 import Fillinfopage from './pages/Fillinfopage'
 import Mypage from './pages/Mypage'
+import Sidepanel from './components/Sidepanel'
+import Navbar from './components/Navbar'
 
 const App = () => {
   const[myphone,setmyphone]=useState('')
@@ -22,7 +24,7 @@ const obj = Object.assign({}, { info: myarray });
 
 console.log(obj);
 
-  // const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
+  const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
   const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
 
   // const [coatLarge, setCoatLarge] = useState(55);
@@ -173,7 +175,7 @@ console.log(obj);
         </Routes>
       </BrowserRouter> */}
 
-      <div style={{ display: notMobileScreen ? 'none' : 'block' }}>
+      {/* <div style={{ display: notMobileScreen ? 'none' : 'block' }}>
         <BrowserRouter>
           <Routes>
             <Route path="shwebapp/" element={<Loginpage />}></Route>
@@ -184,7 +186,27 @@ console.log(obj);
             <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} />}></Route>
           </Routes>
         </BrowserRouter>
-      </div>
+      </div> */}
+
+      {mobileScreen && (
+        <BrowserRouter>
+          <Routes>
+            <Route path="shwebapp/" element={<Loginpage />}></Route>
+            <Route path="shwebapp/menu" element={<Menupage />}></Route>
+            <Route path="shwebapp/checkedin" element={<Checkinpage sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department} myphone={myphone} />}></Route>
+            <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department}   />} />
+            <Route path="shwebapp/camera" element={<Webcamera  setSharedString={setSharedString} setiDname={setiDname} />}></Route>
+            <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} />}></Route>
+          </Routes>
+        </BrowserRouter>
+      )}
+
+      {notMobileScreen && (
+        <div className='w-screen h-screen bg-grey absolute'>
+          <Navbar />
+          <Sidepanel />
+        </div>
+      )}
     </div>
   )
 }

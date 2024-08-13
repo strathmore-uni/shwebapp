@@ -17,6 +17,7 @@ export default {
         'strathmore-grey': '#707070',
         'nav-logged': '#f2f8fe',
         'mockup-yellow': '#f0ae12',
+        'grey': '#f8f9fa',
       },
     },
   },
