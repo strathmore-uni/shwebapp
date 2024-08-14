@@ -10,6 +10,7 @@ import Fillinfopage from './pages/Fillinfopage'
 import Mypage from './pages/Mypage'
 import Sidepanel from './components/Sidepanel'
 import Navbar from './components/Navbar'
+import Dashboard from './components/Dashboard'
 
 const App = () => {
   const[myphone,setmyphone]=useState('')
@@ -204,7 +205,10 @@ console.log(obj);
       {notMobileScreen && (
         <div className='w-screen h-screen bg-grey absolute'>
           <Navbar />
-          <Sidepanel />
+          <div className='flex'>
+            <Sidepanel />
+            <Dashboard />
+          </div>
         </div>
       )}
     </div>

@@ -5,5 +5,6 @@ import cameraIcon from "./camera.png";
 import myImage from "./me.jpg";
 import homeWhite from "./home-white.png";
 import homeBlack from "./home-black.png";
+import usersBlack from "./users-black.png";
 
-export { coatOfArms, fingerprintIcon, signOut, cameraIcon, myImage, homeWhite, homeBlack };
+export { coatOfArms, fingerprintIcon, signOut, cameraIcon, myImage, homeWhite, homeBlack, usersBlack };
