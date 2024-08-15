@@ -11,6 +11,8 @@ import Mypage from './pages/Mypage'
 import Sidepanel from './components/Sidepanel'
 import Navbar from './components/Navbar'
 import Dashboard from './components/Dashboard'
+import Users from './components/Users'
+import Notfound from './pages/Notfound'
 
 const App = () => {
   const[myphone,setmyphone]=useState('')
@@ -205,9 +207,16 @@ console.log(obj);
       {notMobileScreen && (
         <div className='w-screen h-screen bg-grey absolute'>
           <Navbar />
-          <div className='flex'>
-            <Sidepanel />
-            <Dashboard />
+          <div className='flex'>            
+            <BrowserRouter>
+              <Sidepanel />
+
+              <Routes>
+                <Route path="shwebapp/dashboard" element={<Dashboard />}></Route>
+                <Route path="shwebapp/users" element={<Users />}></Route>
+                <Route path="*" element={<Notfound />} />
+              </Routes>
+            </BrowserRouter>
           </div>
         </div>
       )}
