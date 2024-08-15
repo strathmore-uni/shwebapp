@@ -18,6 +18,7 @@ export default {
         'nav-logged': '#f2f8fe',
         'mockup-yellow': '#f0ae12',
         'grey': '#f8f9fa',
+        'kenya-green': '#006818',
       },
     },
   },

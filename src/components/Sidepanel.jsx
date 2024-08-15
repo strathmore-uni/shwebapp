@@ -17,14 +17,6 @@ const Sidepanel = () => {
                     </div>
                 </Link>
 
-                {/* <div className='w-[11vw] border-black border-[0.2vw] hover:bg-black rounded-[0.3vw] h-[2.5vw] text-black flex pl-[0.6vw] gap-[0.7vw] text-[1.2vw] font-semibold mb-[0.5vw]'>
-                    <img src={usersBlack} className='h-[1.5vw] mt-[0.41vw]' />
-
-                    <p className='mt-[0.27vw]'>
-                        Users
-                    </p>
-                </div>  */}
-
                 <Link to="/shwebapp/users">
                     <div className='w-[11vw] border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-black flex pl-[0.6vw] gap-[0.7vw] text-[1.2vw] font-semibold mb-[0.5vw]'>
                         <img src={usersBlack} className='h-[1.5vw] mt-[0.41vw]' />

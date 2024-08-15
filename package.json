@@ -17,10 +17,12 @@
     "canvas": "^2.11.2",
     "jimp": "^0.22.12",
     "mrz": "^4.1.0",
+    "primereact": "^10.8.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.24.1",
+    "react-table": "^7.8.0",
     "react-webcam": "^7.2.0",
     "tesseract.js": "^5.1.0",
     "text-from-image": "^1.1.1"
