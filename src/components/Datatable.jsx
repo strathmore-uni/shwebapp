@@ -37,15 +37,16 @@ const Datatable = () => {
                     global: { value: e.target.value, matchMode: FilterMatchMode.CONTAINS}
                 })
             }
-
-            className='border-black border-[0.1vw]'
+            
+            placeholder='Search for Users'
+            className='border-black border-[0.1vw] mt-[1vw] ml-[1vw] h-[2.5vw] rounded-[1.5vw] pl-[0.5vw]'
         />
 
-        <DataTable value={data} filters={filters} paginator rows={5}>
-            <Column field="id" header="StaffId" className='w-[5vw]' />
-            <Column field="name" header="Name" className='w-[5vw]' sortable />
-            <Column field="role" header="Role" className='w-[5vw]' />
-            <Column field="email" header="Email" className='w-[5vw]' />
+        <DataTable className='w-[50vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={5}>
+            <Column field="name" header="Name" sortable />
+            <Column field="id" header="Staff Id" />
+            <Column field="role" header="Role" />
+            <Column field="email" header="Email" />
         </DataTable>
     </div>
   )
