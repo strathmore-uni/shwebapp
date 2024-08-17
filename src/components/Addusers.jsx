@@ -21,7 +21,7 @@ const Addusers = ({setShowUsersForm}) => {
   return (
     <div>
         <div className='w-screen h-screen absolute left-[0vw] top-[0vw] flex justify-end'>
-            <div className='w-screen h-screen bg-black bg-opacity-5 backdrop-blur-[0.1vw] absolute left-[0vw] top-[0vw] flex justify-end z-0'></div>
+            <div className='w-screen h-screen bg-black bg-opacity-5 backdrop-blur-[0.1vw] absolute left-[0vw] top-[0vw] flex justify-end z-0' onClick={handleClick}></div>
 
             <div className='w-[21vw] h-screen bg-white border-border-grey border-[0.2vw] rounded-[0.3vw] flex justify-center pt-[1.5vw] z-10'>
                 <div>
