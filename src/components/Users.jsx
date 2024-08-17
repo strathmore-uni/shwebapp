@@ -2,6 +2,7 @@ import React from 'react'
 import { plusImage } from '../assets'
 import Table from './Table'
 import Datatable from './Datatable';
+import Addusers from './Addusers';
 
 const Users = () => {
 
@@ -21,6 +22,7 @@ const Users = () => {
             </div>
             
             <Datatable />
+            <Addusers />
         </div>
     </div>
   )

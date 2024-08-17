@@ -20,6 +20,7 @@ export default {
         'grey': '#f8f9fa',
         'kenya-green': '#006818',
         'background-grey': '#e4e9ec',
+        'border-grey': 'D9D9D9',
       },
     },
   },
