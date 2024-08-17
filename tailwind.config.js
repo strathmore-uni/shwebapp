@@ -19,6 +19,7 @@ export default {
         'mockup-yellow': '#f0ae12',
         'grey': '#f8f9fa',
         'kenya-green': '#006818',
+        'background-grey': '#e4e9ec',
       },
     },
   },

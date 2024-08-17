@@ -7,5 +7,6 @@ import homeWhite from "./home-white.png";
 import homeBlack from "./home-black.png";
 import usersBlack from "./users-black.png";
 import plusImage from "./plus-symbol-button.png";
+import searchIcon from "./search-icon.png";
 
-export { coatOfArms, fingerprintIcon, signOut, cameraIcon, myImage, homeWhite, homeBlack, usersBlack, plusImage };
+export { coatOfArms, fingerprintIcon, signOut, cameraIcon, myImage, homeWhite, homeBlack, usersBlack, plusImage, searchIcon };
