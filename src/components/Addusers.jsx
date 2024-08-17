@@ -3,12 +3,12 @@ import React from 'react'
 const Addusers = () => {
   return (
     <div>
-        <div className='w-screen h-screen bg-black bg-opacity-5 backdrop-blur-[0.1vw] absolute left-[0vw] top-[0vw] flex justify-center pt-[4vw]'>
-            <div className='w-[30vw] h-[30vw] bg-white border-border-grey border-[0.2vw] rounded-[0.3vw] flex justify-center pt-[1.5vw]'>
+        <div className='w-screen h-screen bg-black bg-opacity-5 backdrop-blur-[0.1vw] absolute left-[0vw] top-[0vw] flex justify-end'>
+            <div className='w-[21vw] h-screen bg-white border-border-grey border-[0.2vw] rounded-[0.3vw] flex justify-center pt-[1.5vw]'>
                 <div>
                     <div>
-                        <p>
-                            Enter New Users Information
+                        <p className='text-center'>
+                            Add New User
                         </p>
 
                         <div className='flex justify-center'>
