@@ -1,8 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Select from 'react-select';
+import axios from 'axios';
 
 
 const Addusers = ({setShowUsersForm}) => {
+
+    const [userName, setUserName] = useState('');
+    const [staffId, setStaffId] = useState('');
+    const [email, setEmail] = useState('');
+    const [role, setRole] = useState('');
+
+    const handleSubmit = async () => {
+        // Create an object with the state variables
+        const data = {
+          name: userName,
+          staffId: staffId,
+          email: email,
+        };
+    
+        try {
+          // Send the data to the backend
+          const response = await axios.post('http://localhost:5000/api/userdata', data);
+          console.log(response.data); // Log the response from the server
+
+        } catch (error) {
+          console.error('Error submitting data:', error);
+        }
+      };
 
     const options = [
         { value: 'guard', label: 'Guard' },
@@ -11,6 +35,7 @@ const Addusers = ({setShowUsersForm}) => {
 
     const handleChange = (selectedOption) => {
       console.log(`Selected:`, selectedOption);
+      setRole(selectedOption);
     };
 
     const handleClick = () => {
@@ -41,7 +66,7 @@ const Addusers = ({setShowUsersForm}) => {
                                 Enter Full Name :
                             </p>
 
-                            <input name="telnumber" type="number" placeholder='Enter Name' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setphoneno(e.target.value)} />
+                            <input name="username" type="text" placeholder='Enter Name' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setUserName(e.target.value)} />
                         </label>
 
                         <label>
@@ -49,7 +74,7 @@ const Addusers = ({setShowUsersForm}) => {
                                 Enter Staff ID :
                             </p>
 
-                            <input name="telnumber" type="number" placeholder='Enter ID' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setphoneno(e.target.value)} />
+                            <input name="staffid" type="text" placeholder='Enter ID' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setStaffId(e.target.value)} />
                         </label> 
 
                         <label>
@@ -57,7 +82,7 @@ const Addusers = ({setShowUsersForm}) => {
                                 Enter Email Address :
                             </p>
 
-                            <input name="telnumber" type="number" placeholder='Email Address' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setphoneno(e.target.value)} />
+                            <input name="email" type="text" placeholder='Email Address' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEmail(e.target.value)} />
                         </label> 
 
                         <label>
@@ -82,7 +107,7 @@ const Addusers = ({setShowUsersForm}) => {
 
                     <div className='flex justify-center'>
                         <div>
-                            <div className='w-[12vw] mt-[13.5vw] border-black bg-black text-white border-[0.15vw] rounded-[0.3vw] h-[2.5vw] flex justify-center text-[1.2vw] font-semibold cursor-pointer'>
+                            <div className='w-[12vw] mt-[13.5vw] border-black bg-black text-white border-[0.15vw] rounded-[0.3vw] h-[2.5vw] flex justify-center text-[1.2vw] font-semibold cursor-pointer' onClick={handleSubmit}>
                                 <p className='mt-[0.36vw]'>
                                     Accept
                                 </p>
