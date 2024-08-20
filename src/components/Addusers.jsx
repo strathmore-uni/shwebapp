@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Select from 'react-select';
 import axios from 'axios';
+import { Toaster, toast } from 'sonner'
+
 
 
 const Addusers = ({setShowUsersForm}) => {
@@ -9,10 +11,28 @@ const Addusers = ({setShowUsersForm}) => {
     const [staffId, setStaffId] = useState('');
     const [email, setEmail] = useState('');
     const [role, setRole] = useState('');
+    const [toastResponse, setToastResponse] = useState('');
 
     console.log(role);
 
     const handleSubmit = async () => {
+
+        if (!userName) {
+            alert("Name is required");
+            return;
+          }
+          if (!staffId) {
+            alert("Staff ID is required");
+            return;
+          }
+          if (!email) {
+            alert("Email is required");
+            return;
+          } else if (!/\S+@\S+\.\S+/.test(email)) {
+            alert("Email address is invalid");
+            return;
+          }
+
         // Create an object with the state variables
         const data = {
           name: userName,
@@ -23,6 +43,7 @@ const Addusers = ({setShowUsersForm}) => {
         try {
           // Send the data to the backend
           const response = await axios.post('http://localhost:5000/api/userdata', data);
+          setToastResponse(response.data);
           console.log(response.data); // Log the response from the server
 
         } catch (error) {
@@ -89,10 +110,10 @@ const Addusers = ({setShowUsersForm}) => {
 
                         <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
-                                Generate Password :
+                                Generated Password :
                             </p>
 
-                            <input name="telnumber" type="number" placeholder='Email Address' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setphoneno(e.target.value)} />
+                            {/* <input name="telnumber" type="number" placeholder='Email Address' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setphoneno(e.target.value)} /> */}
                         </label> 
 
                         <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
@@ -109,7 +130,9 @@ const Addusers = ({setShowUsersForm}) => {
 
                     <div className='flex justify-center'>
                         <div>
-                            <div className='w-[12vw] mt-[13.5vw] border-black bg-black text-white border-[0.15vw] rounded-[0.3vw] h-[2.5vw] flex justify-center text-[1.2vw] font-semibold cursor-pointer' onClick={handleSubmit}>
+                            <Toaster richColors />
+                            
+                            <div className='w-[12vw] mt-[13.5vw] border-black bg-black text-white border-[0.15vw] rounded-[0.3vw] h-[2.5vw] flex justify-center text-[1.2vw] font-semibold cursor-pointer' onClick={() => {toast.success(toastResponse); handleSubmit();}}>
                                 <p className='mt-[0.36vw]'>
                                     Accept
                                 </p>
