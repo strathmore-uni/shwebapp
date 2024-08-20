@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { DataTable } from "primereact/datatable";
 import { Column } from 'primereact/column';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { FilterMatchMode } from 'primereact/api';
 import { InputText } from 'primereact/inputtext';
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -14,20 +14,29 @@ const Datatable = () => {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS},
     })
 
-    const data = [
-        {
-            id: 1,
-            name: "John",
-            role: "Reception",
-            email: "email@address",
-        },
-        {
-            id: 2,
-            name: "Jane",
-            role: "Guard",
-            email: "email@address",
-        },
-    ];
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/api/userdata')
+        .then(response => response.json())
+        .then(data => setData(data))
+        .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+    // const data = [
+    //     {
+    //         id: 1,
+    //         name: "John",
+    //         role: "Reception",
+    //         email: "email@address",
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Jane",
+    //         role: "Guard",
+    //         email: "email@address",
+    //     },
+    // ];
 
   return (
     <div>
@@ -45,7 +54,7 @@ const Datatable = () => {
 
         <DataTable className='w-[87vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={5}>
             <Column field="name" header="Name" sortable />
-            <Column field="id" header="Staff Id" />
+            <Column field="staffid" header="Staff Id" />
             <Column field="role" header="Role" />
             <Column field="email" header="Email" />
         </DataTable>

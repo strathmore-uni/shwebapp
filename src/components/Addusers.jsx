@@ -10,11 +10,13 @@ const Addusers = ({setShowUsersForm}) => {
     const [email, setEmail] = useState('');
     const [role, setRole] = useState('');
 
+    console.log(role);
+
     const handleSubmit = async () => {
         // Create an object with the state variables
         const data = {
           name: userName,
-          staffId: staffId,
+          staffid: staffId,
           email: email,
         };
     

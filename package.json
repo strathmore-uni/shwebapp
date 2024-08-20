@@ -25,6 +25,7 @@
     "react-select": "^5.8.0",
     "react-table": "^7.8.0",
     "react-webcam": "^7.2.0",
+    "sonner": "^1.5.0",
     "tesseract.js": "^5.1.0",
     "text-from-image": "^1.1.1"
   },
