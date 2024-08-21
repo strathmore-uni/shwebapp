@@ -11,8 +11,7 @@ const Addusers = ({setShowUsersForm}) => {
     const [staffId, setStaffId] = useState('');
     const [email, setEmail] = useState('');
     const [role, setRole] = useState('');
-    const [toastResponse, setToastResponse] = useState('');
-    const [randomPassword, setRandomPassword] = useState('');
+    // const [toastResponse, setToastResponse] = useState('');
 
     console.log(role);
 
@@ -57,13 +56,15 @@ const Addusers = ({setShowUsersForm}) => {
           staffid: staffId,
           email: email,
           password: password,
+          role: role,
         };
     
         try {
           // Send the data to the backend
           const response = await axios.post('http://localhost:5000/api/userdata', data);
-          setToastResponse(response.data);
+        //   setToastResponse(response.data);
           console.log(response.data); // Log the response from the server
+          toast.success(response.data);
 
         } catch (error) {
           console.error('Error submitting data:', error);
@@ -77,7 +78,7 @@ const Addusers = ({setShowUsersForm}) => {
 
     const handleChange = (selectedOption) => {
       console.log(`Selected:`, selectedOption);
-      setRole(selectedOption);
+      setRole(selectedOption.value);    // .value extracts the value from the object created by react select
     };
 
     const handleClick = () => {
@@ -132,7 +133,7 @@ const Addusers = ({setShowUsersForm}) => {
                                 Generated Password :
                             </p>
 
-                            <p className='font-bold ml-[1vw]'>
+                            <p className='font-bold ml-[1vw] mb-[0.5vw]'>
                                 {password}
                             </p>
 
@@ -155,7 +156,7 @@ const Addusers = ({setShowUsersForm}) => {
                         <div>
                             <Toaster richColors />
                             
-                            <div className='w-[12vw] mt-[13.5vw] border-black bg-black text-white border-[0.15vw] rounded-[0.3vw] h-[2.5vw] flex justify-center text-[1.2vw] font-semibold cursor-pointer' onClick={() => {toast.success(toastResponse); handleSubmit();}}>
+                            <div className='w-[12vw] mt-[13.5vw] border-black bg-black text-white border-[0.15vw] rounded-[0.3vw] h-[2.5vw] flex justify-center text-[1.2vw] font-semibold cursor-pointer' onClick={handleSubmit}>
                                 <p className='mt-[0.36vw]'>
                                     Accept
                                 </p>
