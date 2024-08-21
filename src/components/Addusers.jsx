@@ -12,8 +12,26 @@ const Addusers = ({setShowUsersForm}) => {
     const [email, setEmail] = useState('');
     const [role, setRole] = useState('');
     const [toastResponse, setToastResponse] = useState('');
+    const [randomPassword, setRandomPassword] = useState('');
 
     console.log(role);
+
+    ///Generate Passwords Function///
+    function Str_Random(length) {
+        let result = '';
+        const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        
+        // Loop to generate characters for the specified length
+        for (let i = 0; i < length; i++) {
+            const randomInd = Math.floor(Math.random() * characters.length);
+            result += characters.charAt(randomInd);
+        }
+        return result;
+    }
+    // console.log(Str_Random(10));
+    const password = Str_Random(10);
+    ////////////////////////////////
+    ////////////////////////////////
 
     const handleSubmit = async () => {
 
@@ -38,6 +56,7 @@ const Addusers = ({setShowUsersForm}) => {
           name: userName,
           staffid: staffId,
           email: email,
+          password: password,
         };
     
         try {
@@ -105,12 +124,16 @@ const Addusers = ({setShowUsersForm}) => {
                                 Enter Email Address :
                             </p>
 
-                            <input name="email" type="text" placeholder='Email Address' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEmail(e.target.value)} />
+                            <input name="email" type="text" placeholder='Email Address' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEmail(e.target.value.toLowerCase())} />
                         </label> 
 
                         <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
                                 Generated Password :
+                            </p>
+
+                            <p className='font-bold ml-[1vw]'>
+                                {password}
                             </p>
 
                             {/* <input name="telnumber" type="number" placeholder='Email Address' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setphoneno(e.target.value)} /> */}

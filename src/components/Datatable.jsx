@@ -52,7 +52,7 @@ const Datatable = () => {
             className=' mt-[1vw] ml-[1vw] h-[2.5vw] rounded-[1.5vw] pl-[1vw] mb-[0.5vw] bg-background-grey'
         />
 
-        <DataTable className='w-[87vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={5}>
+        <DataTable className='w-[87vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={7}>
             <Column field="name" header="Name" sortable />
             <Column field="staffid" header="Staff Id" />
             <Column field="role" header="Role" />
