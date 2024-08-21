@@ -65,6 +65,9 @@ const Addusers = ({setShowUsersForm}) => {
         //   setToastResponse(response.data);
           console.log(response.data); // Log the response from the server
           toast.success(response.data);
+          setUserName('');
+          setStaffId('');
+          setEmail('');
 
         } catch (error) {
           console.error('Error submitting data:', error);
@@ -109,7 +112,7 @@ const Addusers = ({setShowUsersForm}) => {
                                 Enter Full Name :
                             </p>
 
-                            <input name="username" type="text" placeholder='Enter Name' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setUserName(e.target.value)} />
+                            <input name="username" type="text" placeholder='Enter Name' value={userName} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setUserName(e.target.value)} />
                         </label>
 
                         <label>
@@ -117,7 +120,7 @@ const Addusers = ({setShowUsersForm}) => {
                                 Enter Staff ID :
                             </p>
 
-                            <input name="staffid" type="text" placeholder='Enter ID' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setStaffId(e.target.value)} />
+                            <input name="staffid" type="text" placeholder='Enter ID' value={staffId} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setStaffId(e.target.value)} />
                         </label> 
 
                         <label>
@@ -125,7 +128,7 @@ const Addusers = ({setShowUsersForm}) => {
                                 Enter Email Address :
                             </p>
 
-                            <input name="email" type="text" placeholder='Email Address' className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEmail(e.target.value.toLowerCase())} />
+                            <input name="email" type="text" placeholder='Email Address' value={email} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEmail(e.target.value.toLowerCase())} />
                         </label> 
 
                         <label>
