@@ -54,7 +54,7 @@ const Datatable = () => {
 
         <DataTable className='w-[87vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={7}>
             <Column field="name" header="Name" sortable />
-            <Column field="staffid" header="Staff Id" />
+            <Column field="staffid" header="Employee ID" />
             <Column field="role" header="Role" />
             <Column field="email" header="Email" />
         </DataTable>

@@ -18,7 +18,7 @@ const Addusers = ({setShowUsersForm}) => {
     ///Generate Passwords Function///
     function Str_Random(length) {
         let result = '';
-        const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        const characters = 'abcdefghijklmnopqrstuvwxyz0123456789@!#$.ABCDEFGHIJKLMNOPQRSTVUWYXZ';
         
         // Loop to generate characters for the specified length
         for (let i = 0; i < length; i++) {
@@ -28,7 +28,7 @@ const Addusers = ({setShowUsersForm}) => {
         return result;
     }
     // console.log(Str_Random(10));
-    const password = Str_Random(10);
+    const password = Str_Random(16);
     ////////////////////////////////
     ////////////////////////////////
 
@@ -71,6 +71,7 @@ const Addusers = ({setShowUsersForm}) => {
 
         } catch (error) {
           console.error('Error submitting data:', error);
+          toast.error('Failed to create a new user');
         }
       };
 
@@ -117,7 +118,7 @@ const Addusers = ({setShowUsersForm}) => {
 
                         <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
-                                Enter Staff ID :
+                                Enter Employee ID :
                             </p>
 
                             <input name="staffid" type="text" placeholder='Enter ID' value={staffId} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setStaffId(e.target.value)} />
