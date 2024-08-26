@@ -31,17 +31,19 @@ const Secretaryview = () => {
             });
             const result = await response.json();
             console.log(result.message);
+            toast.success(result.message);
             // Refresh data after delete
             setData(data.filter((item) => item._id !== _id));
         } catch (error) {
             console.error('Error deleting user:', error);
+            toast.error('Error deleting user');
         }
     };
     
 
   return (
     <div>
-        <div className='pt-[1.8vw]'>
+        <div>
             <InputText 
                 onInput={(e) =>
                     setFilters({
@@ -53,7 +55,9 @@ const Secretaryview = () => {
                 className=' mt-[1vw] ml-[1vw] h-[2.5vw] rounded-[1.5vw] pl-[1vw] mb-[0.5vw] bg-background-grey'
             />
 
-            <DataTable className='w-[87vw]' value={data} filters={filters} paginator stripedRows rows={8}>
+            <Toaster richColors />
+
+            <DataTable className='w-[87vw]' value={data} filters={filters} paginator stripedRows rows={7}>
                 <Column field="idName" header="Name" sortable />
                 <Column field="sharedString" header="ID" />
                 <Column field="phone" header="Phone No." />

@@ -6,6 +6,7 @@ import { FilterMatchMode } from 'primereact/api';
 import { InputText } from 'primereact/inputtext';
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
+import { Toaster, toast } from 'sonner'
 import { searchIcon } from '../assets';
 
 const Datatable = () => {
@@ -23,20 +24,21 @@ const Datatable = () => {
         .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    // const data = [
-    //     {
-    //         id: 1,
-    //         name: "John",
-    //         role: "Reception",
-    //         email: "email@address",
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Jane",
-    //         role: "Guard",
-    //         email: "email@address",
-    //     },
-    // ];
+    const handleDelete = async (_id) => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/userdata/${_id}`, {
+                method: 'DELETE',
+            });
+            const result = await response.json();
+            console.log(result.message);
+            toast.success(result.message);
+            // Refresh data after delete
+            setData(data.filter((item) => item._id !== _id));
+        } catch (error) {
+            console.error('Error deleting user:', error);
+            toast.error('Error deleting user');
+        }
+    };
 
   return (
     <div>
@@ -52,11 +54,24 @@ const Datatable = () => {
             className=' mt-[1vw] ml-[1vw] h-[2.5vw] rounded-[1.5vw] pl-[1vw] mb-[0.5vw] bg-background-grey'
         />
 
+        <Toaster richColors />
+
         <DataTable className='w-[87vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={7}>
             <Column field="name" header="Name" sortable />
             <Column field="staffid" header="Employee ID" />
             <Column field="role" header="Role" />
             <Column field="email" header="Email" />
+            <Column
+                        header="Actions"
+                        body={(rowData) => (
+                            <button
+                                onClick={() => handleDelete(rowData._id)}
+                                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
+                            >
+                                Delete
+                            </button>
+                        )}
+                    />
         </DataTable>
     </div>
   )
