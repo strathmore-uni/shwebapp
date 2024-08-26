@@ -13,6 +13,8 @@ import Navbar from './components/Navbar'
 import Dashboard from './components/Dashboard'
 import Users from './components/Users'
 import Notfound from './pages/Notfound'
+import Secretaryview from './pages/Secretaryview'
+import Secsidepanel from './components/Secsidepanel'
 
 const App = () => {
   const[myphone,setmyphone]=useState('')
@@ -29,6 +31,9 @@ console.log(obj);
 
   const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
   const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
+  const guardSignedIn = true;
+  const adminSignedIn = false;
+  const secSignedIn = true;
 
   // const [coatLarge, setCoatLarge] = useState(55);
   // const [coatTop, setcoatTop] = useState(20);
@@ -205,19 +210,41 @@ console.log(obj);
       )}
 
       {notMobileScreen && (
-        <div className='w-screen h-screen bg-grey absolute'>
-          <Navbar />
-          <div className='flex'>            
-            <BrowserRouter>
-              <Sidepanel />
+        <div>
+          {adminSignedIn && (
+            <div className='w-screen h-screen bg-grey absolute'>
+              <Navbar />
+              <div className='flex'>            
+                <BrowserRouter>
+                  <Sidepanel />
 
-              <Routes>
-                <Route path="shwebapp/dashboard" element={<Dashboard />}></Route>
-                <Route path="shwebapp/users" element={<Users />}></Route>
-                <Route path="*" element={<Notfound />} />
-              </Routes>
-            </BrowserRouter>
-          </div>
+                  <Routes>
+                    <Route path="shwebapp/dashboard" element={<Dashboard />}></Route>
+                    <Route path="shwebapp/users" element={<Users />}></Route>
+                    <Route path="*" element={<Notfound />} />
+
+                    <Route path="shwebapp/sec" element={<Secretaryview />}></Route>
+                  </Routes>
+                </BrowserRouter>
+              </div>
+            </div>
+          )}
+
+          {secSignedIn && (
+            <div className='w-screen h-screen bg-grey absolute'>
+              <Navbar />
+              <div className='flex'>            
+                <BrowserRouter>
+                  <Secsidepanel />
+
+                  <Routes>                    
+                    <Route path="*" element={<Notfound />} />
+                    <Route path="shwebapp/sec" element={<Secretaryview />}></Route>
+                  </Routes>
+                </BrowserRouter>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
