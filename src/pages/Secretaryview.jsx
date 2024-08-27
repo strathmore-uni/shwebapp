@@ -8,6 +8,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
+import Select from 'react-select';
 import { Toaster, toast } from 'sonner'
 import { searchIcon } from '../assets';
 
@@ -21,6 +22,7 @@ const Secretaryview = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [displayPopup, setDisplayPopup] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const [displaySelect, setDisplaySelect] = useState(false);
     // const [matchResult, setMatchResult] = useState(null);
 
     useEffect(() => {
@@ -33,7 +35,7 @@ const Secretaryview = () => {
     const confirmUser = (user) => {
         setSelectedUser(user);
         setDisplayPopup(true);
-        setMatchResult(null); // Reset match result when opening the popup
+        // setMatchResult(null); // Reset match result when opening the popup
     };
 
     const handlePopupSubmit = () => {
@@ -41,17 +43,19 @@ const Secretaryview = () => {
             // If the input matches the visitorTag, handle the match
             // setMatchResult('Match found!');
             toast.success('Confirmation Successfull');
-            setDisplayPopup(false);
+            setDisplaySelect(true);
+            // setDisplayPopup(false);
             // You can add additional logic here (e.g., send data to the backend)
         } else {
             // If the input doesn't match
             // setMatchResult('No match found.');
             toast.error('Confirmation Failed');
+            setInputValue(''); //Reset the input field
         }
 
         // Optionally close the popup or keep it open based on your needs
         
-        setInputValue(''); //Reset the input field
+        // setInputValue(''); //Reset the input field
     };
 
     const renderConfirmButton = (rowData) => {
@@ -79,6 +83,16 @@ const Secretaryview = () => {
             toast.error('Error deleting user');
         }
     };
+
+    const options = [
+        { value: 'inquiry', label: 'Inquiry' },
+        { value: 'person', label: 'See Someone' },
+      ];
+
+      const handleChange = (selectedOption) => {
+        console.log(`Selected:`, selectedOption);
+        // setRole(selectedOption.value);    // .value extracts the value from the object created by react select
+      };
     
 
   return (
@@ -122,21 +136,63 @@ const Secretaryview = () => {
             header="Confirm Visitor"
             visible={displayPopup}
             onHide={() => setDisplayPopup(false)}
+            className='w-[20vw]'
         >
             <div>
-                <p>Enter Visitor's Tag Number</p>
+                <p className='text-[1vw] ml-[0.3vw]'>Enter Visitor's Tag Number</p>
 
                 <InputText
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    className='w-full text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] border-black border-[0.2vw] mb-[0.9vw]'
+                    className='w-full text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] border-black border-[0.2vw] mt-[0.2vw]'
                 />
 
-                <div className="mt-4">
+                {/* <div>
+                    <p className='ml-[0.3vw] mt-[0.6vw] text-[1vw]'>
+                        Reason for Visit :
+                    </p>
+
+                    <Select
+                        options={options}
+                        onChange={handleChange}
+                        placeholder="Choose a role"
+                        className='border-black border-[0.15vw] rounded-[0.4vw]'
+                    />
+                </div> */}
+
+                {displaySelect && (
+                    <div>
+                        <p className='ml-[0.3vw] mt-[0.6vw] text-[1vw]'>
+                            Reason for Visit :
+                        </p>
+
+                        <Select
+                            options={options}
+                            onChange={handleChange}
+                            placeholder="Choose a role"
+                            className='border-black border-[0.15vw] rounded-[0.4vw]'
+                        />
+
+                        <div>
+                            <p className='ml-[0.3vw] mt-[0.6vw] text-[1vw]'>
+                                Person being Visited :
+                            </p>
+
+                            <Select
+                                options={options}
+                                onChange={handleChange}
+                                placeholder="Select Person"
+                                className='border-black border-[0.15vw] rounded-[0.4vw]'
+                            />
+                        </div>
+                    </div>
+                )}
+
+                <div className="mt-[1vw] flex justify-center">
                     <Button
                         label="Submit"
                         onClick={handlePopupSubmit}
-                        className="p-button-primary"
+                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-700"
                     />
                 </div>
             </div>
