@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { coatOfArms, cameraIcon } from '../assets';
 import { useNavigate } from 'react-router-dom';
 
-const Fillinfopage = ({ sharedString, iDname,setmyphone,setDateTime,setDepartment }) => {
+const Fillinfopage = ({ sharedString, iDname,setmyphone,setDateTime,setDepartment, setliftvisitorTag }) => {
   console.log(sharedString, iDname);
 const navigate = useNavigate();
   const [phoneno, setphoneno] = useState('');
@@ -11,11 +11,14 @@ const navigate = useNavigate();
   
   const [dept, setdept] = useState('');
 
+  const [visitorTag, setvisitorTag] = useState('');
+
 
 
   const handlesubmit = () => {
     setDepartment(dept);
   setmyphone(phoneno);
+  setliftvisitorTag(visitorTag);
 
     navigate('/shwebapp/mypage')
  
@@ -95,6 +98,13 @@ const navigate = useNavigate();
                 Enter Department Headed :
               </p>
               <input name="telnumber" type="text" placeholder='Department Headed' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setdept(e.target.value)}/>
+            </label>
+
+            <label>
+              <p className='mb-[1vw] mt-[2.5vw]'>
+                Enter Visitor's Tag :
+              </p>
+              <input name="telnumber" type="text" placeholder='Enter Tag Number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setvisitorTag(e.target.value)}/>
             </label>
 
             <div className='mt-[2.5vw]'>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { coatOfArms } from '../assets'
 import axios from 'axios';
 
-export default function Mypage({myphone, sharedString, iDname,datetime,department,setFulldata}) {
+export default function Mypage({myphone, sharedString, iDname,datetime,department,setFulldata, liftvisitorTag}) {
 
   const handleSubmit = async () => {
     // Create an object with the state variables
@@ -13,6 +13,7 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
       sharedString: sharedString,
       idName: iDname,
       dateTime: datetime,
+      visitorTag: liftvisitorTag,
     };
 
     try {
@@ -96,6 +97,16 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
                 
                 <p className='font-bold pl-[1.5vw]'>
                  {department}
+                </p>
+              </label>
+
+              <label>
+                <p className='mb-[1vw] mt-[2.5vw]'>
+                  Department Headed :
+                </p>
+                
+                <p className='font-bold pl-[1.5vw]'>
+                 {liftvisitorTag}
                 </p>
               </label>
 

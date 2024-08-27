@@ -22,18 +22,19 @@ const App = () => {
   const [sharedString, setSharedString] = useState('');
   const [iDname, setiDname] = useState('');
   const [datetime,setDateTime]= useState('');
+  const [liftvisitorTag, setliftvisitorTag] = useState('');
 
 const myarray = [myphone, department, sharedString, iDname, datetime];
 
 const obj = Object.assign({}, { info: myarray });
 
-console.log(obj);
+// console.log(obj);
 
   const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
   const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
   const guardSignedIn = true;
-  const adminSignedIn = true;
-  const secSignedIn = false;
+  const adminSignedIn = false;
+  const secSignedIn = true;
 
   // const [coatLarge, setCoatLarge] = useState(55);
   // const [coatTop, setcoatTop] = useState(20);
@@ -202,9 +203,9 @@ console.log(obj);
             <Route path="shwebapp/" element={<Loginpage />}></Route>
             <Route path="shwebapp/menu" element={<Menupage />}></Route>
             <Route path="shwebapp/checkedin" element={<Checkinpage sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department} myphone={myphone} />}></Route>
-            <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department}   />} />
+            <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department} liftvisitorTag={liftvisitorTag}   />} />
             <Route path="shwebapp/camera" element={<Webcamera  setSharedString={setSharedString} setiDname={setiDname} />}></Route>
-            <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} />}></Route>
+            <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} setliftvisitorTag={setliftvisitorTag} />}></Route>
           </Routes>
         </BrowserRouter>
       )}
