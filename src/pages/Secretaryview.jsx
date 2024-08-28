@@ -23,6 +23,10 @@ const Secretaryview = () => {
     const [displayPopup, setDisplayPopup] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [displaySelect, setDisplaySelect] = useState(false);
+    const [personSelected, setpersonSelected] = useState(false);
+    const [shoowButton, setshoowButton] = useState(true);
+    const [shoowSecondButton, setshoowSecondButton] = useState(false);
+    const [notification, setnotification] = useState('');
     // const [matchResult, setMatchResult] = useState(null);
 
     useEffect(() => {
@@ -39,23 +43,27 @@ const Secretaryview = () => {
     };
 
     const handlePopupSubmit = () => {
-        if (inputValue === selectedUser.visitorTag) {
-            // If the input matches the visitorTag, handle the match
-            // setMatchResult('Match found!');
+        if (inputValue === selectedUser.visitorTag) {            
             toast.success('Confirmation Successfull');
-            setDisplaySelect(true);
+            setshoowButton(false);
+            setshoowSecondButton(true);
+            setDisplaySelect(true);            
             // setDisplayPopup(false);
             // You can add additional logic here (e.g., send data to the backend)
-        } else {
-            // If the input doesn't match
-            // setMatchResult('No match found.');
+        } else {            
             toast.error('Confirmation Failed');
             setInputValue(''); //Reset the input field
         }
+    };
 
-        // Optionally close the popup or keep it open based on your needs
-        
-        // setInputValue(''); //Reset the input field
+    const handleSecondaryPopupSubmit = () => {
+        toast.success("Notification sent to " + notification);
+        setInputValue('');
+        setDisplaySelect(false);
+        setpersonSelected(false);
+        setshoowButton(true);
+        setshoowSecondButton(false);
+        setDisplayPopup(false);
     };
 
     const renderConfirmButton = (rowData) => {
@@ -89,10 +97,24 @@ const Secretaryview = () => {
         { value: 'person', label: 'See Someone' },
       ];
 
-      const handleChange = (selectedOption) => {
-        console.log(`Selected:`, selectedOption);
-        // setRole(selectedOption.value);    // .value extracts the value from the object created by react select
-      };
+    const peopleOptions = [
+      { value: 'john', label: 'John' },
+      { value: 'jane', label: 'Jane' },
+    ];
+
+    const handleChange = (selectedOption) => {
+    //   console.log(`Selected:`, selectedOption);
+      if ('person' === selectedOption.value) {
+          setpersonSelected(true);     
+      } else {
+          setpersonSelected(false); 
+      }        
+    };
+
+    const handlePersonChange = (selectedOption) => {
+        // toast.success("Notification sent to " + selectedOption.label);
+        setnotification(selectedOption.label);
+        };
     
 
   return (
@@ -136,7 +158,7 @@ const Secretaryview = () => {
             header="Confirm Visitor"
             visible={displayPopup}
             onHide={() => setDisplayPopup(false)}
-            className='w-[20vw]'
+            className='w-[20vw] h-[25vw]'
         >
             <div>
                 <p className='text-[1vw] ml-[0.3vw]'>Enter Visitor's Tag Number</p>
@@ -169,31 +191,43 @@ const Secretaryview = () => {
                         <Select
                             options={options}
                             onChange={handleChange}
-                            placeholder="Choose a role"
+                            placeholder="Select reason for visit"
                             className='border-black border-[0.15vw] rounded-[0.4vw]'
                         />
 
-                        <div>
-                            <p className='ml-[0.3vw] mt-[0.6vw] text-[1vw]'>
-                                Person being Visited :
-                            </p>
+                        {personSelected && (
+                            <div>
+                                <p className='ml-[0.3vw] mt-[0.6vw] text-[1vw]'>
+                                    Person being Visited :
+                                </p>
 
-                            <Select
-                                options={options}
-                                onChange={handleChange}
-                                placeholder="Select Person"
-                                className='border-black border-[0.15vw] rounded-[0.4vw]'
-                            />
-                        </div>
+                                <Select
+                                    options={peopleOptions}
+                                    onChange={handlePersonChange}
+                                    placeholder="Select Person"
+                                    className='border-black border-[0.15vw] rounded-[0.4vw]'
+                                />
+                            </div>
+                        )}
                     </div>
                 )}
 
                 <div className="mt-[1vw] flex justify-center">
-                    <Button
-                        label="Submit"
-                        onClick={handlePopupSubmit}
-                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-700"
-                    />
+                    {shoowButton && (
+                        <Button
+                            label="Submit"
+                            onClick={handlePopupSubmit}
+                            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-700"
+                        />
+                    )}
+
+                    {shoowSecondButton && (
+                        <Button
+                            label="Submit"
+                            onClick={handleSecondaryPopupSubmit}
+                            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-700"
+                        />
+                    )}
                 </div>
             </div>
         </Dialog>
