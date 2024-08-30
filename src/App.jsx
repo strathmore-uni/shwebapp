@@ -15,6 +15,7 @@ import Users from './components/Users'
 import Notfound from './pages/Notfound'
 import Secretaryview from './pages/Secretaryview'
 import Secsidepanel from './components/Secsidepanel'
+import Appointments from './components/Appointments'
 
 const App = () => {
   const[myphone,setmyphone]=useState('')
@@ -238,8 +239,9 @@ const obj = Object.assign({}, { info: myarray });
                   <Secsidepanel />
 
                   <Routes>                    
-                  <Route path="*" element={<Navigate to="/shwebapp/sec" />} />
+                    <Route path="*" element={<Navigate to="/shwebapp/sec" />} />
                     <Route path="shwebapp/sec" element={<Secretaryview />}></Route>
+                    <Route path="shwebapp/appointments" element={<Appointments />} />
                   </Routes>
                 </BrowserRouter>
               </div>
