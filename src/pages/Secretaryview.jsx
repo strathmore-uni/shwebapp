@@ -27,6 +27,7 @@ const Secretaryview = () => {
     const [shoowButton, setshoowButton] = useState(true);
     const [shoowSecondButton, setshoowSecondButton] = useState(false);
     const [notification, setnotification] = useState('');
+    const [clearedRows, setClearedRows] = useState({});
     // const [matchResult, setMatchResult] = useState(null);
 
     useEffect(() => {
@@ -50,6 +51,11 @@ const Secretaryview = () => {
             setDisplaySelect(true);            
             // setDisplayPopup(false);
             // You can add additional logic here (e.g., send data to the backend)
+            setClearedRows(prev => ({
+                ...prev,
+                [selectedUser._id]: true // Assuming each row has a unique 'id'
+            }));
+
         } else {            
             toast.error('Confirmation Failed');
             setInputValue(''); //Reset the input field
@@ -67,11 +73,21 @@ const Secretaryview = () => {
     };
 
     const renderConfirmButton = (rowData) => {
+
+        const isCleared = clearedRows[rowData._id]; // Check if the row is cleared
+
         return (
+            // <Button
+            //     label="Confirm"
+            //     onClick={() => confirmUser(rowData)}
+            //     className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-700"
+            // />
+
             <Button
-                label="Confirm"
+                label={isCleared ? "Cleared" : "Confirm"}
                 onClick={() => confirmUser(rowData)}
-                className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-700"
+                className={isCleared ? "p-button-secondary" : "bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-700"}
+                disabled={isCleared} // Optionally disable the button if cleared
             />
         );
     };
@@ -127,7 +143,7 @@ const Secretaryview = () => {
                     })
                 }
                 
-                placeholder='Search for Users'
+                placeholder='Search for Visitors'
                 className=' mt-[1vw] ml-[1vw] h-[2.5vw] rounded-[1.5vw] pl-[1vw] mb-[0.5vw] bg-background-grey'
             />
 

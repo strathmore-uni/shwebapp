@@ -5,7 +5,7 @@ import { Toaster, toast } from 'sonner'
 
 
 
-const Addusers = ({setShowUsersForm}) => {
+const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
 
     const [userName, setUserName] = useState('');
     const [staffId, setStaffId] = useState('');
@@ -68,6 +68,7 @@ const Addusers = ({setShowUsersForm}) => {
           setUserName('');
           setStaffId('');
           setEmail('');
+          setRefresh(!refresh);
 
         } catch (error) {
           console.error('Error submitting data:', error);

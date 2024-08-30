@@ -33,8 +33,8 @@ const obj = Object.assign({}, { info: myarray });
   const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
   const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
   const guardSignedIn = true;
-  const adminSignedIn = false;
-  const secSignedIn = true;
+  const adminSignedIn = true;
+  const secSignedIn = false;
 
   // const [coatLarge, setCoatLarge] = useState(55);
   // const [coatTop, setcoatTop] = useState(20);

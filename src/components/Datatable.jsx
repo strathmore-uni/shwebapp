@@ -9,7 +9,7 @@ import "primereact/resources/primereact.min.css";
 import { Toaster, toast } from 'sonner'
 import { searchIcon } from '../assets';
 
-const Datatable = () => {
+const Datatable = (refresh) => {
 
     const [filters, setFilters] = useState({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS},
@@ -22,7 +22,7 @@ const Datatable = () => {
         .then(response => response.json())
         .then(data => setData(data))
         .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    }, [refresh]);
 
     const handleDelete = async (_id) => {
         try {

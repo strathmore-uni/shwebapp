@@ -7,10 +7,13 @@ import Addusers from './Addusers';
 const Users = () => {
 
     const [showUsersForm, setShowUsersForm] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
     const handleClick = () => {
       setShowUsersForm(true);
     };
+
+    console.log(refresh);
 
   return (
     <div>
@@ -25,10 +28,10 @@ const Users = () => {
               </div>
             </div>
             
-            <Datatable />
+            <Datatable refresh={refresh} />
 
             {showUsersForm && (
-              <Addusers setShowUsersForm={setShowUsersForm} />
+              <Addusers setShowUsersForm={setShowUsersForm} refresh={refresh} setRefresh={setRefresh} />
             )}
         </div>
     </div>
