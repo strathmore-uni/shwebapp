@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate  } from "react-router-dom"
 import { coatOfArms, fingerprintIcon, signOut } from './assets'
 import { useMediaQuery } from 'react-responsive'
 import Webcamera from './components/Webcamera'
@@ -33,8 +33,8 @@ const obj = Object.assign({}, { info: myarray });
   const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
   const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
   const guardSignedIn = true;
-  const adminSignedIn = true;
-  const secSignedIn = false;
+  const adminSignedIn = false;
+  const secSignedIn = true;
 
   // const [coatLarge, setCoatLarge] = useState(55);
   // const [coatTop, setcoatTop] = useState(20);
@@ -206,6 +206,7 @@ const obj = Object.assign({}, { info: myarray });
             <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department} liftvisitorTag={liftvisitorTag}   />} />
             <Route path="shwebapp/camera" element={<Webcamera  setSharedString={setSharedString} setiDname={setiDname} />}></Route>
             <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} setliftvisitorTag={setliftvisitorTag} />}></Route>
+            <Route path="*" element={<Navigate to="/shwebapp/menu" />} />
           </Routes>
         </BrowserRouter>
       )}
@@ -222,7 +223,7 @@ const obj = Object.assign({}, { info: myarray });
                   <Routes>
                     <Route path="shwebapp/dashboard" element={<Dashboard />}></Route>
                     <Route path="shwebapp/users" element={<Users />}></Route>
-                    <Route path="*" element={<Notfound />} />
+                    <Route path="*" element={<Navigate to="/shwebapp/dashboard" />} />
                   </Routes>
                 </BrowserRouter>
               </div>
@@ -237,7 +238,7 @@ const obj = Object.assign({}, { info: myarray });
                   <Secsidepanel />
 
                   <Routes>                    
-                    <Route path="*" element={<Notfound />} />
+                  <Route path="*" element={<Navigate to="/shwebapp/sec" />} />
                     <Route path="shwebapp/sec" element={<Secretaryview />}></Route>
                   </Routes>
                 </BrowserRouter>
