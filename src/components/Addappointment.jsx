@@ -3,32 +3,12 @@ import Select from 'react-select';
 import axios from 'axios';
 import { Toaster, toast } from 'sonner'
 
-const Addappointment = () => {
+const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
 
     const [userName, setUserName] = useState('');
-    const [staffId, setStaffId] = useState('');
+    const [visiteemail, setVisiteemail] = useState('');
     const [email, setEmail] = useState('');
-    const [role, setRole] = useState('');
     // const [toastResponse, setToastResponse] = useState('');
-
-    console.log(role);
-
-    ///Generate Passwords Function///
-    function Str_Random(length) {
-        let result = '';
-        const characters = 'abcdefghijklmnopqrstuvwxyz0123456789@!#$.ABCDEFGHIJKLMNOPQRSTVUWYXZ';
-        
-        // Loop to generate characters for the specified length
-        for (let i = 0; i < length; i++) {
-            const randomInd = Math.floor(Math.random() * characters.length);
-            result += characters.charAt(randomInd);
-        }
-        return result;
-    }
-    // console.log(Str_Random(10));
-    const password = Str_Random(16);
-    ////////////////////////////////
-    ////////////////////////////////
 
     const handleSubmit = async () => {
 
@@ -36,35 +16,36 @@ const Addappointment = () => {
             alert("Name is required");
             return;
           }
-          if (!staffId) {
-            alert("Staff ID is required");
-            return;
-          }
           if (!email) {
             alert("Email is required");
             return;
           } else if (!/\S+@\S+\.\S+/.test(email)) {
-            alert("Email address is invalid");
+            alert("Visitor's Email address is invalid");
+            return;
+          }
+          if (!visiteemail) {
+            alert("Visitee Email is required");
+            return;
+          } else if (!/\S+@\S+\.\S+/.test(visiteemail)) {
+            alert("Visitee Email address is invalid");
             return;
           }
 
         // Create an object with the state variables
         const data = {
           name: userName,
-          staffid: staffId,
+          visiteemail: visiteemail,
           email: email,
-          password: password,
-          role: role,
         };
     
         try {
           // Send the data to the backend
-          const response = await axios.post('http://localhost:5000/api/userdata', data);
+          const response = await axios.post('http://localhost:5000/api/appointmentsdata', data);
         //   setToastResponse(response.data);
           console.log(response.data); // Log the response from the server
           toast.success(response.data);
           setUserName('');
-          setStaffId('');
+          setVisiteemail('');
           setEmail('');
           setRefresh(!refresh);
 
@@ -73,16 +54,6 @@ const Addappointment = () => {
           toast.error('Failed to create a new user');
         }
       };
-
-    const options = [
-        { value: 'guard', label: 'Guard' },
-        { value: 'receptionist', label: 'Receptionist' },
-      ];
-
-    const handleChange = (selectedOption) => {
-      console.log(`Selected:`, selectedOption);
-      setRole(selectedOption.value);    // .value extracts the value from the object created by react select
-    };
 
     const handleClick = () => {
       setShowUsersForm(false);
@@ -116,29 +87,27 @@ const Addappointment = () => {
 
                         <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
-                                Enter ?? :
-                            </p>
-
-                            <input name="staffid" type="text" placeholder='Enter ??' value={staffId} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setStaffId(e.target.value)} />
-                        </label> 
-
-                        <label>
-                            <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
-                                Enter Email Address :
+                                Enter Visitor's Email :
                             </p>
 
                             <input name="email" type="text" placeholder='Email Address' value={email} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEmail(e.target.value.toLowerCase())} />
                         </label> 
 
-                        {/* <label>
+                        <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
-                                Generated Password :
+                                Enter Visitee Email :
                             </p>
 
-                            <p className='font-bold ml-[1vw] mb-[0.5vw]'>
-                                {password}
+                            <input name="visiteemail" type="text" placeholder='Enter Visitee Email' value={visiteemail} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setVisiteemail(e.target.value.toLowerCase())} />
+                        </label>                         
+
+                        {/* <label>
+                            <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
+                                Enter Time of Appointment :
                             </p>
-                        </label>  */}                                              
+
+                            <input name="email" type="text" placeholder='Email Address' value={email} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEmail(e.target.value.toLowerCase())} />
+                        </label>                                               */}
                     </div>
 
                     <div className='flex justify-center'>

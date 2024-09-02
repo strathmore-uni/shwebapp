@@ -9,7 +9,7 @@ import "primereact/resources/primereact.min.css";
 import { Toaster, toast } from 'sonner'
 import { searchIcon } from '../assets';
 
-const Appointmentstable = () => {
+const Appointmentstable = ({refresh}) => {
 
     const [filters, setFilters] = useState({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS},
@@ -18,15 +18,15 @@ const Appointmentstable = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/userdata')
+        fetch('http://localhost:5000/api/appointmentsdata')
         .then(response => response.json())
         .then(data => setData(data))
         .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    }, [refresh]);
 
     const handleDelete = async (_id) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/userdata/${_id}`, {
+            const response = await fetch(`http://localhost:5000/api/appointmentsdata/${_id}`, {
                 method: 'DELETE',
             });
             const result = await response.json();
@@ -49,17 +49,17 @@ const Appointmentstable = () => {
                 })
             }
             
-            placeholder='Search for Users'
+            placeholder='Search Appointments'
             className=' mt-[1vw] ml-[1vw] h-[2.5vw] rounded-[1.5vw] pl-[1vw] mb-[0.5vw] bg-background-grey'
         />
 
         <Toaster richColors />
 
-        <DataTable className='w-[87vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={7}>
+        <DataTable className='w-[87vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={6}>
             <Column field="name" header="Name" sortable />
-            <Column field="staffid" header="Employee ID" />
-            <Column field="role" header="Role" />
-            <Column field="email" header="Email" />
+            <Column field="appointment" header="Time of Appointment" />
+            <Column field="visiteemail" header="Visitee Email" />
+            <Column field="email" header="Visitor's Email" />
             <Column
                         header="Actions"
                         body={(rowData) => (

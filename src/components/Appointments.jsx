@@ -7,14 +7,12 @@ import Addappointment from './Addappointment';
 
 const Appointments = () => {
 
-    const [showUsersForm, setShowUsersForm] = useState(true);
+    const [showUsersForm, setShowUsersForm] = useState(false);
     const [refresh, setRefresh] = useState(false);
 
     const handleClick = () => {
       setShowUsersForm(true);
     };
-
-    console.log(refresh);
 
   return (
     <div>
@@ -29,11 +27,11 @@ const Appointments = () => {
               </div>
             </div>
             
-            <Appointmentstable />
+            <Appointmentstable refresh={refresh} />
 
             {showUsersForm && (
             //   <Addusers setShowUsersForm={setShowUsersForm} refresh={refresh} setRefresh={setRefresh} />
-              <Addappointment setShowUsersForm={setShowUsersForm} />
+              <Addappointment setShowUsersForm={setShowUsersForm} refresh={refresh} setRefresh={setRefresh} />
             )}
         </div>
     </div>
