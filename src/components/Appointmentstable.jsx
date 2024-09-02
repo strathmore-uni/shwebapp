@@ -57,7 +57,7 @@ const Appointmentstable = ({refresh}) => {
 
         <DataTable className='w-[87vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={6}>
             <Column field="name" header="Name" sortable />
-            <Column field="appointment" header="Time of Appointment" />
+            <Column field="selectedDate" header="Time of Appointment" />
             <Column field="visiteemail" header="Visitee Email" />
             <Column field="email" header="Visitor's Email" />
             <Column

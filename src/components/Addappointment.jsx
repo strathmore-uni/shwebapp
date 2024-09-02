@@ -2,40 +2,57 @@ import React, { useState } from 'react'
 import Select from 'react-select';
 import axios from 'axios';
 import { Toaster, toast } from 'sonner'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
 
     const [userName, setUserName] = useState('');
     const [visiteemail, setVisiteemail] = useState('');
     const [email, setEmail] = useState('');
+    const [selectedDate, setSelectedDate] = useState(null);
+
+    console.log(selectedDate);
     // const [toastResponse, setToastResponse] = useState('');
 
     const handleSubmit = async () => {
 
         if (!userName) {
-            alert("Name is required");
+            // alert("Name is required");
+            toast.error('Name is required');
             return;
           }
-          if (!email) {
-            alert("Email is required");
-            return;
-          } else if (!/\S+@\S+\.\S+/.test(email)) {
-            alert("Visitor's Email address is invalid");
-            return;
-          }
-          if (!visiteemail) {
-            alert("Visitee Email is required");
-            return;
-          } else if (!/\S+@\S+\.\S+/.test(visiteemail)) {
-            alert("Visitee Email address is invalid");
-            return;
-          }
+        if (!selectedDate) {
+          // alert("Name is required");
+          toast.error('Date is required');
+          return;
+        }
+        if (!email) {
+          // alert("Email is required");
+          toast.error("Visitor's Email address is required");
+          return;
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+          toast.error("Visitor's Email address is invalid");
+          return;
+        }
+        if (!visiteemail) {
+          toast.error("Visitee Email is required");
+          return;
+        } else if (!/\S+@\S+\.\S+/.test(visiteemail)) {
+          toast.error("Visitee Email address is invalid");
+          return;
+        }
+
+        // const formattedDate = selectedDate.toString();
+        const dateString = selectedDate.toString();
+        const formattedDate = dateString.split('GMT')[0].trim().slice(0, -3); // This removes the 'GMT+0300 (East Africa Time)' part and also the seconds
 
         // Create an object with the state variables
         const data = {
           name: userName,
           visiteemail: visiteemail,
           email: email,
+          selectedDate: formattedDate,
         };
     
         try {
@@ -47,6 +64,7 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
           setUserName('');
           setVisiteemail('');
           setEmail('');
+          setSelectedDate(null);
           setRefresh(!refresh);
 
         } catch (error) {
@@ -86,6 +104,23 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
                         </label>
 
                         <label>
+                          <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
+                              Enter Date of Appointment :
+                          </p>
+
+                          <div>
+                            <DatePicker
+                              selected={selectedDate}
+                              onChange={(date) => setSelectedDate(date)}
+                              showTimeSelect
+                              dateFormat="Pp"
+                              placeholderText="Select a date and time"
+                              className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'
+                            />
+                          </div>  
+                        </label> 
+
+                        <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
                                 Enter Visitor's Email :
                             </p>
@@ -99,7 +134,7 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
                             </p>
 
                             <input name="visiteemail" type="text" placeholder='Enter Visitee Email' value={visiteemail} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setVisiteemail(e.target.value.toLowerCase())} />
-                        </label>                         
+                        </label>                            
 
                         {/* <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
