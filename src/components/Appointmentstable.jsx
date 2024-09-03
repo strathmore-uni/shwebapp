@@ -50,12 +50,12 @@ const Appointmentstable = ({refresh}) => {
             }
             
             placeholder='Search Appointments'
-            className=' mt-[1vw] ml-[1vw] h-[2.5vw] rounded-[1.5vw] pl-[1vw] mb-[0.5vw] bg-background-grey'
+            className=' mt-[1vw] ml-[1vw] py-[0.6vw] rounded-[1.5vw] pl-[1.5vw] mb-[2vw] bg-background-grey'
         />
 
         <Toaster richColors />
 
-        <DataTable className='w-[87vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={6}>
+        <DataTable className='w-[86.5vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={6}>
             <Column field="name" header="Name" sortable />
             <Column field="selectedDate" header="Time of Appointment" />
             <Column field="visiteemail" header="Visitee Email" />

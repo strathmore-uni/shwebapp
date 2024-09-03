@@ -1,10 +1,13 @@
 import React from 'react'
-import { myImage } from '../assets'
+import { logo, myImage } from '../assets'
 
 const Navbar = () => {
   return (
     <div>
-        <div className='h-[5vw] w-[100vw] border-black border-b-[0.15vw]'>
+        <div className='h-[5vw] shadow-md flex w-[100vw] '>
+
+            <img src={logo} className='h-[2.3vw] mt-[1.3vw] ml-[1vw]' />
+
             <div className='absolute right-[1vw] flex gap-[0.4vw] mt-[0.6vw]'>
                 <div>
                     <p className='text-[1vw] font-semibold mt-[0.4vw]'>
