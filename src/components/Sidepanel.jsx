@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Sidepanel = () => {
   return (
     <div>
-        <div className='w-[13vw] h-[43.6vw] border-black border-r-[0.15vw] flex justify-center pt-[1vw]'>
+        <div className='w-[13vw] h-[43.6vw] shadow-lg z-20 mr-[0.2vw] flex justify-center pt-[1vw]'>
             <div>
                 <Link to="shwebapp/dashboard">
                     <div className='w-[11vw] bg-black border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-white flex pl-[0.6vw] gap-[0.7vw] text-[1.2vw] font-bold mb-[0.5vw]'>

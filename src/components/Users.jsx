@@ -18,11 +18,11 @@ const Users = () => {
   return (
     <div>
         <div>
-            <div className='flex justify-end w-[86vw]'>
-              <div className='w-[11vw] mt-[1vw] border-black border-[0.15vw] rounded-[0.3vw] h-[2.5vw] flex justify-center pl-[0.8vw] gap-[0.6vw] text-[1.2vw] font-semibold mb-[0.5vw] cursor-pointer' onClick={handleClick}>
-                  <img src={plusImage} className='h-[0.8vw] mt-[0.8vw]' />
+            <div className='absolute right-[1vw]'>
+              <div className='px-[1vw] py-[0.3vw] mt-[1vw] border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] flex justify-center pl-[0.8vw] gap-[0.6vw] text-[1.2vw] font-semibold mb-[0.5vw] cursor-pointer' onClick={handleClick}>
+                  <img src={plusImage} className='h-[0.8vw] mt-[0.45vw]' />
 
-                  <p className='mt-[0.36vw]'>
+                  <p>
                       Add User
                   </p>
               </div>
