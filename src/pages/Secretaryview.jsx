@@ -144,12 +144,12 @@ const Secretaryview = () => {
                 }
                 
                 placeholder='Search for Visitors'
-                className=' mt-[1vw] ml-[1vw] h-[2.5vw] rounded-[1.5vw] pl-[1vw] mb-[0.5vw] bg-background-grey'
+                className=' mt-[2vw] ml-[1vw] py-[0.6vw] rounded-[1.5vw] pl-[1.5vw] mb-[1.6vw] bg-background-grey'
             />
 
             <Toaster richColors />
 
-            <DataTable className='w-[87vw]' value={data} filters={filters} paginator stripedRows rows={7}>
+            <DataTable className='w-[86.5vw]' value={data} filters={filters} paginator stripedRows rows={7}>
                 <Column field="idName" header="Name" sortable />
                 <Column field="sharedString" header="ID" />
                 <Column field="phone" header="Phone No." />
