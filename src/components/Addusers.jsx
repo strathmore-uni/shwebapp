@@ -35,18 +35,22 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
     const handleSubmit = async () => {
 
         if (!userName) {
-            alert("Name is required");
+            toast.error("Name is required");
             return;
           }
           if (!staffId) {
-            alert("Staff ID is required");
+            toast.error("Staff ID is required");
             return;
           }
           if (!email) {
-            alert("Email is required");
+            toast.error("Email is required");
             return;
           } else if (!/\S+@\S+\.\S+/.test(email)) {
-            alert("Email address is invalid");
+            toast.error("Email address is invalid");
+            return;
+          }          
+          if (!role) {
+            toast.error("Role is required");
             return;
           }
 
