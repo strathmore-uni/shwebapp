@@ -11,17 +11,17 @@ const Checkinpage = ({ myphone, sharedString, iDname, datetime, department, setF
   const [displayPopup, setDisplayPopup] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [visitorsBadge, setVisitorsBadge] = useState('');
+  const [selectedIdName, setSelectedIdName] = useState('');
 
-  console.log(visitorsBadge);
-
-  const displayDialogue = (visitorTag) => {
+  const displayDialogue = (visitorTag, idName) => {
     setDisplayPopup(true);
     setVisitorsBadge(visitorTag);
+    setSelectedIdName(idName);
   };
 
 const handlePopupSubmit = () => {
   if (inputValue === visitorsBadge) {            
-      toast.success('Confirmation Successfull');     
+      toast.success(selectedIdName +' has been Succesfully checkedout');     
 
   } else {            
       toast.error('Confirmation Failed');
@@ -72,7 +72,7 @@ const handlePopupSubmit = () => {
     <div>
       <div className='flex justify-center pt-[10vw]'>
         <div>
-          <img src={coatOfArms} className='h-[30vw]' alt='Coat of Arms' />
+          <img src={coatOfArms} className='h-[30vw] mb-[3vw]' alt='Coat of Arms' />
         </div>
       </div>
       {/* {data.map((checkin, index) => (
@@ -142,7 +142,7 @@ const handlePopupSubmit = () => {
       {data.map(item => (
           <div className='flex justify-center' key={item._id}>
             <div>
-              <div className='w-[85vw] pb-[3vw] bg-white bg-opacity-10 text-white mt-[10vw] border-[0.05vw] rounded-[6vw] pl-[4vw] mb-[2vw]'>
+              <div className='w-[85vw] pb-[3vw] bg-white bg-opacity-10 text-white mt-[2vw] border-[0.05vw] rounded-[6vw] pl-[4vw] mb-[3vw]'>
                 <p className='text-[3.8vw] mt-[5vw] font-semibold'>
                   {item.idName}
                 </p>
@@ -202,7 +202,7 @@ const handlePopupSubmit = () => {
                     <div className='flex justify-center py-[0.8vw]'>
                       <Button
                           label="Checkout Visitor" 
-                          onClick={() => displayDialogue(item.visitorTag)}                       
+                          onClick={() => displayDialogue(item.visitorTag, item.idName)}                       
                           className="bg-white text-black px-[3vw] py-[0.9vw] rounded"
                       />
                     </div>
@@ -220,19 +220,19 @@ const handlePopupSubmit = () => {
             className='w-[80vw]'
         >
             <div>
-                <p className='text-[4vw] ml-[0.3vw]'>Enter Visitor's Badge Number</p>
+                <p className='text-[3.5vw] font-semibold ml-[0.3vw]'>Enter Visitor's Badge Number</p>
 
                 <InputText
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    className='w-full text-black rounded-[0.3vw] text-[5vw] pl-[0.5vw] h-[8vw] border-black border-[0.2vw] mt-[0.2vw]'
+                    className='w-full text-black rounded-[1.3vw] text-[4vw] font-semibold text-center h-[7.5vw] border-black border-[0.2vw] mt-[0.2vw]'
                 />     
 
                 <div className="mt-[3vw] flex justify-center">
                     <Button
                         label="Checkout"
                         onClick={handlePopupSubmit}
-                        className="bg-green-500 text-white px-3 py-1"
+                        className="bg-green-500 text-white px-[2vw] py-[1vw]"
                     />
                 </div>                           
             </div>
