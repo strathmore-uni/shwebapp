@@ -50,11 +50,27 @@ const Secretaryview = () => {
             setshoowSecondButton(true);
             setDisplaySelect(true);            
             // setDisplayPopup(false);
-            // You can add additional logic here (e.g., send data to the backend)
+            
             setClearedRows(prev => ({
                 ...prev,
                 [selectedUser._id]: true // Assuming each row has a unique 'id'
             }));
+
+            const clearedData = {
+                cleared: true, // Pass the cleared status
+            };
+            
+            fetch(`http://localhost:5000/api/data/${selectedUser._id}`, {
+                method: 'PUT', // Use PUT method to update data
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(clearedData), // Only send the fields that you want to update
+            })
+            .then(response => response.json())
+            .then(data => console.log('Data updated:', data))
+            .catch(error => console.error('Error:', error));
+            
 
         } else {            
             toast.error('Confirmation Failed');
@@ -74,7 +90,10 @@ const Secretaryview = () => {
 
     const renderConfirmButton = (rowData) => {
 
-        const isCleared = clearedRows[rowData._id]; // Check if the row is cleared
+        // const isCleared = clearedRows[rowData._id]; // Check if the row is cleared
+
+        // Parse the 'cleared' field which is stored as a string ("true" or "false")
+        const isCleared = rowData.cleared === "true"; // Convert the string to a boolean
 
         return (
             // <Button
@@ -87,7 +106,7 @@ const Secretaryview = () => {
                 label={isCleared ? "Cleared" : "Confirm"}
                 onClick={() => confirmUser(rowData)}
                 className={isCleared ? "p-button-secondary" : "bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-700"}
-                disabled={isCleared} // Optionally disable the button if cleared
+                disabled={isCleared} // Disable the button if cleared
             />
         );
     };
@@ -151,7 +170,7 @@ const Secretaryview = () => {
 
             <DataTable className='w-[86.5vw]' value={data} filters={filters} paginator stripedRows rows={7}>
                 <Column field="idName" header="Name" sortable />
-                <Column field="sharedString" header="ID" />
+                {/* <Column field="sharedString" header="ID" /> */}
                 <Column field="phone" header="Phone No." />
                 <Column field="department" header="Destination" />
                 <Column field="visitorTag" header="Tag" />
@@ -171,13 +190,13 @@ const Secretaryview = () => {
         </div>
 
         <Dialog
-            header="Confirm Visitor"
+            header="Clear Visitor"
             visible={displayPopup}
             onHide={() => setDisplayPopup(false)}
             className='w-[20vw] h-[25vw]'
         >
             <div>
-                <p className='text-[1vw] ml-[0.3vw]'>Enter Visitor's Tag Number</p>
+                <p className='text-[1vw] ml-[0.3vw]'>Enter Visitor's Badge Number</p>
 
                 <InputText
                     value={inputValue}

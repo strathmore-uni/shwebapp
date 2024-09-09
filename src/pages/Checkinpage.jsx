@@ -1,8 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { coatOfArms } from '../assets';
+import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
+import { InputText } from 'primereact/inputtext';
+import { Toaster, toast } from 'sonner'
 import axios from 'axios';
 
 const Checkinpage = ({ myphone, sharedString, iDname, datetime, department, setFulldata }) => {
+
+  const [displayPopup, setDisplayPopup] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [visitorsBadge, setVisitorsBadge] = useState('');
+
+  console.log(visitorsBadge);
+
+  const displayDialogue = (visitorTag) => {
+    setDisplayPopup(true);
+    setVisitorsBadge(visitorTag);
+  };
+
+const handlePopupSubmit = () => {
+  if (inputValue === visitorsBadge) {            
+      toast.success('Confirmation Successfull');     
+
+  } else {            
+      toast.error('Confirmation Failed');
+      setInputValue(''); //Reset the input field  
+  }
+};
+
   // const [checkins, setCheckins] = useState(() => {
   //   const savedCheckins = localStorage.getItem('checkins');
   //   return savedCheckins ? JSON.parse(savedCheckins) : [];
@@ -171,28 +197,48 @@ const Checkinpage = ({ myphone, sharedString, iDname, datetime, department, setF
                       TODO
                     </p>
                   </div>
+                  
+                  {item.cleared && (
+                    <div className='flex justify-center py-[0.8vw]'>
+                      <Button
+                          label="Checkout Visitor" 
+                          onClick={() => displayDialogue(item.visitorTag)}                       
+                          className="bg-white text-black px-[3vw] py-[0.9vw] rounded"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>            
           </div>
         ))}
 
-      
+        <Dialog
+            header="Visitor Clearance"
+            visible={displayPopup}
+            onHide={() => setDisplayPopup(false)}
+            className='w-[80vw]'
+        >
+            <div>
+                <p className='text-[4vw] ml-[0.3vw]'>Enter Visitor's Badge Number</p>
 
-{/* <div className='text-white'>
-      <h1>Data from MongoDB</h1>
-      <ul>
-        {data.map(item => (
-          <li key={item._id}>
-            <p>Phone: {item.phone}</p>
-            <p>Department: {item.department}</p>
-            <p>Shared String: {item.sharedString}</p>
-            <p>ID Name: {item.idName}</p>
-            <p>Date and Time: {item.dateTime}</p>
-          </li>
-        ))}
-      </ul>
-    </div> */}
+                <InputText
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    className='w-full text-black rounded-[0.3vw] text-[5vw] pl-[0.5vw] h-[8vw] border-black border-[0.2vw] mt-[0.2vw]'
+                />     
+
+                <div className="mt-[3vw] flex justify-center">
+                    <Button
+                        label="Checkout"
+                        onClick={handlePopupSubmit}
+                        className="bg-green-500 text-white px-3 py-1"
+                    />
+                </div>                           
+            </div>
+        </Dialog>
+
+        <Toaster richColors position="top-center" />
     </div>
   );
 };

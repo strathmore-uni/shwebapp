@@ -62,16 +62,16 @@ const Datatable = (refresh) => {
             <Column field="role" header="Role" />
             <Column field="email" header="Email" />
             <Column
-                        header="Actions"
-                        body={(rowData) => (
-                            <button
-                                onClick={() => handleDelete(rowData._id)}
-                                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
-                            >
-                                Delete
-                            </button>
-                        )}
-                    />
+                header="Actions"
+                body={(rowData) => (
+                    <button
+                        onClick={() => handleDelete(rowData._id)}
+                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
+                    >
+                        Delete
+                    </button>
+                )}
+            />
         </DataTable>
     </div>
   )
