@@ -13,6 +13,7 @@ const Checkinpage = ({ myphone, sharedString, iDname, datetime, department, setF
   const [visitorsBadge, setVisitorsBadge] = useState('');
   const [selectedIdName, setSelectedIdName] = useState('');
   const [documentId, setDocumentId] = useState('');
+  const [reload, setReload] = useState(true);
 
   const displayDialogue = (visitorTag, idName, _id) => {
     setDisplayPopup(true);
@@ -23,18 +24,24 @@ const Checkinpage = ({ myphone, sharedString, iDname, datetime, department, setF
 
 const handlePopupSubmit = async () => {
   if (inputValue === visitorsBadge) {            
-      toast.success(selectedIdName +' has been Succesfully checkedout');    
+      // toast.success(selectedIdName +' has been Succesfully checkedout');    
       
       try {
           const response = await axios.post('http://localhost:5000/api/migrate', { id: documentId });
-          alert(response.data.message);
+
+          toast.success(selectedIdName +' has been Succesfully checkedout');
+
+          // alert(response.data.message);
+
+          setDisplayPopup(!displayPopup);
+          setReload(!reload);
       } catch (error) {
-          console.error(error);
-          alert('Failed to migrate document');
+          toast.error(error + ' Failed to Checkout Visitor');
+          setInputValue('');
       }
 
   } else {            
-      toast.error('Confirmation Failed');
+      toast.error('Incorrect Visitor Badge');
       setInputValue(''); //Reset the input field  
   }
 };
@@ -76,7 +83,7 @@ const handlePopupSubmit = async () => {
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => console.error('Error fetching data:', error));
-  }, []);
+  }, [reload]);
 
   return (
     <div>
