@@ -77,21 +77,30 @@ const handlePopupSubmit = async () => {
   // };
 
   const [data, setData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(''); // for search input
 
   useEffect(() => {
     fetch('http://localhost:5000/api/data')
       .then(response => response.json())
       .then(data => setData(data))
-      .catch(error => console.error('Error fetching data:', error));
+      .catch(error => toast.error('Error fetching data', error));
   }, [reload]);
+
+
+  // Filter data based on search query
+  const filteredData = data.filter(item => 
+    item.idName.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    item.sharedString.includes(searchQuery) // Customize the search logic based on your needs
+  );
 
   return (
     <div>
-      <div className='flex justify-center pt-[10vw]'>
+      {/* <div className='flex justify-center pt-[10vw]'>
         <div>
           <img src={coatOfArms} className='h-[30vw] mb-[3vw]' alt='Coat of Arms' />
         </div>
-      </div>
+      </div> */}
+
       {/* {data.map((checkin, index) => (
         <div className='flex justify-center' key={index}>
           <div>
@@ -156,7 +165,19 @@ const handlePopupSubmit = async () => {
         </div>
       ))} */}
 
-      {data.map(item => (
+
+      <div className='flex justify-center mt-[5vw]'>
+        <input
+          type='text'
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder='Search Visitor by Name or ID number'
+          className='mb-[3vw] w-[85vw] px-[2vw] py-[1.5vw] rounded-[2vw] text-black'
+        />
+      </div>
+
+
+      {filteredData.map(item => (
           <div className='flex justify-center' key={item._id}>
             <div>
               <div className='w-[85vw] pb-[3vw] bg-white bg-opacity-10 text-white mt-[2vw] border-[0.05vw] rounded-[6vw] pl-[4vw] mb-[3vw]'>
