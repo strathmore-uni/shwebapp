@@ -28,6 +28,7 @@ const Secretaryview = () => {
     const [shoowSecondButton, setshoowSecondButton] = useState(false);
     const [notification, setnotification] = useState('');
     const [clearedRows, setClearedRows] = useState({});
+    const [reload, setReload] = useState(true);
     // const [matchResult, setMatchResult] = useState(null);
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const Secretaryview = () => {
         .then(response => response.json())
         .then(data => setData(data))
         .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    }, [reload]);
 
     const confirmUser = (user) => {
         setSelectedUser(user);
@@ -46,6 +47,7 @@ const Secretaryview = () => {
     const handlePopupSubmit = () => {
         if (inputValue === selectedUser.visitorTag) {            
             toast.success('Confirmation Successfull');
+            setReload(!reload);
             setshoowButton(false);
             setshoowSecondButton(true);
             setDisplaySelect(true);            

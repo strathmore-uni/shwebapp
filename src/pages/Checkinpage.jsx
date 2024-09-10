@@ -12,16 +12,26 @@ const Checkinpage = ({ myphone, sharedString, iDname, datetime, department, setF
   const [inputValue, setInputValue] = useState('');
   const [visitorsBadge, setVisitorsBadge] = useState('');
   const [selectedIdName, setSelectedIdName] = useState('');
+  const [documentId, setDocumentId] = useState('');
 
-  const displayDialogue = (visitorTag, idName) => {
+  const displayDialogue = (visitorTag, idName, _id) => {
     setDisplayPopup(true);
     setVisitorsBadge(visitorTag);
     setSelectedIdName(idName);
+    setDocumentId(_id);
   };
 
-const handlePopupSubmit = () => {
+const handlePopupSubmit = async () => {
   if (inputValue === visitorsBadge) {            
-      toast.success(selectedIdName +' has been Succesfully checkedout');     
+      toast.success(selectedIdName +' has been Succesfully checkedout');    
+      
+      try {
+          const response = await axios.post('http://localhost:5000/api/migrate', { id: documentId });
+          alert(response.data.message);
+      } catch (error) {
+          console.error(error);
+          alert('Failed to migrate document');
+      }
 
   } else {            
       toast.error('Confirmation Failed');
@@ -202,7 +212,7 @@ const handlePopupSubmit = () => {
                     <div className='flex justify-center py-[0.8vw]'>
                       <Button
                           label="Checkout Visitor" 
-                          onClick={() => displayDialogue(item.visitorTag, item.idName)}                       
+                          onClick={() => displayDialogue(item.visitorTag, item.idName, item._id)}                       
                           className="bg-white text-black px-[3vw] py-[0.9vw] rounded"
                       />
                     </div>
