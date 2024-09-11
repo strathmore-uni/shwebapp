@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { coatOfArms, cameraIcon } from '../assets';
 import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
 
 const Fillinfopage = ({ sharedString, iDname,setmyphone,setDateTime,setDepartment, setliftvisitorTag }) => {
-  console.log(sharedString, iDname);
+  // console.log(sharedString, iDname);
 const navigate = useNavigate();
   const [phoneno, setphoneno] = useState('');
 
@@ -14,7 +15,6 @@ const navigate = useNavigate();
   const [visitorTag, setvisitorTag] = useState('');
 
 
-
   const handlesubmit = () => {
     setDepartment(dept);
   setmyphone(phoneno);
@@ -23,6 +23,18 @@ const navigate = useNavigate();
     navigate('/shwebapp/mypage')
  
   }
+
+  const depatmentOptions = [
+    { value: 'iLabAfrica', label: '@iLab Africa' },
+    { value: 'Strathmore Business School', label: 'Strathmore Business School' },
+    { value: 'St Thomas Moore Building', label: 'St. Thomas Moore Building' },
+    { value: 'Students Center', label: 'Students Center' },
+  ];
+
+  const handleChange = (selectedOption) => {
+    // console.log(`Selected:`, selectedOption);
+    setdept(selectedOption.value);    // .value extracts the value from the object created by react select
+  };
 
   
   //Date and Time function to update the usestate
@@ -37,15 +49,15 @@ const navigate = useNavigate();
     return showTime;
   }
   setDateTime(showTime);
-  console.log(showTime)
+  // console.log(showTime)
 
   return (
     <div>
-      <div className='flex justify-center pt-[10vw]'>
+      {/* <div className='flex justify-center pt-[10vw]'>
         <div>
           <img src={coatOfArms} className='h-[30vw]' alt='Coat of Arms' />
         </div>
-      </div>
+      </div> */}
       
     
 
@@ -97,14 +109,21 @@ const navigate = useNavigate();
               <p className='mb-[1vw] mt-[2.5vw]'>
                 Enter Department Headed :
               </p>
-              <input name="telnumber" type="text" placeholder='Department Headed' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setdept(e.target.value)}/>
+              {/* <input name="telnumber" type="text" placeholder='Department Headed' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setdept(e.target.value)}/> */}
+
+              <Select
+                  options={depatmentOptions}
+                  onChange={handleChange}
+                  placeholder="Select Department"
+                  className='w-[55vw] rounded-[1vw] text-black'
+              />
             </label>
 
             <label>
               <p className='mb-[1vw] mt-[2.5vw]'>
-                Enter Visitor's Tag :
+                Enter Visitor's Badge Number :
               </p>
-              <input name="telnumber" type="text" placeholder='Enter Tag Number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setvisitorTag(e.target.value)}/>
+              <input name="telnumber" type="text" placeholder='Enter Badge Number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setvisitorTag(e.target.value)}/>
             </label>
 
             <div className='mt-[2.5vw]'>

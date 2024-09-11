@@ -166,21 +166,22 @@ const handlePopupSubmit = async () => {
       ))} */}
 
 
-      <div className='flex justify-center mt-[5vw]'>
+      <div className='flex justify-center mt-[8vw]'>
         <input
           type='text'
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder='Search Visitor by Name or ID number'
-          className='mb-[3vw] w-[85vw] px-[2vw] py-[1.5vw] rounded-[2vw] text-black'
+          className='mb-[3vw] w-[85vw] px-[2vw] py-[1.5vw] rounded-[2vw] text-black fixed'
         />
+
+        <div className='w-[10vw] h-[5vw] mb-[9vw]'></div>
       </div>
-
-
+      
       {filteredData.map(item => (
           <div className='flex justify-center' key={item._id}>
             <div>
-              <div className='w-[85vw] pb-[3vw] bg-white bg-opacity-10 text-white mt-[2vw] border-[0.05vw] rounded-[6vw] pl-[4vw] mb-[3vw]'>
+              <div className='w-[85vw] pb-[3vw] bg-white bg-opacity-10 text-white border-[0.05vw] rounded-[6vw] pl-[4vw] mb-[3vw]'>
                 <p className='text-[3.8vw] mt-[5vw] font-semibold'>
                   {item.idName}
                 </p>

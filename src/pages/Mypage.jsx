@@ -102,7 +102,7 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
 
               <label>
                 <p className='mb-[1vw] mt-[2.5vw]'>
-                  Department Headed :
+                  Visitor's Badge Number :
                 </p>
                 
                 <p className='font-bold pl-[1.5vw]'>
