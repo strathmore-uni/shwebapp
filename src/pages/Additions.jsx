@@ -71,22 +71,24 @@ const Additions = () => {
                 </div>
             </div>
 
-            <div className='w-[25vw]  border-black border-[0.2vw] rounded-[0.3vw] flex justify-center'>
-                <InputText 
-                    onInput={(e) =>
-                        setFilters({
-                            global: { value: e.target.value, matchMode: FilterMatchMode.CONTAINS}
-                        })
-                    }
-                    
-                    placeholder='Search for Department'
-                    className='mt-[1vw] h-[2.5vw] rounded-[0.3vw] pl-[1.5vw] w-[20vw] bg-background-grey'
-                />
+            <div className='w-[25vw] overflow-x-hidden border-black border-[0.2vw] rounded-[0.3vw] flex justify-center'>
+                <div>
+                    <InputText 
+                        onInput={(e) =>
+                            setFilters({
+                                global: { value: e.target.value, matchMode: FilterMatchMode.CONTAINS}
+                            })
+                        }
+                        
+                        placeholder='Search for Department'
+                        className='mt-[1vw] h-[2.5vw] rounded-[0.3vw] pl-[1.5vw] w-[20vw] bg-background-grey'
+                    />
 
-                <DataTable className='w-[86.5vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={7}>
-                    <Column field="departmentName" header="Name" sortable />                   
-                    
-                </DataTable>
+                    <DataTable className='w-[23vw] h-[30vw]' value={data} filters={filters} stripedRows placeholder='ji' rows={8}>
+                        <Column field="departmentName" header="Name" sortable />                   
+                        
+                    </DataTable>
+                </div>
             </div>
         </div>
     </div>
