@@ -16,6 +16,7 @@ import Notfound from './pages/Notfound'
 import Secretaryview from './pages/Secretaryview'
 import Secsidepanel from './components/Secsidepanel'
 import Appointments from './components/Appointments'
+import Additions from './pages/Additions'
 
 const App = () => {
   const[myphone,setmyphone]=useState('')
@@ -34,8 +35,8 @@ const obj = Object.assign({}, { info: myarray });
   const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
   const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
   const guardSignedIn = true;
-  const adminSignedIn = false;
-  const secSignedIn = true;
+  const adminSignedIn = true;
+  const secSignedIn = false;
 
   // const [coatLarge, setCoatLarge] = useState(55);
   // const [coatTop, setcoatTop] = useState(20);
@@ -224,6 +225,7 @@ const obj = Object.assign({}, { info: myarray });
                   <Routes>
                     <Route path="shwebapp/dashboard" element={<Dashboard />}></Route>
                     <Route path="shwebapp/users" element={<Users />}></Route>
+                    <Route path="shwebapp/additions" element={<Additions />}></Route>
                     <Route path="*" element={<Navigate to="/shwebapp/dashboard" />} />
                   </Routes>
                 </BrowserRouter>

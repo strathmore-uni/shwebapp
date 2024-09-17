@@ -1,5 +1,5 @@
 import React from 'react'
-import { homeBlack, homeWhite, usersBlack } from '../assets'
+import { homeBlack, homeWhite, optionsImg, usersBlack } from '../assets'
 import { Link } from 'react-router-dom'
 
 const Sidepanel = () => {
@@ -23,6 +23,16 @@ const Sidepanel = () => {
 
                         <p className='mt-[0.27vw]'>
                             Users
+                        </p>
+                    </div> 
+                </Link>
+
+                <Link to="shwebapp/additions">
+                    <div className='w-[11vw] border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-black flex pl-[0.6vw] gap-[0.7vw] text-[1.2vw] font-semibold mb-[0.5vw]'>
+                        <img src={optionsImg} className='h-[1.3vw] mt-[0.5vw]' />
+
+                        <p className='mt-[0.27vw]'>
+                            Additions
                         </p>
                     </div> 
                 </Link>               

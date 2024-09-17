@@ -9,5 +9,6 @@ import usersBlack from "./users-black.png";
 import plusImage from "./plus-symbol-button.png";
 import searchIcon from "./search-icon.png";
 import logo from "./mrtn-logo.png";
+import optionsImg from "./options.png";
 
-export { coatOfArms, fingerprintIcon, signOut, cameraIcon, myImage, homeWhite, homeBlack, usersBlack, plusImage, searchIcon, logo };
+export { coatOfArms, fingerprintIcon, signOut, cameraIcon, myImage, homeWhite, homeBlack, usersBlack, plusImage, searchIcon, logo, optionsImg };
