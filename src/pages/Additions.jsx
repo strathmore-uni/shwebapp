@@ -9,6 +9,7 @@ import axios from 'axios';
 const Additions = () => {
 
     const [depart, setDepart] = useState('');
+    const [departmentRefresh, setDepartmentRefresh] = useState(false);
 
     const [data, setData] = useState([]);
 
@@ -23,7 +24,7 @@ const Additions = () => {
         .then(response => response.json())
         .then(data => setData(data))
         .catch(error => toast.error('Error fetching data:', error));
-    }, []);
+    }, [departmentRefresh]);
 
     const handleSubmit = async () => {
         if (!depart) {
@@ -42,13 +43,29 @@ const Additions = () => {
         //   console.log(response.data); // Log the response from the server
           toast.success("Department " + depart + " has been successfully added");
           setDepart('');          
-        //   setRefresh(!refresh);
+          setDepartmentRefresh(!departmentRefresh);
 
         } catch (error) {
           console.error('Error submitting data:', error);
           toast.error('Failed to add Department');
         }
-      };    
+      }; 
+      
+    const handleDelete = async (_id) => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/departmentsdata/${_id}`, {
+                method: 'DELETE',
+            });
+            const result = await response.json();
+            console.log(result.message);
+            toast.success(result.message);
+            // Refresh data after delete
+            setData(data.filter((item) => item._id !== _id));
+        } catch (error) {
+            console.error('Error deleting user:', error);
+            toast.error('Error deleting user');
+        }
+    };
 
   return (
     <div>
@@ -84,9 +101,19 @@ const Additions = () => {
                         className='mt-[1vw] h-[2.5vw] rounded-[0.3vw] pl-[1.5vw] w-[20vw] bg-background-grey'
                     />
 
-                    <DataTable className='w-[23vw] h-[30vw]' value={data} filters={filters} stripedRows placeholder='ji' rows={8}>
-                        <Column field="departmentName" header="Name" sortable />                   
-                        
+                    <DataTable className='w-[23vw] h-[30vw] mt-[1vw]' value={data} filters={filters} stripedRows placeholder='ji' rows={8}>
+                        <Column field="departmentName" header="Department" sortable />                   
+                        <Column
+                            header="Actions"
+                            body={(rowData) => (
+                                <button
+                                    onClick={() => handleDelete(rowData._id)}
+                                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
+                                >
+                                    Delete
+                                </button>
+                            )}
+                        />
                     </DataTable>
                 </div>
             </div>

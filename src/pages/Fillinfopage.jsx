@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { coatOfArms, cameraIcon } from '../assets';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import axios from 'axios'; // For API requests
 
 const Fillinfopage = ({ sharedString, iDname,setmyphone,setDateTime,setDepartment, setliftvisitorTag }) => {
   // console.log(sharedString, iDname);
@@ -24,12 +25,36 @@ const navigate = useNavigate();
  
   }
 
-  const depatmentOptions = [
-    { value: 'iLabAfrica', label: '@iLab Africa' },
-    { value: 'Strathmore Business School', label: 'Strathmore Business School' },
-    { value: 'St Thomas Moore Building', label: 'St. Thomas Moore Building' },
-    { value: 'Students Center', label: 'Students Center' },
-  ];
+  // const depatmentOptions = [
+  //   { value: 'iLabAfrica', label: '@iLab Africa' },
+  //   { value: 'Strathmore Business School', label: 'Strathmore Business School' },
+  //   { value: 'St Thomas Moore Building', label: 'St. Thomas Moore Building' },
+  //   { value: 'Students Center', label: 'Students Center' },
+  // ];
+
+  const [depatmentOptions, setDepatmentOptions] = useState([]);
+
+  // Fetch data from your MongoDB API endpoint
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/departmentsdata'); // Replace with your actual API endpoint
+        const departments = response.data;
+
+        // Map the data to the format React Select expects
+        const formattedOptions = departments.map(department => ({
+          value: department.departmentName,
+          label: department.departmentName
+        }));
+
+        setDepatmentOptions(formattedOptions);
+      } catch (error) {
+        console.error("Error fetching departments:", error);
+      }
+    };
+
+    fetchDepartments();
+  }, []);
 
   const handleChange = (selectedOption) => {
     // console.log(`Selected:`, selectedOption);
@@ -48,8 +73,12 @@ const navigate = useNavigate();
                      monthNames[date.getMonth()] + ' ' + date.getFullYear();
     return showTime;
   }
-  setDateTime(showTime);
+  // setDateTime(showTime);
   // console.log(showTime)
+
+  useEffect(() => {
+    setDateTime(showTime);
+  }, [showTime, setDateTime]);
 
   return (
     <div>
