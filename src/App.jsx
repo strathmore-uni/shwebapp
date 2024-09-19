@@ -25,6 +25,7 @@ const App = () => {
   const [iDname, setiDname] = useState('');
   const [datetime,setDateTime]= useState('');
   const [liftvisitorTag, setliftvisitorTag] = useState('');
+  const [liftBadgeId, setliftBadgeId] = useState('');
 
 const myarray = [myphone, department, sharedString, iDname, datetime];
 
@@ -205,9 +206,9 @@ const obj = Object.assign({}, { info: myarray });
             <Route path="shwebapp/" element={<Loginpage />}></Route>
             <Route path="shwebapp/menu" element={<Menupage />}></Route>
             <Route path="shwebapp/checkedin" element={<Checkinpage sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department} myphone={myphone} />}></Route>
-            <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department} liftvisitorTag={liftvisitorTag}   />} />
+            <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department} liftvisitorTag={liftvisitorTag} liftBadgeId={liftBadgeId}   />} />
             <Route path="shwebapp/camera" element={<Webcamera  setSharedString={setSharedString} setiDname={setiDname} />}></Route>
-            <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} setliftvisitorTag={setliftvisitorTag} />}></Route>
+            <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} setliftvisitorTag={setliftvisitorTag} setliftBadgeId={setliftBadgeId} />}></Route>
             <Route path="*" element={<Navigate to="/shwebapp/menu" />} />
           </Routes>
         </BrowserRouter>

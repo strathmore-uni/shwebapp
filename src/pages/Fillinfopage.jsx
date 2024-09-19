@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios'; // For API requests
 
-const Fillinfopage = ({ sharedString, iDname,setmyphone,setDateTime,setDepartment, setliftvisitorTag }) => {
+const Fillinfopage = ({ sharedString, iDname,setmyphone,setDateTime,setDepartment, setliftvisitorTag, setliftBadgeId }) => {
   // console.log(sharedString, iDname);
 const navigate = useNavigate();
   const [phoneno, setphoneno] = useState('');
@@ -14,12 +14,13 @@ const navigate = useNavigate();
   const [dept, setdept] = useState('');
 
   const [visitorTag, setvisitorTag] = useState('');
-
+  const [badgeId, setBadgeId] = useState('');
 
   const handlesubmit = () => {
     setDepartment(dept);
   setmyphone(phoneno);
   setliftvisitorTag(visitorTag);
+  setliftBadgeId(badgeId);
 
     navigate('/shwebapp/mypage')
  
@@ -33,8 +34,11 @@ const navigate = useNavigate();
   // ];
 
   const [depatmentOptions, setDepatmentOptions] = useState([]);
+  const [badges, setBadges] = useState([]);
+  
+  console.log(badges);
 
-  // Fetch data from your MongoDB API endpoint
+  // Fetch Departments from MongoDB API endpoint
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
@@ -56,9 +60,43 @@ const navigate = useNavigate();
     fetchDepartments();
   }, []);
 
+
+  // Fetch data from Visitors Badges MongoDB API endpoint
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/visitorsbadges'); // Replace with your actual API endpoint
+        const visitors = response.data;
+
+        // Filter out records where chosen is "true"
+        const filteredVisitors = visitors.filter(visitor => visitor.chosen !== "true");
+
+        // Map the data to the format React Select expects
+        const formattedOptions = filteredVisitors.map(visitors => ({
+          value: visitors._id,
+          label: visitors.visitorsBadge,
+          chosen: visitors.chosen
+        }));
+
+        setBadges(formattedOptions);
+      } catch (error) {
+        console.error("Error fetching departments:", error);
+      }
+    };
+
+    fetchDepartments();
+  }, []);
+
+
   const handleChange = (selectedOption) => {
     // console.log(`Selected:`, selectedOption);
     setdept(selectedOption.value);    // .value extracts the value from the object created by react select
+  };
+
+  const handleBadgesChange = (selectedOption) => {
+    // console.log(`Selected:`, selectedOption);
+    setvisitorTag(selectedOption.label);    // .value extracts the value from the object created by react select
+    setBadgeId(selectedOption.value);
   };
 
   
@@ -152,7 +190,14 @@ const navigate = useNavigate();
               <p className='mb-[1vw] mt-[2.5vw]'>
                 Enter Visitor's Badge Number :
               </p>
-              <input name="telnumber" type="text" placeholder='Enter Badge Number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setvisitorTag(e.target.value)}/>
+              {/* <input name="telnumber" type="text" placeholder='Enter Badge Number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setvisitorTag(e.target.value)}/> */}
+
+              <Select
+                  options={badges}
+                  onChange={handleBadgesChange}
+                  placeholder="Select Visitors Badge"
+                  className='w-[55vw] rounded-[1vw] text-black'
+              />
             </label>
 
             <div className='mt-[2.5vw]'>

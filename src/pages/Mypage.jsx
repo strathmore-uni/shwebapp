@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { coatOfArms } from '../assets'
 import axios from 'axios';
 
-export default function Mypage({myphone, sharedString, iDname,datetime,department,setFulldata, liftvisitorTag}) {
+export default function Mypage({myphone, sharedString, iDname,datetime,department,setFulldata, liftvisitorTag, liftBadgeId}) {
 
   const handleSubmit = async () => {
     // Create an object with the state variables
@@ -18,8 +18,17 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
 
     try {
       // Send the data to the backend
-      const response = await axios.post('http://localhost:5000/api/data', data);
-      console.log(response.data); // Log the response from the server
+      // const response = await axios.post('http://localhost:5000/api/data', data);
+      // console.log(response.data); // Log the response from the server
+
+      const [postResponse, putResponse] = await Promise.all([
+        axios.post('http://localhost:5000/api/data', data),
+        axios.put(`http://localhost:5000/api/visitorsbadges/${liftBadgeId}`, { chosen: true })
+      ]);
+
+      console.log('Post Response:', postResponse.data); // Log the response from the server
+      console.log('Put Response:', putResponse.data); // Log response for badge update
+
       // Reset the fields if needed
       // setMyPhone('');
       // setDepartment('');
@@ -27,7 +36,8 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
       // setIDname('');
       // setDateTime('');
     } catch (error) {
-      console.error('Error submitting data:', error);
+      // console.error('Error submitting data:', error);
+      console.error('Error submitting data:', error.message || error);
     }
   };
 
