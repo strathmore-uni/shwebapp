@@ -84,7 +84,7 @@ const handlePopupSubmit = async () => {
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => toast.error('Error fetching data', error));
-  }, [reload]);
+  }, [reload]);  
 
 
   // Filter data based on search query

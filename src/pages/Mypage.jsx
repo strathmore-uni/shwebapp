@@ -14,7 +14,12 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
       idName: iDname,
       dateTime: datetime,
       visitorTag: liftvisitorTag,
+      badgeId: liftBadgeId,
     };
+
+    const choosen = {
+      chosen: 'true',      
+    }
 
     try {
       // Send the data to the backend
@@ -23,7 +28,7 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
 
       const [postResponse, putResponse] = await Promise.all([
         axios.post('http://localhost:5000/api/data', data),
-        axios.put(`http://localhost:5000/api/visitorsbadges/${liftBadgeId}`, { chosen: true })
+        axios.put(`http://localhost:5000/api/visitorsbadges/${liftBadgeId}`, choosen)
       ]);
 
       console.log('Post Response:', postResponse.data); // Log the response from the server

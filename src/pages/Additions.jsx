@@ -66,7 +66,8 @@ const Additions = () => {
 
         // Create an object with the state variables
         const data = {
-            visitorsBadge: badge,          
+            visitorsBadge: badge, 
+            chosen: "false",         
         };
     
         try {
