@@ -14,20 +14,33 @@ const Checkinpage = ({ myphone, sharedString, iDname, datetime, department, setF
   const [selectedIdName, setSelectedIdName] = useState('');
   const [documentId, setDocumentId] = useState('');
   const [reload, setReload] = useState(true);
+  const [vistBadgeId, setVistBadgeId] = useState('');
 
-  const displayDialogue = (visitorTag, idName, _id) => {
+  const displayDialogue = (visitorTag, idName, _id, badgeId) => {
     setDisplayPopup(true);
     setVisitorsBadge(visitorTag);
     setSelectedIdName(idName);
     setDocumentId(_id);
+    setVistBadgeId(badgeId);
   };
+
+  console.log(vistBadgeId)
 
 const handlePopupSubmit = async () => {
   if (inputValue === visitorsBadge) {            
       // toast.success(selectedIdName +' has been Succesfully checkedout');    
+
+      const choosen = {
+        chosen: 'f',      
+      }
       
       try {
-          const response = await axios.post('http://localhost:5000/api/migrate', { id: documentId });
+          // const response = await axios.post('http://localhost:5000/api/migrate', { id: documentId });
+
+          const [postResponse, putResponse] = await Promise.all([
+            axios.post('http://localhost:5000/api/migrate', { id: documentId }),
+            axios.put(`http://localhost:5000/api/visitorsbadges/${vistBadgeId}`, choosen)
+          ]);
 
           toast.success(selectedIdName +' has been Succesfully checkedout');
 
@@ -84,7 +97,8 @@ const handlePopupSubmit = async () => {
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => toast.error('Error fetching data', error));
-  }, [reload]);  
+  }, [reload]);
+    
 
 
   // Filter data based on search query
@@ -241,7 +255,7 @@ const handlePopupSubmit = async () => {
                     <div className='flex justify-center py-[0.8vw]'>
                       <Button
                           label="Checkout Visitor" 
-                          onClick={() => displayDialogue(item.visitorTag, item.idName, item._id)}                       
+                          onClick={() => displayDialogue(item.visitorTag, item.idName, item._id, item.badgeId)}                       
                           className="bg-white text-black px-[3vw] py-[0.9vw] rounded"
                       />
                     </div>
