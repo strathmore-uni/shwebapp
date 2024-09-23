@@ -24,14 +24,12 @@ const Checkinpage = ({ myphone, sharedString, iDname, datetime, department, setF
     setVistBadgeId(badgeId);
   };
 
-  console.log(vistBadgeId)
-
 const handlePopupSubmit = async () => {
   if (inputValue === visitorsBadge) {            
       // toast.success(selectedIdName +' has been Succesfully checkedout');    
 
       const choosen = {
-        chosen: 'f',      
+        chosen: 'false',      
       }
       
       try {
@@ -48,6 +46,7 @@ const handlePopupSubmit = async () => {
 
           setDisplayPopup(!displayPopup);
           setReload(!reload);
+          setVistBadgeId('');
       } catch (error) {
           toast.error(error + ' Failed to Checkout Visitor');
           setInputValue('');
