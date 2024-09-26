@@ -13,7 +13,7 @@ const Users = () => {
       setShowUsersForm(true);
     };
 
-    console.log(refresh);
+    // console.log(refresh);
 
   return (
     <div>

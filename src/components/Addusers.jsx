@@ -13,8 +13,8 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
     const [role, setRole] = useState('');
     // const [toastResponse, setToastResponse] = useState('');
 
-    console.log(role);
-
+    // console.log(role);
+    
     ///Generate Passwords Function///
     function Str_Random(length) {
         let result = '';
@@ -74,10 +74,36 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
           setEmail('');
           setRefresh(!refresh);
 
+        // Prepare the email data to send after the user creation
+        const emailData = {
+          email: email,
+          subject: 'Hello',
+          message: 'Test',
+        };
+
+        // Send the email data to the backend
+        const emailResponse = await fetch('http://localhost:5000/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(emailData), // Use the structured emailData
+        });
+
+        const responseData = await emailResponse.text(); // Get response as text
+
+        if (emailResponse.ok) {
+          // alert('Email sent successfully!');
+          toast.success('Email sent successfully!');
+        } else {
+          toast.error('Failed to send email');
+          console.log(responseData);
+        }
+
         } catch (error) {
           console.error('Error submitting data:', error);
           toast.error('Failed to create a new user');
-        }
+        }        
       };
 
     const options = [
