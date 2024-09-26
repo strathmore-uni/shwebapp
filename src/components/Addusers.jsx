@@ -67,7 +67,7 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
           // Send the data to the backend
           const response = await axios.post('http://localhost:5000/api/userdata', data);
         //   setToastResponse(response.data);
-          console.log(response.data); // Log the response from the server
+          //console.log(response.data); // Log the response from the server
           toast.success(response.data);
           setUserName('');
           setStaffId('');
@@ -77,8 +77,8 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
         // Prepare the email data to send after the user creation
         const emailData = {
           email: email,
-          subject: 'Hello',
-          message: 'Test',
+          subject: 'Access to Visitor Management System',
+          message: 'Hello ' + userName + ", you have been given access to MRTN's Visitor Management System as a " + role + ". Your User Name is " + userName + " and your password is " + password + ". Please change your password after you login.",
         };
 
         // Send the email data to the backend
@@ -112,7 +112,7 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
       ];
 
     const handleChange = (selectedOption) => {
-      console.log(`Selected:`, selectedOption);
+      // console.log(`Selected:`, selectedOption);
       setRole(selectedOption.value);    // .value extracts the value from the object created by react select
     };
 
