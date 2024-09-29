@@ -67,6 +67,32 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
           setSelectedDate(null);
           setRefresh(!refresh);
 
+        // Prepare the email data to send after the appointment creation
+        const emailData = {
+          email: email,
+          subject: 'Appointment Created',
+          message: 'Hello ' + userName + ", an appointment has been setup for you on " + formattedDate,
+        };
+
+        // Send the email data to the backend
+        const emailResponse = await fetch('http://localhost:5000/send-appointment-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(emailData), // Use the structured emailData
+        });
+
+        const responseData = await emailResponse.text(); // Get response as text
+
+        if (emailResponse.ok) {
+          // alert('Email sent successfully!');
+          toast.success('Email sent successfully!');
+        } else {
+          toast.error('Failed to send email');
+          console.log(responseData);
+        }
+
         } catch (error) {
           console.error('Error submitting data:', error);
           toast.error('Failed to create a new user');
