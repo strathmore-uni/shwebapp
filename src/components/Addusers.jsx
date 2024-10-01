@@ -78,7 +78,7 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
         const emailData = {
           email: email,
           subject: 'Access to Visitor Management System',
-          message: 'Hello ' + userName + ", you have been given access to MRTN's Visitor Management System as a " + role + ". Your User Name is " + userName + " and your password is " + password + ". Please change your password after you login.",
+          message: 'Hello ' + userName + ", you have been given access to MRTN's Visitor Management System as <strong>" + role + "</strong>. Your User Name is <strong>" + userName + "</strong> and your password is <strong>" + password + "</strong>. Please change your password after you login.",
         };
 
         // Send the email data to the backend
@@ -107,8 +107,9 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
       };
 
     const options = [
-        { value: 'guard', label: 'Guard' },
-        { value: 'receptionist', label: 'Receptionist' },
+        { value: 'Guard', label: 'Guard' },
+        { value: 'Receptionist', label: 'Receptionist' },
+        { value: 'Admin', label: 'Admin' },
       ];
 
     const handleChange = (selectedOption) => {

@@ -71,7 +71,7 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
         const emailData = {
           email: email,
           subject: 'Appointment Created',
-          message: 'Hello ' + userName + ", an appointment has been setup for you on " + formattedDate,
+          message: 'Dear ' + userName + ",<br />An appointment has been setup for you to see [Visitee Name] on " + formattedDate,
         };
 
         // Send the email data to the backend
@@ -123,7 +123,7 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
                     <div>
                         <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
-                                Enter Full Name :
+                                Enter Visitor's Full Name :
                             </p>
 
                             <input name="username" type="text" placeholder='Enter Name' value={userName} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setUserName(e.target.value)} />

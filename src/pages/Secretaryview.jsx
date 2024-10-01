@@ -46,7 +46,7 @@ const Secretaryview = () => {
 
     const handlePopupSubmit = () => {
         if (inputValue === selectedUser.visitorTag) {            
-            toast.success('Confirmation Successfull');
+            toast.success('Cleared');
             setReload(!reload);
             setshoowButton(false);
             setshoowSecondButton(true);
@@ -92,10 +92,10 @@ const Secretaryview = () => {
 
     const renderConfirmButton = (rowData) => {
 
-        // const isCleared = clearedRows[rowData._id]; // Check if the row is cleared
+        const isCleared = clearedRows[rowData._id]; // Check if the row is cleared
 
         // Parse the 'cleared' field which is stored as a string ("true" or "false")
-        const isCleared = rowData.cleared === "true"; // Convert the string to a boolean
+        // const isCleared = rowData.cleared === "true"; // Convert the string to a boolean
 
         return (
             // <Button
