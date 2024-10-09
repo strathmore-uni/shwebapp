@@ -92,10 +92,10 @@ const Secretaryview = () => {
 
     const renderConfirmButton = (rowData) => {
 
-        const isCleared = clearedRows[rowData._id]; // Check if the row is cleared
+        // const isCleared = clearedRows[rowData._id]; // Check if the row is cleared
 
         // Parse the 'cleared' field which is stored as a string ("true" or "false")
-        // const isCleared = rowData.cleared === "true"; // Convert the string to a boolean
+        const isCleared = rowData.cleared === "true"; // Convert the string to a boolean
 
         return (
             // <Button
