@@ -11,8 +11,8 @@ const Login = () => {
     e.preventDefault();
     if (input.username !== "" && input.password !== "") {
       //dispatch action from hooks
-    }
-    alert("please provide a valid input");
+    }    
+    toast.error("please provide a valid input");
   };
 
   const handleInput = (e) => {
@@ -24,7 +24,7 @@ const Login = () => {
   };
 
   return (
-    <div className="text-[1vw] pt-[16vw] pb-[18vw] bg-white bg-opacity-10 text-white flex justify-center">
+    <div className="text-[1vw] pt-[16vw] pb-[16vw] bg-white bg-opacity-10 text-white flex justify-center">
         <div>
             <p className="text-[2vw] font-bold">
                 Welcome
@@ -56,7 +56,7 @@ const Login = () => {
                     name="password"
                     placeholder="Password"  
                     onChange={handleInput}
-                    className="rounded-[0.2vw] pl-[1vw] bg-transparent border-[0.1vw] h-[3vw] w-[20vw] mb-[0.7vw] border-white"
+                    className="rounded-[0.2vw] pl-[1vw] bg-transparent border-[0.1vw] h-[3vw] w-[20vw] mb-[0.8vw] border-white"
                     />
                     <div id="user-password" className="sr-only">
                     your password should be more than 6 character
@@ -66,8 +66,16 @@ const Login = () => {
                 <div className="flex justify-center">
                     <button className="border py-[0.3vw] px-[1vw] rounded-[0.2vw] bg-white text-black font-semibold">Submit</button>
                 </div>
+
+                <div className="flex justify-center">
+                  <p className="mt-[0.4vw] text-[0.9vw]">
+                      Don't have an account? <span className="underline cursor-pointer">Create Account</span>
+                  </p>
+                </div>
             </form>
         </div>
+
+        <Toaster richColors />
     </div>
   );
 };

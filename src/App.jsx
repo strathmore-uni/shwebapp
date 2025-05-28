@@ -34,13 +34,13 @@ const App = () => {
   const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
 
   //Psuedo-Sign-in//
-  const guardSignedIn = false;
+  const guardSignedIn = true;
   const adminSignedIn = false;
   const secSignedIn = false;  
 
   return (
     <div>
-      <Login />
+      {/* <Login /> */}
 
       {mobileScreen && (
         <div>

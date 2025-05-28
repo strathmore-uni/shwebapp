@@ -1,5 +1,5 @@
 import React from 'react'
-import { homeBlack, homeWhite, usersBlack } from '../assets'
+import { gatepass, homeBlack, homeWhite, preRegisterIcon, usersBlack } from '../assets'
 import { Link } from 'react-router-dom'
 
 const Secsidepanel = () => {
@@ -25,7 +25,27 @@ const Secsidepanel = () => {
                             Appointments
                         </p>
                     </div> 
-                </Link>               
+                </Link>
+
+                <Link to="shwebapp/appointments">
+                    <div className='w-[11vw] border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-black flex pl-[0.6vw] gap-[0.7vw] text-[1.1vw] font-semibold mb-[0.5vw]'>
+                        <img src={gatepass} className='h-[1.5vw] mt-[0.41vw]' />
+
+                        <p className='mt-[0.35vw]'>
+                            Gate Pass
+                        </p>
+                    </div> 
+                </Link> 
+
+                <Link to="shwebapp/appointments">
+                    <div className='w-[11vw] border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-black flex pl-[0.6vw] gap-[0.7vw] text-[1.1vw] font-semibold mb-[0.5vw]'>
+                        <img src={preRegisterIcon} className='h-[1.5vw] mt-[0.41vw]' />
+
+                        <p className='mt-[0.35vw]'>
+                            Registration
+                        </p>
+                    </div> 
+                </Link>                    
             </div>
         </div>
     </div>

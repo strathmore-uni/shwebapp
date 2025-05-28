@@ -10,5 +10,7 @@ import plusImage from "./plus-symbol-button.png";
 import searchIcon from "./search-icon.png";
 import logo from "./mrtn-logo.png";
 import optionsImg from "./options.png";
+import gatepass from "./id-card.png";
+import preRegisterIcon from "./registration.png";
 
-export { coatOfArms, fingerprintIcon, signOut, cameraIcon, myImage, homeWhite, homeBlack, usersBlack, plusImage, searchIcon, logo, optionsImg };
+export { coatOfArms, fingerprintIcon, signOut, cameraIcon, myImage, homeWhite, homeBlack, usersBlack, plusImage, searchIcon, logo, optionsImg, gatepass, preRegisterIcon };
