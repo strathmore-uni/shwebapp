@@ -27,7 +27,7 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
     formData.append('image', image);
 
     try {
-      const response = await axios.post('http://127.0.0.1:5000/ocr', formData, {
+      const response = await axios.post('http://10.55.36.97:5000/ocr', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
