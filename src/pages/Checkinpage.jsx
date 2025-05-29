@@ -92,7 +92,8 @@ const handlePopupSubmit = async () => {
   const [searchQuery, setSearchQuery] = useState(''); // for search input
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/data')
+    // fetch('http://localhost:5000/api/data')
+    fetch(`${import.meta.env.VITE_API_URL}/api/data`)
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => toast.error('Error fetching data', error));

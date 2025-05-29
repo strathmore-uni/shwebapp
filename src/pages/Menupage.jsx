@@ -14,14 +14,14 @@ export const Menupage = () => {
                     </div>
                 </Link>
 
-                <div className='w-[80vw] border rounded-[1.3vw] my-[5vw] py-[2.5vw] cursor-pointer'>
+                {/* <div className='w-[80vw] border rounded-[1.3vw] my-[5vw] py-[2.5vw] cursor-pointer'>
                     <p>
                         Appointment Arrival
                     </p>
-                </div>
+                </div> */}
 
                 <Link to="/shwebapp/checkedin">
-                    <div className='w-[80vw] border rounded-[1.3vw] py-[2.5vw] cursor-pointer'>
+                    <div className='w-[80vw] border rounded-[1.3vw] mt-[5vw] py-[2.5vw] cursor-pointer'>
                         <p>
                             Checked-In
                         </p>
