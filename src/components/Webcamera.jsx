@@ -169,8 +169,7 @@ const navigateToNextPage = () => {
 <Webcam
   audio={false}
   ref={webcamRef}
-  height={Math.floor((2 / 3) * width)}
-  width={width}
+  height={250}
   screenshotFormat="image/jpeg"
   videoConstraints={{
     facingMode: 'environment',
