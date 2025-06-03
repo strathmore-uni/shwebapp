@@ -20,7 +20,7 @@ const Loginpage = () => {
                             <img src={fingerprintIcon} className='w-[25vw]' />
 
                             <p className='text-[3.5vw] font-normal text-white mt-[4vw]'>
-                                Scan fingerprint to Login
+                                Scan fingerprint -- replace with 
                             </p>
                         </div>
                     </Link>
