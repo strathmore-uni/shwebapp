@@ -152,10 +152,11 @@ const navigateToNextPage = () => {
 
   return (
     <div>
-        <Webcam
+        {/* <Webcam
             audio={false}
             ref={webcamRef}
-            height={(2/3*width)+"px"}
+            // height={(2/3*width)+"px"}
+            height={30}
             width={width+"px"}
             screenshotFormat="image/jpeg"
             videoConstraints={{
@@ -163,7 +164,20 @@ const navigateToNextPage = () => {
             }}
             className='mt-[20vw]'
             
-        />
+        /> */}
+
+<Webcam
+  audio={false}
+  ref={webcamRef}
+  height={Math.floor((2 / 3) * width)}
+  width={width}
+  screenshotFormat="image/jpeg"
+  videoConstraints={{
+    facingMode: 'environment',
+  }}
+  className="mt-[20vw]"
+/>
+
 
         <button onClick={capture}>Capture photo</button>
           {/* {imgSrc && (
