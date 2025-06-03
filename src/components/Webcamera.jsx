@@ -8,6 +8,9 @@ import Fillinfopage from '../pages/Fillinfopage'
 // import { parse } from 'mrz'
 
 const Webcamera = ({ setSharedString, setiDname,myphone }) => {
+
+  const { innerWidth: width, innerHeight: height } = window;
+
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const history = useNavigate();
@@ -152,10 +155,14 @@ const navigateToNextPage = () => {
         <Webcam
             audio={false}
             ref={webcamRef}
+            height={(2/3*width)+"px"}
+            width={width+"px"}
             screenshotFormat="image/jpeg"
             videoConstraints={{
                 facingMode: 'environment',
             }}
+            className='mt-[20vw]'
+            
         />
 
         <button onClick={capture}>Capture photo</button>
