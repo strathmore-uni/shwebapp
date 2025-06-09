@@ -115,22 +115,21 @@ const navigateToNextPage = () => {
       </div> */}
 
       {visible && (
-        <div className='flex justify-center'>
-          <div className='absolute top-[25vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center py-[9vw]'>
+        <div className='flex justify-center relative'>
+          <div className='absolute top-[15vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw] pb-[5vw] z-10'>
             {results.length > 0 && (
-                <div>    
-                  <p>{myphone}</p>            
-                  <p>
-                    ID No : {results[3][1]}
-                  </p>
-
-                  <p>
-                    Name : {results[4][1]}
-                  </p>
-                </div>
-              )}
+              <div>    
+                <p>{myphone}</p>            
+                <p>ID No : {results[3][1]}</p>
+                <p>Name : {results[4][1]}</p>
+              </div>
+            )}
+        
+            <button onClick={navigateToNextPage} className='border-[0.45vw] rounded-[1vw] text-center text-white mt-[3vw] py-[1vw] w-[40vw]'>
+              Continue
+            </button>
           </div>
-        </div>
+        </div>      
       )}
 
         <Webcam
@@ -148,11 +147,11 @@ const navigateToNextPage = () => {
           ${animate ? 'scale-125 rotate-[360deg]' : ''}`} />        
         </button>
         
-        <div className='flex justify-center mt-[5vw]'>
-        <button onClick={navigateToNextPage} className='border-[0.45vw] rounded-[1vw] text-center text-white py-[1vw] w-[40vw]'>
-          Next
-        </button>
-      </div>
+        {/* <div className='flex justify-center mt-[5vw]'>
+          <button onClick={navigateToNextPage} className='border-[0.45vw] rounded-[1vw] text-center text-white py-[1vw] w-[40vw]'>
+            Next
+          </button>
+        </div> */}
 
       
     
