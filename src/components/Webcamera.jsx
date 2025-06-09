@@ -162,7 +162,7 @@ const navigateToNextPage = () => {
       </p>
 
       <div className='flex justify-center'>
-        <div className='absolute top-[25vw] w-[70vw] h-[30vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw]'>
+        <div className='absolute top-[25vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center py-[9vw]'>
           {results.length > 0 && (
               <div>    
                 <p>{myphone}</p>            
