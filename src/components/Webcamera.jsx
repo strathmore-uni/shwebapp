@@ -162,10 +162,19 @@ const navigateToNextPage = () => {
       </p>
 
       <div className='flex justify-center'>
-        <div className='absolute top-[15vw] w-[60vw] h-[30vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[4vw]'>
-          <p>
-            Name: John Smith <br /> ID No: 36560000
-          </p>
+        <div className='absolute top-[25vw] w-[70vw] h-[30vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw]'>
+          {results.length > 0 && (
+              <div>    
+                <p>{myphone}</p>            
+                <p>
+                  ID No : {results[3][1]}
+                </p>
+
+                <p>
+                  Name : {results[4][1]}
+                </p>
+              </div>
+            )}
         </div>
       </div>
 
@@ -194,11 +203,7 @@ const navigateToNextPage = () => {
           <p>{recognizedText}</p>
         </div>   */}
 
-        <div className='text-white'>
-            {/* <form onSubmit={handleSubmit}>
-              <input type="file" accept="image/*" onChange={handleImageChange} />
-              <button type="submit">Upload</button>
-            </form> */}
+        {/* <div className='text-white'>
             {results.length > 0 && (
               <div>    
                 <p>{myphone}</p>            
@@ -211,19 +216,7 @@ const navigateToNextPage = () => {
                 </p>
               </div>
             )}
-            {/* {noName.length > 0 && (
-              <div>
-                <h2>Results</h2>
-                <ul>
-                  {results.map((noName, index) => (
-                    <li key={index}>                      
-                      {noName[1]}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )} */}
-        </div>  
+        </div>   */}
         
         <div className='flex justify-center mt-[5vw]'>
         <button onClick={navigateToNextPage} className='border-[0.45vw] rounded-[1vw] text-center text-white py-[1vw] w-[40vw]'>
