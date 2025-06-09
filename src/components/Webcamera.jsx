@@ -158,7 +158,7 @@ const navigateToNextPage = () => {
   return (
     <div>
       <p className='text-white text-center pt-[4vw]'>
-      Ensure the entire ID card fits entirely within the frame
+        Ensure the entire ID card fits entirely within the frame
       </p>
 
         <Webcam
@@ -168,11 +168,11 @@ const navigateToNextPage = () => {
             videoConstraints={{
                 facingMode: 'environment',
             }}
-            className='mt-[8vw]'
+            className='mt-[6vw]'
         />
 
         <button onClick={capture}>
-          <img src={shutter} className={`w-[20vw] ml-[40vw] mt-[10vw] transition-transform duration-1000 ease-in-out
+          <img src={shutter} className={`w-[20vw] ml-[40vw] mt-[8vw] transition-transform duration-1000 ease-in-out
           ${animate ? 'scale-125 rotate-[360deg]' : ''}`} />        
         </button>
           {/* {imgSrc && (
