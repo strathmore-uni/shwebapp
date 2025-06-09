@@ -12,5 +12,6 @@ import logo from "./mrtn-logo.png";
 import optionsImg from "./options.png";
 import gatepass from "./id-card.png";
 import preRegisterIcon from "./registration.png";
+import shutter from "./shutter.png";
 
-export { coatOfArms, fingerprintIcon, signOut, cameraIcon, myImage, homeWhite, homeBlack, usersBlack, plusImage, searchIcon, logo, optionsImg, gatepass, preRegisterIcon };
+export { coatOfArms, fingerprintIcon, signOut, cameraIcon, myImage, homeWhite, homeBlack, usersBlack, plusImage, searchIcon, logo, optionsImg, gatepass, preRegisterIcon, shutter };

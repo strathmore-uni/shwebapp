@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Fillinfopage from '../pages/Fillinfopage'
 // import { parse } from 'mrz'
+import { shutter } from '../assets'
 
 const Webcamera = ({ setSharedString, setiDname,myphone }) => {
   const [id, setId] = useState('');
@@ -159,7 +160,9 @@ const navigateToNextPage = () => {
             className='mt-[11vw]'
         />
 
-        <button onClick={capture}>Capture photo</button>
+        <button onClick={capture}>
+          <img src={shutter} className='w-[20vw] ml-[40vw] mt-[10vw]' />        
+        </button>
           {/* {imgSrc && (
             <img
               src={imgSrc}
