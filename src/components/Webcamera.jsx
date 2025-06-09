@@ -18,6 +18,8 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
   const [image, setImage] = useState(null);
   const [results, setResults] = useState([]);
 
+  const [animate, setAnimate] = useState(false);
+
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
@@ -47,6 +49,11 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
+
+    setAnimate(true);
+
+    // Optional: reset animation after some time
+    setTimeout(() => setAnimate(false), 1000); // duration matches your animation
 
     // Convert the base64 image to a Blob
     const blob = await fetch(imageSrc).then(res => res.blob());
@@ -161,7 +168,8 @@ const navigateToNextPage = () => {
         />
 
         <button onClick={capture}>
-          <img src={shutter} className='w-[20vw] ml-[40vw] mt-[10vw]' />        
+          <img src={shutter} className={`w-[20vw] ml-[40vw] mt-[10vw] transition-transform duration-1000 ease-in-out
+          ${animate ? 'scale-125 rotate-[360deg]' : ''}`} />        
         </button>
           {/* {imgSrc && (
             <img
