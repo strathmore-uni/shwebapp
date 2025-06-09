@@ -16,6 +16,7 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
   const [results, setResults] = useState([]);
 
   const [animate, setAnimate] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   // const handleImageChange = (e) => {
   //   setImage(e.target.files[0]);
@@ -59,6 +60,7 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
         },
       });
       setResults(response.data);
+      setVisible(true);
     } catch (error) {
       console.error('Error uploading the image', error);
       alert('Failed to upload the image. Please try again.');
@@ -95,7 +97,7 @@ const navigateToNextPage = () => {
         Ensure the entire ID card fits entirely within the frame
       </p>
 
-      <div className='flex justify-center'>
+      {/* <div className='flex justify-center'>
         <div className='absolute top-[25vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center py-[9vw]'>
           {results.length > 0 && (
               <div>    
@@ -110,7 +112,26 @@ const navigateToNextPage = () => {
               </div>
             )}
         </div>
-      </div>
+      </div> */}
+
+      {visible && (
+        <div className='flex justify-center'>
+          <div className='absolute top-[25vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center py-[9vw]'>
+            {results.length > 0 && (
+                <div>    
+                  <p>{myphone}</p>            
+                  <p>
+                    ID No : {results[3][1]}
+                  </p>
+
+                  <p>
+                    Name : {results[4][1]}
+                  </p>
+                </div>
+              )}
+          </div>
+        </div>
+      )}
 
         <Webcam
             audio={false}
