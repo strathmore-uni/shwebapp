@@ -17,6 +17,7 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
 
   const [animate, setAnimate] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // const handleImageChange = (e) => {
   //   setImage(e.target.files[0]);
@@ -44,6 +45,7 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
     setImgSrc(imageSrc);
 
     setAnimate(true);
+    setLoading(true);
 
     // Optional: reset animation after some time
     setTimeout(() => setAnimate(false), 1000); // duration matches your animation
@@ -61,6 +63,7 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
       });
       setResults(response.data);
       setVisible(true);
+      setLoading(false);
     } catch (error) {
       console.error('Error uploading the image', error);
       alert('Failed to upload the image. Please try again.');
@@ -96,6 +99,14 @@ const navigateToNextPage = () => {
       <p className='text-white text-center pt-[4vw]'>
         Ensure the entire ID card fits entirely within the frame
       </p>
+
+      {loading && (
+        <div className="flex justify-center">
+          <div className='absolute top-[50vw]'>
+            <div className="w-[15vw] h-[15vw] border-[1.5vw] border-white border-t-transparent rounded-full animate-spin" />
+          </div>
+        </div>
+      )}
 
       {/* <div className='flex justify-center'>
         <div className='absolute top-[25vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center py-[9vw]'>
