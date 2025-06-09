@@ -168,7 +168,7 @@ const navigateToNextPage = () => {
             videoConstraints={{
                 facingMode: 'environment',
             }}
-            className='mt-[6vw]'
+            className='mt-[4vw]'
         />
 
         <button onClick={capture}>
