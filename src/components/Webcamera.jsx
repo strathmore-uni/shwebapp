@@ -157,6 +157,10 @@ const navigateToNextPage = () => {
 
   return (
     <div>
+      <p className='text-white text-center pt-[4vw]'>
+      Ensure the entire ID card fits entirely within the frame
+      </p>
+
         <Webcam
             audio={false}
             ref={webcamRef}
@@ -164,7 +168,7 @@ const navigateToNextPage = () => {
             videoConstraints={{
                 facingMode: 'environment',
             }}
-            className='mt-[11vw]'
+            className='mt-[8vw]'
         />
 
         <button onClick={capture}>
