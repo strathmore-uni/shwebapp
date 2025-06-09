@@ -161,6 +161,14 @@ const navigateToNextPage = () => {
         Ensure the entire ID card fits entirely within the frame
       </p>
 
+      <div className='flex justify-center'>
+        <div className='absolute top-[15vw] w-[60vw] h-[30vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[4vw]'>
+          <p>
+            Name: John Smith <br /> ID No: 36560000
+          </p>
+        </div>
+      </div>
+
         <Webcam
             audio={false}
             ref={webcamRef}
@@ -222,6 +230,8 @@ const navigateToNextPage = () => {
           Next
         </button>
       </div>
+
+      
     
 
 
