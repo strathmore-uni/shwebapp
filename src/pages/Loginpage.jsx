@@ -20,7 +20,7 @@ const Loginpage = () => {
                             <img src={fingerprintIcon} className='w-[25vw]' />
 
                             <p className='text-[3.5vw] font-normal text-white mt-[4vw]'>
-                                15.07 ngrok
+                                Monday 10.01
                             </p>
                         </div>
                     </Link>

@@ -8,9 +8,6 @@ import Fillinfopage from '../pages/Fillinfopage'
 // import { parse } from 'mrz'
 
 const Webcamera = ({ setSharedString, setiDname,myphone }) => {
-
-  const { innerWidth: width, innerHeight: height } = window;
-
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const history = useNavigate();
@@ -56,7 +53,7 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
     formData.append('image', blob, 'captured-image.jpg');
 
     try {
-      const response = await axios.post(' https://ffd2-156-0-233-52.ngrok-free.app/ocr', formData, {
+      const response = await axios.post('https://ffd2-156-0-233-52.ngrok-free.app/ocr', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -152,31 +149,15 @@ const navigateToNextPage = () => {
 
   return (
     <div>
-        {/* <Webcam
+        <Webcam
             audio={false}
             ref={webcamRef}
-            // height={(2/3*width)+"px"}
-            height={30}
-            width={width+"px"}
             screenshotFormat="image/jpeg"
             videoConstraints={{
                 facingMode: 'environment',
             }}
-            className='mt-[20vw]'
-            
-        /> */}
-
-<Webcam
-  audio={false}
-  ref={webcamRef}
-  height={250}
-  screenshotFormat="image/jpeg"
-  videoConstraints={{
-    facingMode: 'environment',
-  }}
-  className="mt-[20vw]"
-/>
-
+            className='mt-[11vw]'
+        />
 
         <button onClick={capture}>Capture photo</button>
           {/* {imgSrc && (
