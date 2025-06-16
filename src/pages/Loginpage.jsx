@@ -20,7 +20,7 @@ const Loginpage = () => {
                             <img src={fingerprintIcon} className='w-[25vw]' />
 
                             <p className='text-[3.5vw] font-normal text-white mt-[4vw]'>
-                                Wednesday Deployment Build Ver 1
+                                Monday June 16 Build Ver 1
                             </p>
                         </div>
                     </Link>
