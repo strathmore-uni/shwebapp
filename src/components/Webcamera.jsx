@@ -56,7 +56,7 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
     formData.append('image', blob, 'captured-image.jpg');
 
     try {
-      const response = await axios.post('http://34.44.123.227:5000/ocr', formData, {
+      const response = await axios.post('https://vms.cognitron.co.ke/ocr', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
