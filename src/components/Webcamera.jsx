@@ -13,7 +13,10 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
   const [imgSrc, setImgSrc] = React.useState(null);
 
   const [image, setImage] = useState(null);
-  const [results, setResults] = useState([]);
+  // const [results, setResults] = useState([]);
+  const [results, setResults] = useState({}); // was []
+
+  console.log(results);
 
   const [animate, setAnimate] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -53,7 +56,8 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
     // Convert the base64 image to a Blob
     const blob = await fetch(imageSrc).then(res => res.blob());
     const formData = new FormData();
-    formData.append('image', blob, 'captured-image.jpg');
+    // formData.append('image', blob, 'captured-image.jpg');
+    formData.append('file', blob, 'captured-image.jpg');
 
     try {
       const response = await axios.post('https://vms.cognitron.co.ke/ocr', formData, {
@@ -71,24 +75,35 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
   }, [webcamRef]);
 
 
-useEffect(() => {
-  const sendDetails = () => {
-    if (Object.keys(results).length > 0) {
+// useEffect(() => {
+//   const sendDetails = () => {
+//     if (Object.keys(results).length > 0) {
      
-      return {
-        id: results[3][1], 
-        name: results[4][1]
-      };
-    }
+//       return {
+//         id: results[3][1], 
+//         name: results[4][1]
+//       };
+//     }
 
-    return { id: '', name: '' }; 
-  };
+//     return { id: '', name: '' }; 
+//   };
 
-  const { id, name } = sendDetails();
-  setSharedString(id);
-  setiDname(name);
+//   const { id, name } = sendDetails();
+//   setSharedString(id);
+//   setiDname(name);
  
-}, [results]); 
+// }, [results]); 
+
+useEffect(() => {
+  if (results?.id_number && results?.name) {
+    setSharedString(results.id_number);
+    setiDname(results.name);
+    setId(results.id_number);
+    setName(results.name);
+  }
+}, [results]);
+
+
 const navigateToNextPage = () => {
   history('/shwebapp/fill', { state: { id, name } });
 };
@@ -125,12 +140,14 @@ const navigateToNextPage = () => {
         </div>
       </div> */}
 
-      {visible && (
+      {/* {visible && (
         <div className='flex justify-center relative'>
           <div className='absolute top-[15vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw] pb-[5vw] z-10'>
             {results.length > 0 && (
               <div>    
-                <p>{myphone}</p>            
+                <p>{myphone}</p>  
+                <p>ID No: {results[5]?.text || 'N/A'}</p>
+                <p>Name: {results[7]?.text || 'N/A'}</p>          
                 <p>ID No : {results[3][1]}</p>
                 <p>Name : {results[4][1]}</p>
               </div>
@@ -141,7 +158,25 @@ const navigateToNextPage = () => {
             </button>
           </div>
         </div>      
+      )} */}
+
+      {visible && (
+        <div className='flex justify-center relative'>
+          <div className='absolute top-[15vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw] pb-[5vw] z-10'>
+            {results?.id_number && results?.name && (
+              <div>    
+                <p>{myphone}</p>  
+                <p>ID No: {results.id_number}</p>
+                <p>Name: {results.name}</p>          
+              </div>
+            )}
+            <button onClick={navigateToNextPage} className='border-[0.45vw] rounded-[1vw] text-center text-white mt-[3vw] py-[1vw] w-[40vw]'>
+              Continue
+            </button>
+          </div>
+        </div>      
       )}
+
 
         <Webcam
             audio={false}
