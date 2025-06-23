@@ -17,7 +17,7 @@ const Secsidepanel = () => {
                     </div>
                 </Link>
 
-                <Link to="shwebapp/appointments">
+                {/* <Link to="shwebapp/appointments">
                     <div className='w-[11vw] border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-black flex pl-[0.6vw] gap-[0.7vw] text-[1.1vw] font-semibold mb-[0.5vw]'>
                         <img src={usersBlack} className='h-[1.5vw] mt-[0.41vw]' />
 
@@ -25,7 +25,7 @@ const Secsidepanel = () => {
                             Appointments
                         </p>
                     </div> 
-                </Link>
+                </Link> */}
 
                 <Link to="shwebapp/appointments">
                     <div className='w-[11vw] border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-black flex pl-[0.6vw] gap-[0.7vw] text-[1.1vw] font-semibold mb-[0.5vw]'>

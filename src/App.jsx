@@ -1,105 +1,220 @@
-import React, { useState } from 'react'
-import { BrowserRouter, Routes, Route, Navigate  } from "react-router-dom"
-import { coatOfArms, fingerprintIcon, signOut } from './assets'
-import { useMediaQuery } from 'react-responsive'
-import Webcamera from './components/Webcamera'
-import Loginpage from './pages/Loginpage'
-import Checkinpage from './pages/Checkinpage'
-import { Menupage } from './pages/Menupage'
-import Fillinfopage from './pages/Fillinfopage'
-import Mypage from './pages/Mypage'
-import Sidepanel from './components/Sidepanel'
-import Navbar from './components/Navbar'
-import Dashboard from './components/Dashboard'
-import Users from './components/Users'
-import Notfound from './pages/Notfound'
-import Secretaryview from './pages/Secretaryview'
-import Secsidepanel from './components/Secsidepanel'
-import Appointments from './components/Appointments'
-import Additions from './pages/Additions'
-import Login from './components/authentication/Login'
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useMediaQuery } from 'react-responsive';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+
+import Webcamera from './components/Webcamera';
+import Checkinpage from './pages/Checkinpage';
+import { Menupage } from './pages/Menupage';
+import Fillinfopage from './pages/Fillinfopage';
+import Mypage from './pages/Mypage';
+import Sidepanel from './components/Sidepanel';
+import Navbar from './components/Navbar';
+import Dashboard from './components/Dashboard';
+import Users from './components/Users';
+import Secretaryview from './pages/Secretaryview';
+import Secsidepanel from './components/Secsidepanel';
+import Appointments from './components/Appointments';
+import Additions from './pages/Additions';
+import Notfound from './pages/Notfound';
+import { Toaster, toast } from 'sonner'
 
 const App = () => {
-  //UseStates//
-  const[myphone,setmyphone]=useState('')
-  const[department,setDepartment]=useState('');
+  // App state
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [role, setRole] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [myphone, setmyphone] = useState('');
+  const [department, setDepartment] = useState('');
   const [sharedString, setSharedString] = useState('');
   const [iDname, setiDname] = useState('');
-  const [datetime,setDateTime]= useState('');
+  const [datetime, setDateTime] = useState('');
   const [liftvisitorTag, setliftvisitorTag] = useState('');
   const [liftBadgeId, setliftBadgeId] = useState('');
 
-  //Responsiveness//
+  // Screen detection
   const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
-  const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)'});
+  const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)' });
 
-  //Psuedo-Sign-in//
-  const guardSignedIn = true;
-  const adminSignedIn = false;
-  const secSignedIn = false;  
+  useEffect(() => {
+    if (token) {
+      const decoded = jwtDecode(token);
+      setRole(decoded.role);
+    }
+  }, [token]);
 
+  const handleLogin = async () => {
+    if (!email) {
+      toast.error('Enter User ID');
+    } else {
+      if (!password) {
+        toast.error('Enter Password')
+      } else {
+          try {
+            const res = await axios.post('http://localhost:5000/login', { email, password });
+            const token = res.data.token;
+            localStorage.setItem('token', token);
+            setToken(token);
+            const decoded = jwtDecode(token);
+            setRole(decoded.role);
+          } catch {
+            toast.error('Invalid User ID or Password');
+          }
+      }
+    }
+
+    // try {
+    //   const res = await axios.post('http://localhost:5000/login', { email, password });
+    //   const token = res.data.token;
+    //   localStorage.setItem('token', token);
+    //   setToken(token);
+    //   const decoded = jwtDecode(token);
+    //   setRole(decoded.role);
+    // } catch {
+    //   toast.error('Invalid User ID or Password');
+    // }
+  };
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+    setRole(null);
+  };
+
+  // Pseudo-login UI
+  if (!token) {
+    return (
+      // <div className='flex flex-col items-center justify-center h-screen '>
+      //   <div className="flex flex-col">
+      //     <h2 className="text-white text-[3vw] font-bold text-center pb-[1vw]">Login</h2>
+      //     <input
+      //       className="border px-[12vw] py-[2vw] text-center rounded-[1vw] mb-[1vw]"
+      //       placeholder="Enter User ID"
+      //       onChange={(e) => setEmail(e.target.value)}
+      //     />
+      //     <input
+      //       type="password"
+      //       className="border px-[12vw] py-[2vw] text-center rounded-[1vw] mb-[1vw]"
+      //       placeholder="Enter Password"
+      //       onChange={(e) => setPassword(e.target.value)}
+      //     />
+      //     <button className="bg-blue-600 text-white px-4 py-2 rounded-[1vw]" onClick={handleLogin}>
+      //       Login
+      //     </button>
+
+      //     <Toaster richColors position="top-center" />
+      //   </div>
+      // </div>
+      
+      <div>
+        {mobileScreen && (
+          <div className='flex flex-col items-center justify-center pt-[28vh]'>
+          <div className="flex flex-col">
+            <h2 className="text-white text-[8vw] font-bold text-center pb-[1vw]">Login</h2>
+            <input
+              className="border px-[12vw] py-[3vw] text-center rounded-[1vw]"
+              placeholder="Enter User ID"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              className="border px-[12vw] py-[3vw] text-center rounded-[1vw] my-[1.5vw]"
+              placeholder="Enter Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button className="bg-blue-600 text-white px-[12vw] py-[3vw] rounded-[1vw]" onClick={handleLogin}>
+              Login
+            </button>
+  
+            <Toaster richColors position="top-center" />
+          </div>
+        </div>
+        )}
+
+        {notMobileScreen && (
+          <div className='flex flex-col items-center justify-center pt-[25vh]'>
+            <div className="flex flex-col">
+              <h2 className="text-white text-[3vw] font-bold text-center pb-[1vw]">Login</h2>
+              <input
+                className="border px-[5vw] py-[0.8vw] text-center rounded-[0.5vw]"
+                placeholder="Enter User ID"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                type="password"
+                className="border px-[5vw] py-[0.8vw] text-center rounded-[0.5vw] my-[0.5vw]"
+                placeholder="Enter Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button className="bg-blue-600 text-white px-[5vw] py-[0.8vw] rounded-[0.5vw]" onClick={handleLogin}>
+                Login
+              </button>
+    
+              <Toaster richColors position="top-center" />
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Main UI based on roles
   return (
     <div>
-      {/* <Login /> */}
+      <button onClick={logout} className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded">
+        Logout
+      </button>
 
-      {mobileScreen && (
-        <div>
-          {guardSignedIn && (
+      {mobileScreen && role === 'guard' && (
+        <BrowserRouter>
+          <Routes>
+            <Route path="shwebapp/menu" element={<Menupage />} />
+            <Route path="shwebapp/checkedin" element={<Checkinpage sharedString={sharedString} iDname={iDname} datetime={datetime} department={department} myphone={myphone} />} />
+            <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname} datetime={datetime} department={department} liftvisitorTag={liftvisitorTag} liftBadgeId={liftBadgeId} />} />
+            <Route path="shwebapp/camera" element={<Webcamera setSharedString={setSharedString} setiDname={setiDname} />} />
+            <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} setliftvisitorTag={setliftvisitorTag} setliftBadgeId={setliftBadgeId} />} />
+            <Route path="*" element={<Navigate to="/shwebapp/menu" />} />
+          </Routes>
+        </BrowserRouter>
+      )}
+
+      {notMobileScreen && role === 'admin' && (
+        <div className='w-screen h-screen bg-grey absolute'>
+          <Navbar />
+          <div className='flex'>
             <BrowserRouter>
+              <Sidepanel />
               <Routes>
-                <Route path="shwebapp/" element={<Loginpage />}></Route>
-                <Route path="shwebapp/menu" element={<Menupage />}></Route>
-                <Route path="shwebapp/checkedin" element={<Checkinpage sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department} myphone={myphone} />}></Route>
-                <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname}  datetime={datetime} department={department} liftvisitorTag={liftvisitorTag} liftBadgeId={liftBadgeId}   />} />
-                <Route path="shwebapp/camera" element={<Webcamera  setSharedString={setSharedString} setiDname={setiDname} />}></Route>
-                <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} setliftvisitorTag={setliftvisitorTag} setliftBadgeId={setliftBadgeId} />}></Route>
-                <Route path="*" element={<Navigate to="/shwebapp/menu" />} />
+                <Route path="shwebapp/dashboard" element={<Dashboard />} />
+                <Route path="shwebapp/users" element={<Users />} />
+                <Route path="shwebapp/additions" element={<Additions />} />
+                <Route path="*" element={<Navigate to="/shwebapp/dashboard" />} />
               </Routes>
             </BrowserRouter>
-          )}
+          </div>
         </div>
       )}
 
-      {notMobileScreen && (
-        <div>
-          {adminSignedIn && (
-            <div className='w-screen h-screen bg-grey absolute'>
-              <Navbar />
-              <div className='flex'>            
-                <BrowserRouter>
-                  <Sidepanel />
-
-                  <Routes>
-                    <Route path="shwebapp/dashboard" element={<Dashboard />}></Route>
-                    <Route path="shwebapp/users" element={<Users />}></Route>
-                    <Route path="shwebapp/additions" element={<Additions />}></Route>
-                    <Route path="*" element={<Navigate to="/shwebapp/dashboard" />} />
-                  </Routes>
-                </BrowserRouter>
-              </div>
-            </div>
-          )}
-
-          {secSignedIn && (
-            <div className='w-screen h-screen bg-grey absolute'>
-              <Navbar />
-              <div className='flex'>            
-                <BrowserRouter>
-                  <Secsidepanel />
-
-                  <Routes>                    
-                    <Route path="*" element={<Navigate to="/shwebapp/sec" />} />
-                    <Route path="shwebapp/sec" element={<Secretaryview />}></Route>
-                    <Route path="shwebapp/appointments" element={<Appointments />} />
-                  </Routes>
-                </BrowserRouter>
-              </div>
-            </div>
-          )}
+      {notMobileScreen && role === 'secretary' && (
+        <div className='w-screen h-screen bg-grey absolute'>
+          <Navbar />
+          <div className='flex'>
+            <BrowserRouter>
+              <Secsidepanel />
+              <Routes>
+                <Route path="shwebapp/sec" element={<Secretaryview />} />
+                <Route path="shwebapp/appointments" element={<Appointments />} />
+                <Route path="*" element={<Navigate to="/shwebapp/sec" />} />
+              </Routes>
+            </BrowserRouter>
+          </div>
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
