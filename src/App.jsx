@@ -84,7 +84,7 @@ const App = () => {
     setRole(null);
   };
 
-  // Pseudo-login UI
+  // login UI
   if (!token) {
     return (
       // <div className='flex flex-col items-center justify-center h-screen '>
@@ -164,9 +164,9 @@ const App = () => {
   // Main UI based on roles
   return (
     <div>
-      <button onClick={logout} className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded">
+      {/* <button onClick={logout} className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded">
         Logout
-      </button>
+      </button> */}
 
       {mobileScreen && role === 'guard' && (
         <BrowserRouter>
@@ -181,7 +181,7 @@ const App = () => {
         </BrowserRouter>
       )}
 
-      {notMobileScreen && role === 'admin' && (
+      {role === 'admin' && (
         <div className='w-screen h-screen bg-grey absolute'>
           <Navbar />
           <div className='flex'>
@@ -198,7 +198,7 @@ const App = () => {
         </div>
       )}
 
-      {notMobileScreen && role === 'secretary' && (
+      {role === 'secretary' && (
         <div className='w-screen h-screen bg-grey absolute'>
           <Navbar />
           <div className='flex'>

@@ -3,6 +3,12 @@ import { homeBlack, homeWhite, optionsImg, usersBlack } from '../assets'
 import { Link } from 'react-router-dom'
 
 const Sidepanel = () => {
+
+    const logout = () => {
+        localStorage.removeItem('token');  
+        window.location.reload();      
+      };
+
   return (
     <div>
         <div className='w-[13vw] h-[43.6vw] shadow-lg z-20 mr-[0.2vw] flex justify-center pt-[1vw]'>
@@ -35,7 +41,11 @@ const Sidepanel = () => {
                             Additions
                         </p>
                     </div> 
-                </Link>               
+                </Link>      
+
+                <button onClick={logout} className="w-[11vw] border-red-500 border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-red-500 gap-[0.7vw] text-[1.2vw] font-semibold mb-[0.5vw] text-center">
+                    Logout
+                </button>           
             </div>
         </div>
     </div>

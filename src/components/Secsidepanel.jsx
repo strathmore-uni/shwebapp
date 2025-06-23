@@ -3,6 +3,12 @@ import { gatepass, homeBlack, homeWhite, preRegisterIcon, usersBlack } from '../
 import { Link } from 'react-router-dom'
 
 const Secsidepanel = () => {
+
+    const logout = () => {
+        localStorage.removeItem('token');  
+        window.location.reload();      
+      };
+
   return (
     <div>
         <div className='w-[13vw] h-[43.6vw] shadow-lg z-20 mr-[0.2vw] flex justify-center pt-[1vw]'>
@@ -45,7 +51,11 @@ const Secsidepanel = () => {
                             Registration
                         </p>
                     </div> 
-                </Link>                    
+                </Link>   
+
+                <button onClick={logout} className="w-[11vw] border-red-500 border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-red-500 text-center gap-[0.7vw] text-[1.1vw] font-semibold mb-[0.5vw]">
+                    Logout
+                </button>                   
             </div>
         </div>
     </div>
