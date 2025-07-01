@@ -24,7 +24,7 @@ const App = () => {
   // App state
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [role, setRole] = useState(null);
-  const [email, setEmail] = useState('');
+  const [staffid, setStaffid] = useState('');
   const [password, setPassword] = useState('');
 
   const [myphone, setmyphone] = useState('');
@@ -43,18 +43,19 @@ const App = () => {
     if (token) {
       const decoded = jwtDecode(token);
       setRole(decoded.role);
+      console.log("Decoded role:", decoded.role);
     }
   }, [token]);
 
   const handleLogin = async () => {
-    if (!email) {
+    if (!staffid) {
       toast.error('Enter User ID');
     } else {
       if (!password) {
         toast.error('Enter Password')
       } else {
           try {
-            const res = await axios.post('http://localhost:5000/login', { email, password });
+            const res = await axios.post('http://localhost:5000/login', { staffid, password });
             const token = res.data.token;
             localStorage.setItem('token', token);
             setToken(token);
@@ -117,7 +118,7 @@ const App = () => {
             <input
               className="border px-[12vw] py-[3vw] text-center rounded-[1vw]"
               placeholder="Enter User ID"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setStaffid(e.target.value)}
             />
             <input
               type="password"
@@ -141,7 +142,7 @@ const App = () => {
               <input
                 className="border px-[5vw] py-[0.8vw] text-center rounded-[0.5vw]"
                 placeholder="Enter User ID"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setStaffid(e.target.value)}
               />
               <input
                 type="password"
@@ -168,7 +169,7 @@ const App = () => {
         Logout
       </button> */}
 
-      {mobileScreen && role === 'guard' && (
+      {mobileScreen && role === 'Guard' && (
         <BrowserRouter>
           <Routes>
             <Route path="shwebapp/menu" element={<Menupage />} />
@@ -181,7 +182,7 @@ const App = () => {
         </BrowserRouter>
       )}
 
-      {role === 'admin' && (
+      {role === 'Admin' && (
         <div className='w-screen h-screen bg-grey absolute'>
           <Navbar />
           <div className='flex'>
@@ -198,7 +199,7 @@ const App = () => {
         </div>
       )}
 
-      {role === 'secretary' && (
+      {role === 'Receptionis' && (
         <div className='w-screen h-screen bg-grey absolute'>
           <Navbar />
           <div className='flex'>

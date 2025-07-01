@@ -28,7 +28,7 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
         return result;
     }
     // console.log(Str_Random(10));
-    const password = Str_Random(16);
+    const password = Str_Random(7);
     ////////////////////////////////
     ////////////////////////////////
 
@@ -166,7 +166,7 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
 
                         <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
-                                Generated Password :
+                                User's Password :
                             </p>
 
                             <p className='font-bold ml-[1vw] mb-[0.5vw]'>
