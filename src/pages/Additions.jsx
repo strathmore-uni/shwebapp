@@ -120,14 +120,14 @@ const Additions = () => {
     <div>
         <Toaster richColors />
 
-        <div className='mt-[2.5vw] ml-[3vw] flex gap-[4vw]'>
+        <div className='mt-[1vw] ml-[3vw] flex gap-[4vw]'>
             <div>
+                <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
+                    Add Department or Events:
+                </p>
+
                 <div className='flex gap-[1vw]'>
                     <label>
-                        {/* <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
-                            Add Department :
-                        </p> */}
-
                         <input type="text" placeholder='Enter Department Name' value={depart} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2.5vw] w-[17vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setDepart(e.target.value)} />
                     </label>
 
@@ -170,6 +170,10 @@ const Additions = () => {
             </div>
 
             <div>
+                <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
+                    Add Visitor's Badge :
+                </p>
+                
                 <div className='flex gap-[1vw]'>
                     <label>
                         {/* <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
