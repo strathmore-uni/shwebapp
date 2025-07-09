@@ -16,7 +16,7 @@ const Dashboard = () => {
 
         <div className='border-gray-300 border-[0.1vw] rounded-[0.5vw] w-[18vw] pt-[1vw] pb-[0.3vw] pl-[1.2vw]'>
           <p className='text-[0.9vw]'>
-            Active System Users
+            Signed-In System Users
           </p>
 
           <div className='flex gap-[1vw]'>
