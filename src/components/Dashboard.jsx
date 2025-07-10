@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 // BarChart.js
-import { Bar } from 'react-chartjs-2';
-import {Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,} from 'chart.js';
+import { Bar, Pie  } from 'react-chartjs-2';
+import {Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement,} from 'chart.js';
 
 // Register Chart.js components
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
 // const data = {
 //   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
@@ -42,6 +42,22 @@ const chartData = {
   },
 };
 
+const pieChartData = {
+  daily: {
+    labels: ['HR', 'IT', 'Finance', 'Security'],
+    data: [5, 10, 3, 8],
+  },
+  weekly: {
+    labels: ['HR', 'IT', 'Finance', 'Security'],
+    data: [25, 45, 15, 30],
+  },
+  monthly: {
+    labels: ['HR', 'IT', 'Finance', 'Security'],
+    data: [110, 130, 85, 95],
+  },
+};
+
+
 
 
 const Dashboard = () => {
@@ -65,6 +81,34 @@ const Dashboard = () => {
     plugins: {
       legend: { display: false, },
       // title: { display: true, text: `Bar Chart - ${view.charAt(0).toUpperCase() + view.slice(1)}` },
+    },
+  };
+
+
+  const [pieView, setPieView] = useState('daily');
+
+  const pieData = {
+    labels: pieChartData[pieView].labels,
+    datasets: [
+      {
+        label: 'Visitors',
+        data: pieChartData[pieView].data,
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+        hoverOffset: 10,
+      },
+    ],
+  };
+
+  const pieOptions = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: false,
+        text: `Department Visitors (${pieView})`,
+      },
+      legend: {
+        display: false,
+      },
     },
   };
 
@@ -142,38 +186,56 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className='border-gray-300 border-[0.1vw] w-[53vw] mb-[2vh] rounded-[0.5vw] px-[1vw] pt-[0.8vw]'>
-        <div className='text-[0.9vw] mb-[0.5vw] flex gap-[25.3vw]'>
-          <div>
-            <p className='font-bold text-[1vw] mt-[0.2vw]'>
-              Total Visitors: <span className='font-normal text-[0.9vw]'>{view.charAt(0).toUpperCase() + view.slice(1)}</span>
-            </p>
+      <div className='flex gap-[1vw]'>
+        <div className='border-gray-300 border-[0.1vw] w-[53vw] mb-[2vh] rounded-[0.5vw] px-[1vw] pt-[0.8vw]'>
+          <div className='text-[0.9vw] mb-[0.5vw] flex gap-[25.3vw]'>
+            <div>
+              <p className='font-bold text-[1vw] mt-[0.2vw]'>
+                Total Visitors: <span className='font-normal text-[0.9vw]'>{view.charAt(0).toUpperCase() + view.slice(1)}</span>
+              </p>
+            </div>
+
+            <div className='cursor-pointer'>
+              <button onClick={() => setView('daily')} className='border-gray-300 border-[0.1vw] bg-gray-200 rounded-l-[0.3vw] px-[1vw] py-[0.3vw]'>
+                Daily
+              </button>
+
+              <button onClick={() => setView('weekly')} className='border-gray-300 border-[0.1vw] px-[1vw] py-[0.3vw]'>
+                Weekly
+              </button>
+
+              <button onClick={() => setView('monthly')} className='border-gray-300 border-[0.1vw] rounded-r-[0.3vw] px-[1vw] py-[0.3vw]'>
+                Monthly
+              </button>
+            </div>
           </div>
+          <Bar data={data} options={options} />
+        </div>
 
-          <div className='cursor-pointer'>
-            <button onClick={() => setView('daily')} className='border-gray-300 border-[0.1vw] rounded-l-[0.3vw] px-[1vw] py-[0.3vw]'>
-              Daily
-            </button>
+        <div className='border-gray-300 border-[0.1vw] w-[28vw] h-[29vw] rounded-[0.5vw] pt-[0.7vw]'>
+          <div>  
+            <p className='font-bold text-[1vw] text-center mb-[1vw]'>
+              Department Visitors (<span className='font-normal text-[0.9vw]'>{pieView.charAt(0).toUpperCase() + pieView.slice(1)}</span>)
+            </p>
 
-            <button onClick={() => setView('weekly')} className='border-gray-300 border-[0.1vw] px-[1vw] py-[0.3vw]'>
-              Weekly
-            </button>
+            <div className='flex justify-center'>
+              <div className='w-[22vw]'>
+                <Pie data={pieData} options={pieOptions} />
+              </div>
+            </div>
 
-            <button onClick={() => setView('monthly')} className='border-gray-300 border-[0.1vw] rounded-r-[0.3vw] px-[1vw] py-[0.3vw]'>
-              Monthly
-            </button>
+            <div className='flex justify-center mt-[0.8vw] text-[0.9vw]'>
+              <button onClick={() => setPieView('daily')} className='border-gray-300 border-[0.1vw] bg-gray-200 rounded-l-[0.3vw] px-[1vw] py-[0.3vw]'>Daily</button>
+              <button onClick={() => setPieView('weekly')} className='border-gray-300 border-[0.1vw] px-[1vw] py-[0.3vw]'>Weekly</button>
+              <button onClick={() => setPieView('monthly')} className='border-gray-300 border-[0.1vw] rounded-r-[0.3vw] px-[1vw] py-[0.3vw]'>Monthly</button>
+            </div>
           </div>
         </div>
-        <Bar data={data} options={options} />
       </div>
 
       <div>
         <p>
-            View total number of visitors by day and time (graph) & Also Currently registered Visitors
-        </p>
-
-        <p>
-            Piechart showing departments visited and how many people visted the department
+            View Currently registered Visitors in datatable with info about department they are heading to & guard who checked them & receptionist that cleared them.
         </p>
 
         <p>
