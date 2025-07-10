@@ -117,7 +117,7 @@ const Additions = () => {
     };
 
   return (
-    <div>
+    <div className='pt-[6vw] pl-[14vw] pb-[1.7vw]'>
         <Toaster richColors />
 
         <div className='mt-[1vw] ml-[3vw] flex gap-[4vw]'>

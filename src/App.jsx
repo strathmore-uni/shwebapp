@@ -183,7 +183,7 @@ const App = () => {
       )}
 
       {role === 'Admin' && (
-        <div className='w-screen h-screen bg-grey absolute'>
+        <div className='w-screen bg-grey absolute'>
           <Navbar />
           <div className='flex'>
             <BrowserRouter>

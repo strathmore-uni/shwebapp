@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 // BarChart.js
 import { Bar, Pie  } from 'react-chartjs-2';
 import {Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement,} from 'chart.js';
+import DataTable from "react-data-table-component";
+import { CSVLink } from "react-csv";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
@@ -57,7 +61,45 @@ const pieChartData = {
   },
 };
 
+const dummyData = [
+  {
+    id: 1,
+    name: "John Doe",
+    nationalId: "12345678",
+    checkInTime: "2025-07-10 08:30",
+    department: "Finance",
+    checkedInBy: "Guard A",
+    clearedBy: "Receptionist X",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    nationalId: "87654321",
+    checkInTime: "2025-07-10 09:00",
+    department: "HR",
+    checkedInBy: "Guard B",
+    clearedBy: "Receptionist Y",
+  },
+  {
+    id: 3,
+    name: "Mike Brown",
+    nationalId: "23456789",
+    checkInTime: "2025-07-10 09:30",
+    department: "IT",
+    checkedInBy: "Guard A",
+    clearedBy: "Receptionist Z",
+  },
+  // Add more dummy records here
+];
 
+const columns = [
+  { name: "Visitor Name", selector: row => row.name, sortable: true },
+  { name: "ID", selector: row => row.nationalId, sortable: true },
+  { name: "Check-In Time", selector: row => row.checkInTime, sortable: true },
+  { name: "Department", selector: row => row.department, sortable: true },
+  { name: "Checked In By", selector: row => row.checkedInBy },
+  { name: "Cleared By", selector: row => row.clearedBy },
+];
 
 
 const Dashboard = () => {
@@ -68,7 +110,7 @@ const Dashboard = () => {
     labels: chartData[view].labels,
     datasets: [
       {
-        label: 'none',
+        label: 'Visitors',
         data: chartData[view].data,
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
         borderRadius: 6,
@@ -112,8 +154,41 @@ const Dashboard = () => {
     },
   };
 
+
+  const [filterText, setFilterText] = useState("");
+  const filteredData = dummyData.filter(
+    item =>
+      item.name.toLowerCase().includes(filterText.toLowerCase()) ||
+      item.nationalId.includes(filterText) ||
+      item.department.toLowerCase().includes(filterText.toLowerCase())
+  );
+
+  const exportPDF = () => {
+    const doc = new jsPDF();
+    doc.text("Visitor Report", 14, 10);
+    const tableColumn = [
+      "Visitor Name",
+      "ID",
+      "Check-In Time",
+      "Department",
+      "Checked In By",
+      "Cleared By",
+    ];
+    const tableRows = filteredData.map(row => [
+      row.name,
+      row.nationalId,
+      row.checkInTime,
+      row.department,
+      row.checkedInBy,
+      row.clearedBy,
+    ]);
+    doc.autoTable({ head: [tableColumn], body: tableRows });
+    doc.save("visitor_report.pdf");
+  };
+
+
   return (
-    <div className='pt-[1vw] pl-[1vw]'>
+    <div className='pt-[6vw] pl-[14vw]'>
       <div className='flex gap-[1vw] mb-[2vh]'>
         <div className='border-gray-300 border-[0.1vw] rounded-[0.5vw] w-[15vw] pt-[1vw] pb-[0.3vw] pl-[1.2vw]'>
           <p className='text-[0.9vw]'>
@@ -196,15 +271,18 @@ const Dashboard = () => {
             </div>
 
             <div className='cursor-pointer'>
-              <button onClick={() => setView('daily')} className='border-gray-300 border-[0.1vw] bg-gray-200 rounded-l-[0.3vw] px-[1vw] py-[0.3vw]'>
+              <button onClick={() => setView('daily')} className={`border-gray-300 border-[0.1vw] rounded-l-[0.3vw] px-[1vw] py-[0.3vw] 
+          ${view === 'daily' ? 'bg-gray-200' : ''}`}>
                 Daily
               </button>
 
-              <button onClick={() => setView('weekly')} className='border-gray-300 border-[0.1vw] px-[1vw] py-[0.3vw]'>
+              <button onClick={() => setView('weekly')} className={`border-gray-300 border-[0.1vw] px-[1vw] py-[0.3vw] 
+          ${view === 'weekly' ? 'bg-gray-200' : ''}`}>
                 Weekly
               </button>
 
-              <button onClick={() => setView('monthly')} className='border-gray-300 border-[0.1vw] rounded-r-[0.3vw] px-[1vw] py-[0.3vw]'>
+              <button onClick={() => setView('monthly')} className={`border-gray-300 border-[0.1vw] rounded-r-[0.3vw] px-[1vw] py-[0.3vw] 
+          ${view === 'monthly' ? 'bg-gray-200' : ''}`}>
                 Monthly
               </button>
             </div>
@@ -215,7 +293,7 @@ const Dashboard = () => {
         <div className='border-gray-300 border-[0.1vw] w-[28vw] h-[29vw] rounded-[0.5vw] pt-[0.7vw]'>
           <div>  
             <p className='font-bold text-[1vw] text-center mb-[1vw]'>
-              Department Visitors (<span className='font-normal text-[0.9vw]'>{pieView.charAt(0).toUpperCase() + pieView.slice(1)}</span>)
+              Department Visitors: <span className='font-normal text-[0.9vw]'>{pieView.charAt(0).toUpperCase() + pieView.slice(1)}</span>
             </p>
 
             <div className='flex justify-center'>
@@ -225,26 +303,51 @@ const Dashboard = () => {
             </div>
 
             <div className='flex justify-center mt-[0.8vw] text-[0.9vw]'>
-              <button onClick={() => setPieView('daily')} className='border-gray-300 border-[0.1vw] bg-gray-200 rounded-l-[0.3vw] px-[1vw] py-[0.3vw]'>Daily</button>
-              <button onClick={() => setPieView('weekly')} className='border-gray-300 border-[0.1vw] px-[1vw] py-[0.3vw]'>Weekly</button>
-              <button onClick={() => setPieView('monthly')} className='border-gray-300 border-[0.1vw] rounded-r-[0.3vw] px-[1vw] py-[0.3vw]'>Monthly</button>
+              <button onClick={() => setPieView('daily')} className={`border-gray-300 border-[0.1vw] rounded-l-[0.3vw] px-[1vw] py-[0.3vw] 
+          ${pieView === 'daily' ? 'bg-gray-200' : ''}`}>Daily</button>
+              <button onClick={() => setPieView('weekly')} className={`border-gray-300 border-[0.1vw] px-[1vw] py-[0.3vw] 
+          ${pieView === 'weekly' ? 'bg-gray-200' : ''}`}>Weekly</button>
+              <button onClick={() => setPieView('monthly')} className={`border-gray-300 border-[0.1vw] rounded-r-[0.3vw] px-[1vw] py-[0.3vw] 
+          ${pieView === 'monthly' ? 'bg-gray-200' : ''}`}>Monthly</button>
             </div>
           </div>
         </div>
       </div>
-
+      
       <div>
-        <p>
-            View Currently registered Visitors in datatable with info about department they are heading to & guard who checked them & receptionist that cleared them.
-        </p>
-
-        <p>
-            Also view by branch of the company. Mombasa Branch, Nairobi Branch 
-        </p>
-
-        <p>
-          Table with Visitor Name, Check-in Time, Department Headed to, Time Cleared by Repetionist, Check-out Time
-        </p>
+        <h2 className="text-xl font-bold mb-2">Checked-In Visitors</h2>
+        <div className="flex items-center justify-between mb-4">
+          <input
+            type="text"
+            placeholder="Search by name, ID, or department"
+            className="border px-2 py-1 rounded-md w-1/2"
+            value={filterText}
+            onChange={e => setFilterText(e.target.value)}
+          />
+          {/* <div className="flex gap-2">
+            <CSVLink
+              data={filteredData}
+              filename="visitor_report.csv"
+              className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+            >
+              Export CSV
+            </CSVLink>
+            <button
+              onClick={exportPDF}
+              className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+            >
+              Export PDF
+            </button>
+          </div> */}
+        </div>
+        <DataTable
+          columns={columns}
+          data={filteredData}
+          pagination
+          highlightOnHover
+          responsive
+          persistTableHead
+        />
       </div>
     </div>
   )

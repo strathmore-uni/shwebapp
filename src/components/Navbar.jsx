@@ -4,7 +4,7 @@ import { logo, myImage } from '../assets'
 const Navbar = () => {
   return (
     <div>
-        <div className='h-[5vw] shadow-md flex w-[100vw] '>
+        <div className='h-[5vw] shadow-md flex w-[100vw] fixed bg-white z-10'>
 
             <img src={logo} className='h-[2.3vw] mt-[1.3vw] ml-[1vw]' />
 
