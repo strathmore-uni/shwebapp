@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // BarChart.js
 import { Bar, Pie  } from 'react-chartjs-2';
 import {Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement,} from 'chart.js';
@@ -6,45 +6,81 @@ import DataTable from "react-data-table-component";
 import { CSVLink } from "react-csv";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { Toaster, toast } from 'sonner'
+// import { parse } from 'date-fns';
+
+import { startOfWeek, format, isSameDay, parse } from 'date-fns';
+
+const getVisitorsPerDay = (data) => {
+  const today = new Date();
+  const start = startOfWeek(today, { weekStartsOn: 1 }); // Monday
+  const days = Array.from({ length: 7 }).map((_, i) =>
+    format(new Date(start.getTime() + i * 86400000), 'EEE') // 'Mon', 'Tue', ...
+  );
+
+  const counts = Array(7).fill(0);
+
+  data.forEach((visitor) => {
+    const dateStr = visitor.dateTime?.split(" - ")[1]; // ✅ correct variable
+    if (!dateStr) return;
+
+    const visitorDate = new Date(dateStr); // ✅ use the correct variable
+    const dayLabel = format(visitorDate, 'EEE');
+
+    const index = days.indexOf(dayLabel);
+    if (index !== -1) counts[index]++;
+  });
+
+  return { labels: days, data: counts };
+};
+
+
+
+const getVisitorsPerWeek = (data) => {
+  const weeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+  const counts = [0, 0, 0, 0];
+
+  data.forEach((visitor) => {
+    const datePart = visitor.dateTime?.split(' - ')[1];
+    if (!datePart) return;
+
+    // const date = new Date(datePart);
+    const date = parse(datePart, 'dd MMM yyyy', new Date());
+    const weekNumber = Math.floor((date.getDate() - 1) / 7); // 0 to 3
+    if (weekNumber >= 0 && weekNumber < 4) counts[weekNumber]++;
+  });
+
+  return { labels: weeks, data: counts };
+};
+
+
+const getVisitorsPerMonth = (data) => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const counts = Array(12).fill(0);
+
+  data.forEach((visitor) => {
+    const datePart = visitor.dateTime?.split(' - ')[1];
+    if (!datePart) return;
+
+    // const date = parse(datePart, 'dd MMM yyyy', new Date());
+    const date = parse(datePart, 'dd MMMM yyyy', new Date());
+    if (isNaN(date)) {
+      console.warn('Invalid date:', datePart);
+      return;
+    }
+
+    const monthIndex = date.getMonth(); // 0 = Jan, 1 = Feb, etc.
+    counts[monthIndex]++;
+  });
+
+  return { labels: months, data: counts };
+};
+
+
+
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
-
-// const data = {
-//   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
-//   datasets: [
-//     {
-//       label: 'Visitors',
-//       data: [50, 80, 30, 60, 29, 45, 98, 232, 32, 233, 23, 1],
-//       backgroundColor: 'rgba(245, 73, 0, 0.6)',
-//       borderRadius: 0,
-//     },
-//   ],
-// };
-
-// const options = {
-//   responsive: true,
-//   plugins: {
-//     legend: { position: 'top' },
-//     title: { display: true, text: 'Recorded Visitors' },
-//   },
-// };
-
-
-const chartData = {
-  daily: {
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    data: [10, 15, 8, 12, 20, 7, 14],
-  },
-  weekly: {
-    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-    data: [60, 75, 50, 90],
-  },
-  monthly: {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
-    data: [200, 180, 220, 160, 190, 45, 98, 232, 32, 233, 23, 1],
-  },
-};
 
 const pieChartData = {
   daily: {
@@ -61,41 +97,10 @@ const pieChartData = {
   },
 };
 
-const dummyData = [
-  {
-    id: 1,
-    name: "John Doe",
-    nationalId: "12345678",
-    checkInTime: "2025-07-10 08:30",
-    department: "Finance",
-    checkedInBy: "Guard A",
-    clearedBy: "Receptionist X",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    nationalId: "87654321",
-    checkInTime: "2025-07-10 09:00",
-    department: "HR",
-    checkedInBy: "Guard B",
-    clearedBy: "Receptionist Y",
-  },
-  {
-    id: 3,
-    name: "Mike Brown",
-    nationalId: "23456789",
-    checkInTime: "2025-07-10 09:30",
-    department: "IT",
-    checkedInBy: "Guard A",
-    clearedBy: "Receptionist Z",
-  },
-  // Add more dummy records here
-];
-
 const columns = [
-  { name: "Visitor Name", selector: row => row.name, sortable: true },
-  { name: "ID", selector: row => row.nationalId, sortable: true },
-  { name: "Check-In Time", selector: row => row.checkInTime, sortable: true },
+  { name: "Visitor Name", selector: row => row.idName, sortable: true },
+  { name: "ID", selector: row => row.sharedString, sortable: true },
+  { name: "Check-In Time", selector: row => row.dateTime, sortable: true },
   { name: "Department", selector: row => row.department, sortable: true },
   { name: "Checked In By", selector: row => row.checkedInBy },
   { name: "Cleared By", selector: row => row.clearedBy },
@@ -104,19 +109,33 @@ const columns = [
 
 const Dashboard = () => {
 
+  const [data, setData] = useState([]);
   const [view, setView] = useState('monthly');
+  const visitorsThisWeek = getVisitorsPerDay(data);
 
-  const data = {
-    labels: chartData[view].labels,
+  const getChartData = () => {
+    if (view === 'daily') return getVisitorsPerDay(data);
+    if (view === 'weekly') return getVisitorsPerWeek(data);
+    if (view === 'monthly') return getVisitorsPerMonth(data);
+    return { labels: [], data: [] };
+  };
+  
+  const visitorsChartData = getChartData();
+  
+  const barChartData = {
+    labels: visitorsChartData.labels,
     datasets: [
       {
         label: 'Visitors',
-        data: chartData[view].data,
+        data: visitorsChartData.data,
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
         borderRadius: 6,
       },
     ],
   };
+  
+  
+  
 
   const options = {
     responsive: true,
@@ -156,11 +175,11 @@ const Dashboard = () => {
 
 
   const [filterText, setFilterText] = useState("");
-  const filteredData = dummyData.filter(
+  const filteredData = data.filter(
     item =>
-      item.name.toLowerCase().includes(filterText.toLowerCase()) ||
-      item.nationalId.includes(filterText) ||
-      item.department.toLowerCase().includes(filterText.toLowerCase())
+      item.name?.toLowerCase().includes(filterText.toLowerCase()) ||
+      item.nationalId?.includes(filterText) ||
+      item.department?.toLowerCase().includes(filterText.toLowerCase())
   );
 
   const exportPDF = () => {
@@ -186,6 +205,45 @@ const Dashboard = () => {
     doc.save("visitor_report.pdf");
   };
 
+  useEffect(() => {
+    const fetchData = () => {
+      fetch(`${import.meta.env.VITE_API_URL}/api/data`)
+        .then(response => response.json())
+        .then(data => setData(data))
+        .catch(error => {
+          console.error("Error fetching data", error);
+          toast.error("Error fetching data");
+        });
+    };
+  
+    // Initial fetch
+    fetchData();
+  
+    // Set interval for auto-refresh
+    const intervalId = setInterval(fetchData, 30000); // refresh every 30 seconds
+  
+    // Cleanup on unmount
+    return () => clearInterval(intervalId);
+  }, []);
+  
+  // const totalVisitors = data.length;
+
+  const isToday = (checkInTimeStr) => {
+    if (!checkInTimeStr) return false;
+  
+    // Extract date part: "28 May 2025"
+    const datePart = checkInTimeStr.split(" - ")[1];
+  
+    // Get today's date in the same format
+    const today = new Date();
+    const options = { day: '2-digit', month: 'short', year: 'numeric' };
+    const todayFormatted = today.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
+  
+    return datePart === todayFormatted;
+  };
+  
+  const todayVisitors = data.filter(visitor => isToday(visitor.checkInTime));
+  
 
   return (
     <div className='pt-[6vw] pl-[14vw]'>
@@ -196,7 +254,7 @@ const Dashboard = () => {
           </p>
 
           <p className='text-[2vw] font-bold'>
-            20
+            {todayVisitors.length}
           </p>
         </div>
 
@@ -206,7 +264,7 @@ const Dashboard = () => {
           </p>
 
           <p className='text-[2vw] font-bold'>
-            50
+            {todayVisitors.length}
           </p>
         </div>
 
@@ -256,7 +314,7 @@ const Dashboard = () => {
           </p>
 
           <p className='text-[2vw] font-bold'>
-            500
+            {data.length}
           </p>
         </div>
       </div>
@@ -287,7 +345,7 @@ const Dashboard = () => {
               </button>
             </div>
           </div>
-          <Bar data={data} options={options} />
+          <Bar data={barChartData} options={options} />
         </div>
 
         <div className='border-gray-300 border-[0.1vw] w-[28vw] h-[29vw] rounded-[0.5vw] pt-[0.7vw]'>
@@ -315,7 +373,7 @@ const Dashboard = () => {
       </div>
       
       <div>
-        <h2 className="text-xl font-bold mb-2">Checked-In Visitors</h2>
+        <h2 className="text-xl font-bold mb-2">Visitors Log</h2>
         <div className="flex items-center justify-between mb-4">
           <input
             type="text"
