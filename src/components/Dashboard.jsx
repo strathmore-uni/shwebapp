@@ -97,6 +97,21 @@ const pieChartData = {
   },
 };
 
+const getDepartmentVisitorTotals = (data) => {
+  const departmentCounts = {};
+
+  data.forEach((visitor) => {
+    const dept = visitor.department || 'Unknown';
+    departmentCounts[dept] = (departmentCounts[dept] || 0) + 1;
+  });
+
+  const labels = Object.keys(departmentCounts);
+  const counts = Object.values(departmentCounts);
+
+  return { labels, counts };
+};
+
+
 const columns = [
   { name: "Visitor Name", selector: row => row.idName, sortable: true },
   { name: "ID", selector: row => row.sharedString, sortable: true },
@@ -148,17 +163,20 @@ const Dashboard = () => {
 
   const [pieView, setPieView] = useState('daily');
 
+  const departmentData = getDepartmentVisitorTotals(data);
+
   const pieData = {
-    labels: pieChartData[pieView].labels,
+    labels: departmentData.labels,
     datasets: [
       {
         label: 'Visitors',
-        data: pieChartData[pieView].data,
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+        data: departmentData.counts,
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
         hoverOffset: 10,
       },
     ],
   };
+
 
   const pieOptions = {
     responsive: true,
@@ -350,8 +368,12 @@ const Dashboard = () => {
 
         <div className='border-gray-300 border-[0.1vw] w-[28vw] h-[29vw] rounded-[0.5vw] pt-[0.7vw]'>
           <div>  
-            <p className='font-bold text-[1vw] text-center mb-[1vw]'>
+            {/* <p className='font-bold text-[1vw] text-center mb-[1vw]'>
               Department Visitors: <span className='font-normal text-[0.9vw]'>{pieView.charAt(0).toUpperCase() + pieView.slice(1)}</span>
+            </p> */}
+
+            <p className='font-bold text-[1vw] text-center mb-[1vw]'>
+              Visitors per Department 
             </p>
 
             <div className='flex justify-center'>
@@ -360,14 +382,14 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className='flex justify-center mt-[0.8vw] text-[0.9vw]'>
+            {/* <div className='flex justify-center mt-[0.8vw] text-[0.9vw]'>
               <button onClick={() => setPieView('daily')} className={`border-gray-300 border-[0.1vw] rounded-l-[0.3vw] px-[1vw] py-[0.3vw] 
           ${pieView === 'daily' ? 'bg-gray-200' : ''}`}>Daily</button>
               <button onClick={() => setPieView('weekly')} className={`border-gray-300 border-[0.1vw] px-[1vw] py-[0.3vw] 
           ${pieView === 'weekly' ? 'bg-gray-200' : ''}`}>Weekly</button>
               <button onClick={() => setPieView('monthly')} className={`border-gray-300 border-[0.1vw] rounded-r-[0.3vw] px-[1vw] py-[0.3vw] 
           ${pieView === 'monthly' ? 'bg-gray-200' : ''}`}>Monthly</button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
