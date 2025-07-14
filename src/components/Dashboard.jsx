@@ -260,7 +260,7 @@ const Dashboard = () => {
     return datePart === todayFormatted;
   };
   
-  const todayVisitors = data.filter(visitor => isToday(visitor.checkInTime));
+  const todayVisitors = data.filter(visitor => isToday(visitor.dateTime));
   
 
   return (
