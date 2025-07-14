@@ -15,7 +15,7 @@ const Appointments = () => {
     };
 
   return (
-    <div>
+    <div className='pt-[6vw] pl-[14vw]'>
         <div>
             <div className='absolute right-[1vw]'>
               <div className='px-[1vw] py-[0.3vw] mt-[1vw] border-black border-[0.2vw] rounded-[0.3vw] flex justify-center gap-[0.6vw] text-[1.2vw] font-semibold cursor-pointer' onClick={handleClick}>

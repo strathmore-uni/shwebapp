@@ -155,7 +155,7 @@ const Secretaryview = () => {
     
 
   return (
-    <div>
+    <div className='pt-[6vw] pl-[14vw]'>
         <div>
             <InputText 
                 onInput={(e) =>

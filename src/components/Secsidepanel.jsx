@@ -1,21 +1,28 @@
 import React from 'react'
 import { gatepass, homeBlack, homeWhite, preRegisterIcon, usersBlack } from '../assets'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const Secsidepanel = () => {
+    const location = useLocation();
 
     const logout = () => {
         localStorage.removeItem('token');  
+        localStorage.clear();
         window.location.reload();      
       };
 
+    // Function to determine if the link is active
+    const isActive = (path) => location.pathname.includes(path);
+
   return (
     <div>
-        <div className='w-[13vw] h-[43.6vw] shadow-lg z-20 mr-[0.2vw] flex justify-center pt-[1vw]'>
+        <div className='w-[13vw] h-[43.6vw] fixed shadow-lg z-20 mr-[0.2vw] flex justify-center mt-[5vw] pt-[1vw]'>
             <div>
                 <Link to="shwebapp/sec">
-                    <div className='w-[11vw] bg-black border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-white flex pl-[0.6vw] gap-[0.7vw] text-[1.2vw] font-bold mb-[0.5vw]'>
-                        <img src={homeWhite} className='h-[1.5vw] mt-[0.41vw]' />
+                    <div className={`w-[11vw] border-[0.2vw] rounded-[0.3vw] h-[2.5vw] gap-[0.7vw] text-[1.2vw] font-semibold mb-[0.5vw] text-center ${
+                        isActive('/shwebapp/sec') ? 'bg-black text-white border-black' : 'text-black border-black'
+                    }`}>
+                        {/* <img src={homeWhite} className='h-[1.5vw] mt-[0.41vw]' /> */}
 
                         <p className='mt-[0.27vw]'>
                             Home
@@ -23,15 +30,17 @@ const Secsidepanel = () => {
                     </div>
                 </Link>
 
-                {/* <Link to="shwebapp/appointments">
-                    <div className='w-[11vw] border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-black flex pl-[0.6vw] gap-[0.7vw] text-[1.1vw] font-semibold mb-[0.5vw]'>
-                        <img src={usersBlack} className='h-[1.5vw] mt-[0.41vw]' />
+                <Link to="shwebapp/appointments">
+                    <div className={`w-[11vw] border-[0.2vw] rounded-[0.3vw] h-[2.5vw] gap-[0.7vw] text-[1.2vw] font-semibold mb-[0.5vw] text-center ${
+                        isActive('/shwebapp/appointments') ? 'bg-black text-white border-black' : 'text-black border-black'
+                    }`}>
+                        {/* <img src={usersBlack} className='h-[1.5vw] mt-[0.41vw]' /> */}
 
                         <p className='mt-[0.35vw]'>
                             Appointments
                         </p>
                     </div> 
-                </Link> */}
+                </Link>
 
                 <Link to="shwebapp/appointments">
                     <div className='w-[11vw] border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-black flex pl-[0.6vw] gap-[0.7vw] text-[1.1vw] font-semibold mb-[0.5vw]'>
@@ -43,7 +52,7 @@ const Secsidepanel = () => {
                     </div> 
                 </Link> 
 
-                <Link to="shwebapp/appointments">
+                {/* <Link to="shwebapp/appointments">
                     <div className='w-[11vw] border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-black flex pl-[0.6vw] gap-[0.7vw] text-[1.1vw] font-semibold mb-[0.5vw]'>
                         <img src={preRegisterIcon} className='h-[1.5vw] mt-[0.41vw]' />
 
@@ -51,7 +60,7 @@ const Secsidepanel = () => {
                             Registration
                         </p>
                     </div> 
-                </Link>   
+                </Link>    */}
 
                 <button onClick={logout} className="w-[11vw] border-red-500 border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-red-500 text-center gap-[0.7vw] text-[1.1vw] font-semibold mb-[0.5vw]">
                     Logout

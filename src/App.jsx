@@ -199,7 +199,7 @@ const App = () => {
         </div>
       )}
 
-      {role === 'Receptionis' && (
+      {role === 'Receptionist' && (
         <div className='w-screen h-screen bg-grey absolute'>
           <Navbar />
           <div className='flex'>
