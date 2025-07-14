@@ -26,6 +26,7 @@ const App = () => {
   const [role, setRole] = useState(null);
   const [staffid, setStaffid] = useState('');
   const [password, setPassword] = useState('');
+  const [profile, setProfile] = useState('');
 
   const [myphone, setmyphone] = useState('');
   const [department, setDepartment] = useState('');
@@ -43,7 +44,9 @@ const App = () => {
     if (token) {
       const decoded = jwtDecode(token);
       setRole(decoded.role);
+      setProfile(decoded.staffid);
       console.log("Decoded role:", decoded.role);
+      console.log("profile: ", decoded.staffid);
     }
   }, [token]);
 
@@ -184,7 +187,7 @@ const App = () => {
 
       {role === 'Admin' && (
         <div className='w-screen bg-grey absolute'>
-          <Navbar />
+          <Navbar profile={profile} role={role} />
           <div className='flex'>
             <BrowserRouter>
               <Sidepanel />
@@ -201,7 +204,7 @@ const App = () => {
 
       {role === 'Receptionist' && (
         <div className='w-screen h-screen bg-grey absolute'>
-          <Navbar />
+          <Navbar profile={profile} role={role} />
           <div className='flex'>
             <BrowserRouter>
               <Secsidepanel />
