@@ -2,6 +2,7 @@ import React from 'react'
 import { homeBlack, homeWhite, optionsImg, usersBlack } from '../assets'
 import { Link, useLocation } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 
 const Sidepanel = () => {
     const location = useLocation();

@@ -1,12 +1,36 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 
 export const Menupage = () => {
 
-    const logout = () => {
-        localStorage.removeItem('token');  
-        window.location.reload();      
+    // const logout = () => {
+    //     localStorage.removeItem('token');  
+    //     window.location.reload();      
+    //   };
+
+
+    const logout = async () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const decoded = jwtDecode(token);
+          try {
+            await axios.post('http://localhost:5000/api/activity/log', {
+              staffid: decoded.staffid,
+              username: decoded.name,
+              role: decoded.role,
+              action: 'logout'
+            });
+          } catch (err) {
+            console.error('Failed to log logout activity', err);
+          }
+        }
+      
+        localStorage.clear();
+        window.location.reload();
       };
+
 
   return (
     <div>

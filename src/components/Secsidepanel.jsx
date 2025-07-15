@@ -1,15 +1,39 @@
 import React from 'react'
 import { gatepass, homeBlack, homeWhite, preRegisterIcon, usersBlack } from '../assets'
 import { Link, useLocation } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 
 const Secsidepanel = () => {
     const location = useLocation();
 
-    const logout = () => {
-        localStorage.removeItem('token');  
+    // const logout = () => {
+    //     localStorage.removeItem('token');  
+    //     localStorage.clear();
+    //     window.location.reload();      
+    //   };
+
+
+    const logout = async () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const decoded = jwtDecode(token);
+          try {
+            await axios.post('http://localhost:5000/api/activity/log', {
+              staffid: decoded.staffid,
+              username: decoded.name,
+              role: decoded.role,
+              action: 'logout'
+            });
+          } catch (err) {
+            console.error('Failed to log logout activity', err);
+          }
+        }
+      
         localStorage.clear();
-        window.location.reload();      
+        window.location.reload();
       };
+
 
     // Function to determine if the link is active
     const isActive = (path) => location.pathname.includes(path);

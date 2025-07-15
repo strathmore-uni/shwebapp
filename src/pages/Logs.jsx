@@ -23,7 +23,7 @@ const ActivityLogPage = () => {
   }, []);
 
   return (
-    <div className='pt-[6vw] pl-[14vw] h-screen'>
+    <div className='pt-[6vw] pl-[14vw] h-screen overflow-y-scroll w-screen'>
       <h2 className="text-xl font-bold mb-4">User Activity Logs</h2>
       <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
         <thead className="bg-gray-200">
