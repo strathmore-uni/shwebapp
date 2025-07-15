@@ -1,15 +1,38 @@
 import React from 'react'
 import { homeBlack, homeWhite, optionsImg, usersBlack } from '../assets'
 import { Link, useLocation } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode';
 
 const Sidepanel = () => {
     const location = useLocation();
 
-    const logout = () => {
-        localStorage.removeItem('token');  
+    // const logout = () => {
+    //     localStorage.removeItem('token');  
+    //     localStorage.clear();
+    //     window.location.reload();      
+    //   };
+
+    
+      const logout = async () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const decoded = jwtDecode(token);
+          try {
+            await axios.post('http://localhost:5000/api/activity/log', {
+              staffid: decoded.staffid,
+              username: decoded.name,
+              role: decoded.role,
+              action: 'logout'
+            });
+          } catch (err) {
+            console.error('Failed to log logout activity', err);
+          }
+        }
+      
         localStorage.clear();
-        window.location.reload();      
+        window.location.reload();
       };
+    
 
     // Function to determine if the link is active
     const isActive = (path) => location.pathname.includes(path);
@@ -70,8 +93,10 @@ const Sidepanel = () => {
                     </div>
                 </Link>
 
-                <Link to="">
-                    <div className='w-[11vw] border-black border-[0.2vw] rounded-[0.3vw] h-[2.5vw] text-black gap-[0.7vw] text-[1.2vw] font-semibold mb-[0.5vw] text-center'>
+                <Link to="shwebapp/logs">
+                    <div className={`w-[11vw] border-[0.2vw] rounded-[0.3vw] h-[2.5vw] gap-[0.7vw] text-[1.2vw] font-semibold mb-[0.5vw] text-center ${
+                        isActive('/shwebapp/logs') ? 'bg-black text-white border-black' : 'text-black border-black'
+                    }`}>
                         {/* <img src={optionsImg} className='h-[1.3vw] mt-[0.5vw]' /> */}
 
                         <p className='mt-[0.27vw]'>

@@ -19,6 +19,7 @@ import Appointments from './components/Appointments';
 import Additions from './pages/Additions';
 import Notfound from './pages/Notfound';
 import { Toaster, toast } from 'sonner'
+import Logs from './pages/Logs';
 
 const App = () => {
   // App state
@@ -44,7 +45,7 @@ const App = () => {
     if (token) {
       const decoded = jwtDecode(token);
       setRole(decoded.role);
-      setProfile(decoded.staffid);
+      setProfile(decoded.name);
       console.log("Decoded role:", decoded.role);
       console.log("profile: ", decoded.staffid);
     }
@@ -64,6 +65,15 @@ const App = () => {
             setToken(token);
             const decoded = jwtDecode(token);
             setRole(decoded.role);
+
+            // ✅ Log login activity
+            await axios.post('http://localhost:5000/api/activity/log', {
+              staffid: decoded.staffid,
+              username: decoded.name,
+              role: decoded.role,
+              action: 'login'
+            });
+
           } catch {
             toast.error('Invalid User ID or Password');
           }
@@ -82,11 +92,34 @@ const App = () => {
     // }
   };
 
-  const logout = () => {
+  // const logout = () => {
+  //   localStorage.removeItem('token');
+  //   setToken(null);
+  //   setRole(null);
+  // };
+
+
+  const logout = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decoded = jwtDecode(token);
+      try {
+        await axios.post('http://localhost:5000/api/activity/log', {
+          staffid: decoded.staffid,
+          username: decoded.name,
+          role: decoded.role,
+          action: 'logout'
+        });
+      } catch (err) {
+        console.error('Failed to log logout activity', err);
+      }
+    }
+  
     localStorage.removeItem('token');
     setToken(null);
     setRole(null);
   };
+
 
   // login UI
   if (!token) {
@@ -195,6 +228,7 @@ const App = () => {
                 <Route path="shwebapp/dashboard" element={<Dashboard />} />
                 <Route path="shwebapp/users" element={<Users />} />
                 <Route path="shwebapp/additions" element={<Additions />} />
+                <Route path="shwebapp/logs" element={<Logs />} />
                 <Route path="*" element={<Navigate to="/shwebapp/dashboard" />} />
               </Routes>
             </BrowserRouter>
