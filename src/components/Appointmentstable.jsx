@@ -56,10 +56,13 @@ const Appointmentstable = ({refresh}) => {
         <Toaster richColors />
 
         <DataTable className='w-[86.5vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={7}>
-            <Column field="name" header="Name" sortable />
-            <Column field="selectedDate" header="Time of Appointment" />
-            <Column field="visiteemail" header="Visitee Email" />
-            <Column field="email" header="Visitor's Email" />
+            <Column field="name" header="Name" />
+            <Column field="AttendeeID" header="ID Number" />
+            <Column field="eventName" header="Event/Meeting Name" />
+            <Column field="eventLocation" header="Event/Meeting Location" />
+            <Column field="selectedDate" header="Arrival Time" sortable />
+            {/* <Column field="visiteemail" header="Visitee Email" /> */}
+            <Column field="email" header="Email Address" />
             <Column
                         header="Actions"
                         body={(rowData) => (

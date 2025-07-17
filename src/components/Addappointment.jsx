@@ -8,23 +8,36 @@ import 'react-datepicker/dist/react-datepicker.css';
 const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
 
     const [userName, setUserName] = useState('');
+    const [eventName, setEventName] = useState('');
     const [visiteemail, setVisiteemail] = useState('');
     const [email, setEmail] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
+    const [eventLocation, setEventLocation] = useState('');
+    const [AttendeeID, setAttendeeID] = useState('');
 
-    console.log(selectedDate);
+    // console.log(selectedDate);
     // const [toastResponse, setToastResponse] = useState('');
 
     const handleSubmit = async () => {
 
         if (!userName) {
-            // alert("Name is required");
             toast.error('Name is required');
             return;
           }
+        if (!AttendeeID) {
+          toast.error("Attendees's ID Number is required");
+          return;
+        }
+        if (!eventName) {
+          toast.error("Name of the Event or Meeting is required");
+          return;
+        }
         if (!selectedDate) {
-          // alert("Name is required");
           toast.error('Date is required');
+          return;
+        }
+        if (!eventLocation) {
+          toast.error("Add location of where the event/meeting will take place");
           return;
         }
         if (!email) {
@@ -35,13 +48,13 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
           toast.error("Visitor's Email address is invalid");
           return;
         }
-        if (!visiteemail) {
-          toast.error("Visitee Email is required");
-          return;
-        } else if (!/\S+@\S+\.\S+/.test(visiteemail)) {
-          toast.error("Visitee Email address is invalid");
-          return;
-        }
+        // if (!visiteemail) {
+        //   toast.error("Visitee Email is required");
+        //   return;
+        // } else if (!/\S+@\S+\.\S+/.test(visiteemail)) {
+        //   toast.error("Visitee Email address is invalid");
+        //   return;
+        // }
 
         // const formattedDate = selectedDate.toString();
         const dateString = selectedDate.toString();
@@ -50,9 +63,11 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
         // Create an object with the state variables
         const data = {
           name: userName,
-          visiteemail: visiteemail,
           email: email,
           selectedDate: formattedDate,
+          AttendeeID: AttendeeID,
+          eventName: eventName,
+          eventLocation: eventLocation,
         };
     
         try {
@@ -65,6 +80,9 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
           setVisiteemail('');
           setEmail('');
           setSelectedDate(null);
+          setEventLocation('');
+          setEventName('');
+          setEventLocation('');
           setRefresh(!refresh);
 
         // Prepare the email data to send after the appointment creation
@@ -123,15 +141,31 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
                     <div>
                         <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
-                                Enter Visitor's Full Name :
+                                Antendee's Full Name :
                             </p>
 
                             <input name="username" type="text" placeholder='Enter Name' value={userName} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setUserName(e.target.value)} />
                         </label>
 
                         <label>
+                            <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
+                                Antendee's ID Number :
+                            </p>
+
+                            <input name="AttendeeID" type="number" placeholder='Enter ID Number' value={AttendeeID} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setAttendeeID(e.target.value)} />
+                        </label>
+
+                        <label>
+                            <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
+                                Meeting/Event Name:
+                            </p>
+
+                            <input name="eventName" type="text" placeholder='Enter name of Event/Meeting' value={eventName} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEventName(e.target.value)} />
+                        </label> 
+
+                        <label>
                           <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
-                              Enter Date of Appointment :
+                              Date of Meeting or Event :
                           </p>
 
                           <div>
@@ -148,19 +182,27 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
 
                         <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
-                                Enter Visitor's Email :
+                                Event/Meeting Location :
                             </p>
 
-                            <input name="email" type="text" placeholder='Email Address' value={email} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEmail(e.target.value.toLowerCase())} />
+                            <input name="eventLocation" type="text" placeholder='Enter Location of Event' value={eventLocation} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEventLocation(e.target.value)} />
                         </label> 
 
                         <label>
+                            <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
+                                Antendee's Email :
+                            </p>
+
+                            <input name="email" type="text" placeholder="Email Antendee's Address" value={email} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEmail(e.target.value.toLowerCase())} />
+                        </label> 
+
+                        {/* <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
                                 Enter Visitee Email :
                             </p>
 
                             <input name="visiteemail" type="text" placeholder='Enter Visitee Email' value={visiteemail} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setVisiteemail(e.target.value.toLowerCase())} />
-                        </label>                            
+                        </label>                             */}
 
                         {/* <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
@@ -175,7 +217,7 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
                         <div>
                             <Toaster richColors />
                             
-                            <div className='w-[12vw] mt-[13.5vw] border-black bg-black text-white border-[0.15vw] rounded-[0.3vw] h-[2.5vw] flex justify-center text-[1.2vw] font-semibold cursor-pointer' onClick={handleSubmit}>
+                            <div className='w-[12vw] mt-[8vw] border-black bg-black text-white border-[0.15vw] rounded-[0.3vw] h-[2.5vw] flex justify-center text-[1.2vw] font-semibold cursor-pointer' onClick={handleSubmit}>
                                 <p className='mt-[0.36vw]'>
                                     Accept
                                 </p>
