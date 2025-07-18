@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Select from 'react-select';
 import axios from 'axios';
 import { Toaster, toast } from 'sonner'
@@ -14,9 +14,39 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [eventLocation, setEventLocation] = useState('');
     const [AttendeeID, setAttendeeID] = useState('');
+    const [venueOptions, setVenueOptions] = useState([]);
 
     // console.log(selectedDate);
     // const [toastResponse, setToastResponse] = useState('');
+
+    // Fetch Venues from MongoDB API endpoint
+    useEffect(() => {
+      const fetchVenues = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/api/eventvenues'); // Replace with your actual API endpoint
+          const venues = response.data;
+
+          // Map the data to the format React Select expects
+          const formattedOptions = venues.map(venue => ({
+            value: venue.eventVenue,
+            label: venue.eventVenue
+          }));
+
+          setVenueOptions(formattedOptions);
+        } catch (error) {
+          console.error("Error fetching Venues:", error);
+        }
+      };
+
+      fetchVenues();
+    }, []);
+
+
+    const handleChange = (selectedOption) => {
+      // console.log(`Selected:`, selectedOption);
+      setEventLocation(selectedOption.value);    // .value extracts the value from the object created by react select
+    };
+
 
     const handleSubmit = async () => {
 
@@ -185,7 +215,14 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
                                 Event/Meeting Location :
                             </p>
 
-                            <input name="eventLocation" type="text" placeholder='Enter Location of Event' value={eventLocation} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEventLocation(e.target.value)} />
+                            {/* <input name="eventLocation" type="text" placeholder='Enter Location of Event' value={eventLocation} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setEventLocation(e.target.value)} /> */}
+
+                            <Select
+                                options={venueOptions}
+                                onChange={handleChange}
+                                placeholder="Select Venue"
+                                className='w-[16vw] rounded-[1vw] text-black mb-[0.9vw]'
+                            />
                         </label> 
 
                         <label>
