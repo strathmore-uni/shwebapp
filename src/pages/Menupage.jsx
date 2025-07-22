@@ -44,6 +44,14 @@ export const Menupage = () => {
                     </div>
                 </Link>
 
+                <Link to="/shwebapp/appointmentcamera">
+                    <div className='w-[80vw] border rounded-[1.3vw] my-[5vw] py-[2.5vw] cursor-pointer'>
+                        <p>
+                            Appointment Arrival
+                        </p>
+                    </div>
+                </Link>
+
                 {/* <div className='w-[80vw] border rounded-[1.3vw] my-[5vw] py-[2.5vw] cursor-pointer'>
                     <p>
                         Appointment Arrival

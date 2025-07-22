@@ -20,6 +20,7 @@ import Additions from './pages/Additions';
 import Notfound from './pages/Notfound';
 import { Toaster, toast } from 'sonner'
 import Logs from './pages/Logs';
+import AppointmentCamera from './components/AppointmentCamera';
 
 const App = () => {
   // App state
@@ -213,6 +214,7 @@ const App = () => {
             <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname} datetime={datetime} department={department} liftvisitorTag={liftvisitorTag} liftBadgeId={liftBadgeId} />} />
             <Route path="shwebapp/camera" element={<Webcamera setSharedString={setSharedString} setiDname={setiDname} />} />
             <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} setliftvisitorTag={setliftvisitorTag} setliftBadgeId={setliftBadgeId} />} />
+            <Route path="shwebapp/appointmentcamera" element={<AppointmentCamera />} />
             <Route path="*" element={<Navigate to="/shwebapp/menu" />} />
           </Routes>
         </BrowserRouter>

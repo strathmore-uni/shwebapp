@@ -200,13 +200,13 @@ const navigate = useNavigate();
               />
             </label>
 
-            <div className='mt-[2.5vw]'>
+            {/* <div className='mt-[2.5vw]'>
               <p className=''>
                 Take picture of Vehicle's Licence Plate :
               </p>
 
               <img src={cameraIcon} className='h-[13vw] mt-[2vw] pl-[1vw] cursor-pointer' />              
-            </div>
+            </div> */}
           </div>
 
           <div className='flex justify-center text-[3.8vw] mt-[8vw]'>
