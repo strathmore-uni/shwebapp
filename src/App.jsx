@@ -21,6 +21,7 @@ import Notfound from './pages/Notfound';
 import { Toaster, toast } from 'sonner'
 import Logs from './pages/Logs';
 import AppointmentCamera from './components/AppointmentCamera';
+import AppointmentFillinfo from './components/AppointmentFillinfo';
 
 const App = () => {
   // App state
@@ -37,6 +38,11 @@ const App = () => {
   const [datetime, setDateTime] = useState('');
   const [liftvisitorTag, setliftvisitorTag] = useState('');
   const [liftBadgeId, setliftBadgeId] = useState('');
+
+  const [attendeeName, setAttendeeName] = useState('');
+  const [eventLocation, setEventLocation] = useState('');
+  const [attendeeIDNo, setAttendeeIDNo] = useState('');
+  // console.log(attendeeName);
 
   // Screen detection
   const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
@@ -214,7 +220,8 @@ const App = () => {
             <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname} datetime={datetime} department={department} liftvisitorTag={liftvisitorTag} liftBadgeId={liftBadgeId} />} />
             <Route path="shwebapp/camera" element={<Webcamera setSharedString={setSharedString} setiDname={setiDname} />} />
             <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} setliftvisitorTag={setliftvisitorTag} setliftBadgeId={setliftBadgeId} />} />
-            <Route path="shwebapp/appointmentcamera" element={<AppointmentCamera />} />
+            <Route path="shwebapp/appointmentcamera" element={<AppointmentCamera setAttendeeName={setAttendeeName} setAttendeeIDNo={setAttendeeIDNo} setEventLocation={setEventLocation} />} />
+            <Route path="shwebapp/appointmentfillinfo" element={<AppointmentFillinfo attendeeName={attendeeName} eventLocation={eventLocation} attendeeIDNo={attendeeIDNo} />} />
             <Route path="*" element={<Navigate to="/shwebapp/menu" />} />
           </Routes>
         </BrowserRouter>

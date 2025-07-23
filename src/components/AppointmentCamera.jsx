@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { shutter } from '../assets'
 
-const AppointmentCamera = () => {
+const AppointmentCamera = ({setAttendeeName, setEventLocation, setAttendeeIDNo}) => {
     const [id, setId] = useState('');
     const [name, setName] = useState('');
     const history = useNavigate();
@@ -22,6 +22,10 @@ const AppointmentCamera = () => {
     const [loading, setLoading] = useState(false);
 
     const [matched, setMatched] = useState(false);
+    // const [attendeeName, setAttendeeName] = useState('');
+    // const [eventLocation, setEventLocation] = useState('');
+    // const [attendeeIDNo, setAttendeeIDNo] = useState('');
+    // console.log(attendeeName);
 
     const capture = useCallback(async () => {
         const imageSrc = webcamRef.current.getScreenshot();
@@ -69,16 +73,40 @@ const AppointmentCamera = () => {
     const [targetID, setTargetID] = useState('');
     const [data, setData] = useState([]);
 
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/api/appointmentsdata')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             setData(data);
+
+    //             if (targetID) {
+    //                 const matched = data.some(item => item.AttendeeID === targetID);
+    //                 setMatched(matched);
+    //                 console.log(matched ? 'Match found' : 'No match');
+    //                 console.log(matched.name);
+    //             }
+    //         })
+    //         .catch(error => console.error('Error fetching data:', error));
+    // }, [targetID]);
+
+
     useEffect(() => {
         fetch('http://localhost:5000/api/appointmentsdata')
             .then(response => response.json())
             .then(data => {
                 setData(data);
-
+    
                 if (targetID) {
-                    const matched = data.some(item => item.AttendeeID === targetID);
+                    const matchedItem = data.find(item => item.AttendeeID === targetID);
+                    const matched = !!matchedItem;
                     setMatched(matched);
-                    console.log(matched ? 'Match found' : 'No match');
+    
+                    // console.log(matched ? 'Match found' : 'No match');
+                    if (matchedItem) {                        
+                        setAttendeeName(matchedItem.name);
+                        setEventLocation(matchedItem.eventLocation);
+                        setAttendeeIDNo(matchedItem.AttendeeID);
+                    }
                 }
             })
             .catch(error => console.error('Error fetching data:', error));
@@ -87,7 +115,7 @@ const AppointmentCamera = () => {
       
       
       const navigateToNextPage = () => {
-        history('/shwebapp/fill', { state: { id, name } });
+        history('/shwebapp/appointmentfillinfo', { state: { id, name } });
       };
 
       const handleReload = () => {
