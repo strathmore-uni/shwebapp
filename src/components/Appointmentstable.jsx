@@ -17,12 +17,28 @@ const Appointmentstable = ({refresh}) => {
 
     const [data, setData] = useState([]);
 
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/api/appointmentsdata')
+    //     .then(response => response.json())
+    //     .then(data => setData(data))
+    //     .catch(error => console.error('Error fetching data:', error));
+    // }, [refresh]);
+
     useEffect(() => {
-        fetch('http://localhost:5000/api/appointmentsdata')
-        .then(response => response.json())
-        .then(data => setData(data))
-        .catch(error => console.error('Error fetching data:', error));
+        const fetchData = () => {
+            fetch('http://localhost:5000/api/appointmentsdata')
+                .then(response => response.json())
+                .then(data => setData(data))
+                .catch(error => console.error('Error fetching data:', error));
+        };
+    
+        fetchData(); // Fetch immediately
+    
+        const interval = setInterval(fetchData, 60000); // Reload every 1 minute
+    
+        return () => clearInterval(interval); // Clear on unmount
     }, [refresh]);
+    
 
     const handleDelete = async (_id) => {
         try {
@@ -65,7 +81,7 @@ const Appointmentstable = ({refresh}) => {
             {/* <Column field="visiteemail" header="Visitee Email" /> */}
             <Column field="email" header="Email Address" />
             <Column field="status" header="status" />
-            <Column
+            {/* <Column
                         header="Actions"
                         body={(rowData) => (
                             <button
@@ -75,7 +91,28 @@ const Appointmentstable = ({refresh}) => {
                                 Delete
                             </button>
                         )}
-                    />
+                    /> */}
+
+            <Column
+                header="Actions"
+                body={(rowData) => {
+                    const isCheckedIn = rowData.status === 'Checked-In';
+                    return (
+                        <button
+                            onClick={() => !isCheckedIn && handleDelete(rowData._id)}
+                            disabled={isCheckedIn}
+                            className={`px-3 py-1 rounded ${
+                                isCheckedIn
+                                    ? 'bg-gray-400 text-white cursor-not-allowed'
+                                    : 'bg-red-500 text-white hover:bg-red-700'
+                            }`}
+                        >
+                            Delete
+                        </button>
+                    );
+                }}
+            />
+
         </DataTable>
     </div>
   )
