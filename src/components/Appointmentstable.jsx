@@ -41,7 +41,7 @@ const Appointmentstable = ({refresh}) => {
     };
 
   return (
-    <div>
+    <div className='overflow-x-scroll'>
         <InputText 
             onInput={(e) =>
                 setFilters({
@@ -55,14 +55,16 @@ const Appointmentstable = ({refresh}) => {
 
         <Toaster richColors />
 
-        <DataTable className='w-[86.5vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={7}>
+        <DataTable className='w-[100vw]' value={data} filters={filters} paginator stripedRows placeholder='ji' rows={7}>
             <Column field="name" header="Name" />
             <Column field="AttendeeID" header="ID Number" />
+            <Column field="phoneNo" header="Phone Number" />
             <Column field="eventName" header="Event/Meeting Name" />
             <Column field="eventLocation" header="Event/Meeting Location" />
-            <Column field="selectedDate" header="Arrival Time" sortable />
+            <Column field="selectedDate" header="Event/Meeting Date & Time" sortable />
             {/* <Column field="visiteemail" header="Visitee Email" /> */}
             <Column field="email" header="Email Address" />
+            <Column field="status" header="status" />
             <Column
                         header="Actions"
                         body={(rowData) => (

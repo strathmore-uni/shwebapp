@@ -19,15 +19,48 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
   const [visitorTag, setvisitorTag] = useState('');
   const [badgeId, setBadgeId] = useState('');
 
-  const handlesubmit = () => {
-    setDepartment(dept);
-    setmyphone(phoneno);
-    setliftvisitorTag(visitorTag);
-    setliftBadgeId(badgeId);
+  // const handlesubmit = () => {
+  //   setDepartment(dept);
+  //   setmyphone(phoneno);
+  //   setliftvisitorTag(visitorTag);
+  //   setliftBadgeId(badgeId);
 
-    navigate('/shwebapp/mypage')
+  //   navigate('/shwebapp/mypage')
  
-  }
+  // }
+
+  const handlesubmit = async () => {
+    const clearedData = {
+      badgeId: badgeId,
+      status: 'Checked-In',
+    };
+  
+    try {
+      // 1. Update appointment record
+      const response = await fetch(`http://localhost:5000/api/appointmentsdata/${attendeeIDNo}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(clearedData),
+      });
+  
+      const result = await response.json();
+      console.log('Appointment updated:', result);
+  
+      // 2. Mark badge as chosen
+      await axios.put(`http://localhost:5000/api/visitorsbadges/${badgeId}`, {
+        chosen: "true"
+      });
+  
+      // 3. Optional: redirect
+      navigate('/shwebapp/menu');
+    } catch (error) {
+      console.error('Error during check-in:', error);
+    }
+  };
+  
+  
 
   //Date and Time function to update the usestate
   function getFormattedDate() {
@@ -132,12 +165,12 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
               </p>
             </div>
 
-            <label>
+            {/* <label>
               <p className='mb-[1vw]'>
                 Enter phone number :
               </p>
               <input name="telnumber" type="number" placeholder='Phone number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setphoneno(e.target.value)} />
-            </label>
+            </label> */}
 
             {/* <label>
               <p className='mb-[1vw] mt-[2.5vw]'>
@@ -151,7 +184,7 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
 
             <label>
               <p className='mb-[1vw] mt-[2.5vw]'>
-                Enter Visitor's Badge Number :
+                Visitor's Badge Number :
               </p>
               {/* <input name="telnumber" type="text" placeholder='Enter Badge Number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setvisitorTag(e.target.value)}/> */}
 

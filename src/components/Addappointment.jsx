@@ -11,6 +11,8 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
     const [eventName, setEventName] = useState('');
     const [visiteemail, setVisiteemail] = useState('');
     const [email, setEmail] = useState('');
+    const [status, setStatus] = useState('');
+    const [phoneNo, setPhoneNo] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
     const [eventLocation, setEventLocation] = useState('');
     const [AttendeeID, setAttendeeID] = useState('');
@@ -96,8 +98,10 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
           email: email,
           selectedDate: formattedDate,
           AttendeeID: AttendeeID,
+          phoneNo: phoneNo,
           eventName: eventName,
           eventLocation: eventLocation,
+          status: status,
         };
     
         try {
@@ -109,6 +113,8 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
           setUserName('');
           setVisiteemail('');
           setEmail('');
+          setAttendeeID('');
+          setPhoneNo('');
           setSelectedDate(null);
           setEventLocation('');
           setEventName('');
@@ -187,6 +193,14 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
 
                         <label>
                             <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
+                                Antendee's Phone Number :
+                            </p>
+
+                            <input name="phoneNo" type="number" placeholder='Enter Phone Number' value={phoneNo} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2vw] w-[16vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setPhoneNo(e.target.value)} />
+                        </label>
+
+                        <label>
+                            <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
                                 Meeting/Event Name:
                             </p>
 
@@ -254,7 +268,7 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
                         <div>
                             <Toaster richColors />
                             
-                            <div className='w-[12vw] mt-[8vw] border-black bg-black text-white border-[0.15vw] rounded-[0.3vw] h-[2.5vw] flex justify-center text-[1.2vw] font-semibold cursor-pointer' onClick={handleSubmit}>
+                            <div className='w-[12vw] mt-[2.5vw] border-black bg-black text-white border-[0.15vw] rounded-[0.3vw] h-[2.5vw] flex justify-center text-[1.2vw] font-semibold cursor-pointer' onClick={handleSubmit}>
                                 <p className='mt-[0.36vw]'>
                                     Accept
                                 </p>
