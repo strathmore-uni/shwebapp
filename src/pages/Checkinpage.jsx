@@ -111,17 +111,21 @@ const handlePopupSubmit = async () => {
         const dataJson = await dataRes.json();
         const appointmentsJson = await appointmentsRes.json();
   
-        // Normalize appointments data to match dataJson structure
-        const normalizedAppointments = appointmentsJson.map(item => ({
+        // ✅ Filter for only "Checked-in" appointments
+        const checkedInAppointments = appointmentsJson.filter(item => item.status === "Checked-In");
+  
+        // ✅ Normalize structure to match data
+        const normalizedAppointments = checkedInAppointments.map(item => ({
           ...item,
           idName: item.name,              // Rename for consistency
           sharedString: item.AttendeeID,  // Assumes this field exists in appointments
           phone: item.phoneNo,
           department: item.eventLocation,
           dateTime: item.checkInTime,
-
+          cleared: true, // if you want to allow checkout button
         }));
   
+        // ✅ Merge both sources
         const combinedData = [...dataJson, ...normalizedAppointments];
   
         setData(combinedData);
@@ -133,6 +137,7 @@ const handlePopupSubmit = async () => {
   
     fetchData();
   }, [reload]);
+  
     
 
 
@@ -286,13 +291,21 @@ const handlePopupSubmit = async () => {
                     </p>
                   </div> */}
                   
-                  {item.cleared && (
+                  {item.cleared ? (
                     <div className='flex justify-center py-[0.8vw]'>
                       <Button
                           label="Checkout Visitor" 
                           onClick={() => displayDialogue(item.visitorTag, item.idName, item._id, item.badgeId)}                       
                           className="bg-white text-black px-[3vw] py-[0.9vw] rounded"
                       />
+                    </div>
+                  ):(
+                    <div className='flex justify-center py-[0.8vw]'>                      
+                      <div className="bg-gray-500 text-white px-[3vw] py-[0.9vw] rounded">
+                        <p>
+                          Visitor not Cleared
+                        </p>
+                      </div>
                     </div>
                   )}
                 </div>
