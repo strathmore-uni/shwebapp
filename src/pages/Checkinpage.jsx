@@ -91,12 +91,47 @@ const handlePopupSubmit = async () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState(''); // for search input
 
+  // useEffect(() => {
+  //   // fetch('http://localhost:5000/api/data')
+  //   fetch(`${import.meta.env.VITE_API_URL}/api/data`)
+  //     .then(response => response.json())
+  //     .then(data => setData(data))
+  //     .catch(error => toast.error('Error fetching data', error));
+  // }, [reload]);
+    
+
   useEffect(() => {
-    // fetch('http://localhost:5000/api/data')
-    fetch(`${import.meta.env.VITE_API_URL}/api/data`)
-      .then(response => response.json())
-      .then(data => setData(data))
-      .catch(error => toast.error('Error fetching data', error));
+    const fetchData = async () => {
+      try {
+        const [dataRes, appointmentsRes] = await Promise.all([
+          fetch(`${import.meta.env.VITE_API_URL}/api/data`),
+          fetch(`${import.meta.env.VITE_API_URL}/api/appointmentsdata`)
+        ]);
+  
+        const dataJson = await dataRes.json();
+        const appointmentsJson = await appointmentsRes.json();
+  
+        // Normalize appointments data to match dataJson structure
+        const normalizedAppointments = appointmentsJson.map(item => ({
+          ...item,
+          idName: item.name,              // Rename for consistency
+          sharedString: item.AttendeeID,  // Assumes this field exists in appointments
+          phone: item.phoneNo,
+          department: item.eventLocation,
+          dateTime: item.checkInTime,
+
+        }));
+  
+        const combinedData = [...dataJson, ...normalizedAppointments];
+  
+        setData(combinedData);
+      } catch (error) {
+        toast.error('Error fetching data');
+        console.error(error);
+      }
+    };
+  
+    fetchData();
   }, [reload]);
     
 
@@ -241,7 +276,7 @@ const handlePopupSubmit = async () => {
                     </p>
                   </div>
 
-                  <div className='mb-[2.5vw] flex'>
+                  {/* <div className='mb-[2.5vw] flex'>
                     <p className='font-light'>
                       Licence Plate :
                     </p>
@@ -249,7 +284,7 @@ const handlePopupSubmit = async () => {
                     <p className='font-bold pl-[1.5vw]'>
                       TODO
                     </p>
-                  </div>
+                  </div> */}
                   
                   {item.cleared && (
                     <div className='flex justify-center py-[0.8vw]'>

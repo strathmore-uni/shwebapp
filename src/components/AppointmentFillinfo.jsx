@@ -33,6 +33,7 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
     const clearedData = {
       badgeId: badgeId,
       status: 'Checked-In',
+      checkInTime: datetime,
     };
   
     try {
