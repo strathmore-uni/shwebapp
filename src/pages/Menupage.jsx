@@ -61,7 +61,7 @@ export const Menupage = () => {
                 <Link to="/shwebapp/checkedin">
                     <div className='w-[80vw] border rounded-[1.3vw] mt-[5vw] py-[2.5vw] cursor-pointer'>
                         <p>
-                            Checked-In
+                            Check-Out
                         </p>
                     </div>
                 </Link>   

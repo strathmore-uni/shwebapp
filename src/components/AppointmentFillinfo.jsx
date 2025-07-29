@@ -31,6 +31,7 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
 
   const handlesubmit = async () => {
     const clearedData = {
+      visitorTag: visitorTag,
       badgeId: badgeId,
       status: 'Checked-In',
       checkInTime: datetime,

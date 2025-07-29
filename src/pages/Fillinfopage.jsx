@@ -3,11 +3,12 @@ import { coatOfArms, cameraIcon } from '../assets';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios'; // For API requests
+import { Toaster, toast } from 'sonner'
 
 const Fillinfopage = ({ sharedString, iDname,setmyphone,setDateTime,setDepartment, setliftvisitorTag, setliftBadgeId }) => {
   // console.log(sharedString, iDname);
 const navigate = useNavigate();
-  const [phoneno, setphoneno] = useState('');
+  const [phoneno, setphoneno] = useState('N/a');
 
   const [showTime] = useState(getFormattedDate())
   
@@ -17,10 +18,18 @@ const navigate = useNavigate();
   const [badgeId, setBadgeId] = useState('');
 
   const handlesubmit = () => {
+    if (dept == '') {
+      toast.error('Please Select the Destination');
+      return;
+    }
+    if (visitorTag == '') {
+      toast.error('Please Select the Badge No.');
+      return;
+    }
     setDepartment(dept);
-  setmyphone(phoneno);
-  setliftvisitorTag(visitorTag);
-  setliftBadgeId(badgeId);
+    setmyphone(phoneno);
+    setliftvisitorTag(visitorTag);
+    setliftBadgeId(badgeId);
 
     navigate('/shwebapp/mypage')
  
@@ -167,35 +176,35 @@ const navigate = useNavigate();
 
             <label>
               <p className='mb-[1vw]'>
-                Enter phone number :
+                Phone number :
               </p>
-              <input name="telnumber" type="number" placeholder='Phone number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setphoneno(e.target.value)} />
+              <input name="telnumber" type="number" placeholder='Enter Phone number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setphoneno(e.target.value)} />
             </label>
 
             <label>
               <p className='mb-[1vw] mt-[2.5vw]'>
-                Enter Department Headed :
+                Destination :
               </p>
               {/* <input name="telnumber" type="text" placeholder='Department Headed' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setdept(e.target.value)}/> */}
 
               <Select
                   options={depatmentOptions}
                   onChange={handleChange}
-                  placeholder="Select Department"
+                  placeholder="Select Destination"
                   className='w-[55vw] rounded-[1vw] text-black'
               />
             </label>
 
             <label>
               <p className='mb-[1vw] mt-[2.5vw]'>
-                Enter Visitor's Badge Number :
+                Visitor's Badge Number :
               </p>
               {/* <input name="telnumber" type="text" placeholder='Enter Badge Number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setvisitorTag(e.target.value)}/> */}
 
               <Select
                   options={badges}
                   onChange={handleBadgesChange}
-                  placeholder="Select Visitors Badge"
+                  placeholder="Select Visitors Badge No."
                   className='w-[55vw] rounded-[1vw] text-black'
               />
             </label>
@@ -216,6 +225,8 @@ const navigate = useNavigate();
           </div>
         </div>
       </div>
+
+      <Toaster richColors position="top-center" />
     </div>
   );
 }

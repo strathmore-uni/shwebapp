@@ -51,11 +51,11 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
     <div>
       {/* <h1 className='text-white'>Mypage{myphone}</h1> */}
 
-      <div className='flex justify-center pt-[10vw]'>
+      {/* <div className='flex justify-center pt-[10vw]'>
         <div>
           <img src={coatOfArms} className='h-[30vw]' alt='Coat of Arms' />
         </div>
-      </div>
+      </div> */}
 
       <div className='flex justify-center'>
         <div>
@@ -125,7 +125,7 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
                 </p>
               </label>
 
-              <div className='mt-[2.5vw]'>
+              {/* <div className='mt-[2.5vw]'>
                 <p className=''>
                   Licence Plate :
                 </p>
@@ -133,7 +133,7 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
                 <p className='font-bold pl-[1.5vw]'>
                   TODO
                 </p>             
-              </div>
+              </div> */}
             </div>
 
             

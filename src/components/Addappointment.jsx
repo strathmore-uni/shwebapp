@@ -12,6 +12,8 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
     const [visiteemail, setVisiteemail] = useState('');
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState('Pending');
+    const [visitorTag, setVisitorTag] = useState('Pending');
+    const [badgeId, setBadgeId] = useState('Pending');
     const [checkInTime, setCheckInTime] = useState('Pending');
     const [phoneNo, setPhoneNo] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
@@ -103,6 +105,8 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
           eventName: eventName,
           eventLocation: eventLocation,
           status: status,
+          visitorTag: visitorTag,
+          badgeId: badgeId,
           checkInTime: checkInTime,
         };
     
