@@ -47,6 +47,7 @@ const handlePopupSubmit = async () => {
           setDisplayPopup(!displayPopup);
           setReload(!reload);
           setVistBadgeId('');
+          setInputValue('');
       } catch (error) {
           toast.error(error + ' Failed to Checkout Visitor');
           setInputValue('');
@@ -117,6 +118,7 @@ const handlePopupSubmit = async () => {
         // ✅ Normalize structure to match data
         const normalizedAppointments = checkedInAppointments.map(item => ({
           ...item,
+          _id: item._id,
           idName: item.name,              // Rename for consistency
           sharedString: item.AttendeeID,  // Assumes this field exists in appointments
           phone: item.phoneNo,
