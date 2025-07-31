@@ -8,8 +8,100 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { Toaster, toast } from 'sonner'
 // import { parse } from 'date-fns';
+// import { parse } from 'date-fns';
 
 import { startOfWeek, format, isSameDay, parse } from 'date-fns';
+
+
+// const getHourlyVisitorsToday = (data) => {
+//   const hours = Array.from({ length: 24 }, (_, i) => `${i}:00`);
+//   const counts = Array(24).fill(0);
+
+//   const today = new Date();
+//   const todayStr = today.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace(/ /g, ' ');
+
+//   data.forEach((visitor) => {
+//     const dateStr = visitor.dateTime?.split(" - ")[1];
+//     const timeStr = visitor.dateTime?.split(" - ")[0];
+
+//     if (!dateStr || !timeStr) return;
+
+//     if (dateStr === todayStr) {
+//       const hour = parseInt(timeStr.split(":")[0]);
+//       if (!isNaN(hour)) counts[hour]++;
+//     }
+//   });
+
+//   return { labels: hours, data: counts };
+// };
+
+
+// const getHourlyVisitorsToday = (data) => {
+//   const startHour = 7;
+//   const endHour = 18; // 6 PM
+
+//   // Create hour labels: ['07:00', '08:00', ..., '18:00']
+//   const hours = Array.from({ length: endHour - startHour + 1 }, (_, i) => {
+//     const hour = startHour + i;
+//     // return `${hour}:00`;
+//     return `${hour % 12 || 12} ${hour < 12 ? 'am' : 'pm'}`;
+//   });
+
+//   const counts = Array(endHour - startHour + 1).fill(0);
+
+//   const today = new Date();
+//   const todayStr = today.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace(/ /g, ' ');
+
+//   data.forEach((visitor) => {
+//     const [timeStr, dateStr] = visitor.dateTime?.split(" - ") || [];
+
+//     if (!dateStr || !timeStr) return;
+//     if (dateStr !== todayStr) return;
+
+//     const hour = parseInt(timeStr.split(":")[0]);
+//     if (hour >= startHour && hour <= endHour) {
+//       counts[hour - startHour]++;
+//     }
+//   });
+
+//   return { labels: hours, data: counts };
+// };
+
+
+const getHourlyVisitorsToday = (data) => {
+  const startHour = 7;
+  const endHour = 18;
+
+  const hours = Array.from({ length: endHour - startHour + 1 }, (_, i) => {
+    const hour = startHour + i;
+    return `${hour % 12 || 12} ${hour < 12 ? 'am' : 'pm'}`;
+  });
+
+  const counts = Array(endHour - startHour + 1).fill(0);
+
+  const today = new Date();
+  const todayDate = format(today, 'dd MMMM yyyy');
+
+  data.forEach((visitor) => {
+    const [timeStr, dateStr] = visitor.dateTime?.split(' - ') || [];
+    if (!timeStr || !dateStr) return;
+
+    const parsedDate = parse(dateStr.trim(), 'dd MMMM yyyy', new Date());
+    const formattedDate = format(parsedDate, 'dd MMMM yyyy');
+
+    if (formattedDate !== todayDate) return;
+
+    const hour = parseInt(timeStr.split(':')[0]);
+    if (!isNaN(hour) && hour >= startHour && hour <= endHour) {
+      counts[hour - startHour]++;
+    }
+  });
+
+  return { labels: hours, data: counts };
+};
+
+
+
 
 const getVisitorsPerDay = (data) => {
   const today = new Date();
@@ -134,8 +226,21 @@ const Dashboard = () => {
     if (view === 'monthly') return getVisitorsPerMonth(data);
     return { labels: [], data: [] };
   };
+
+  // const getTodayChartData = () => {
+  //   return getVisitorsPerDay(data);
+  //   // if (view === 'weekly') return getVisitorsPerWeek(data);
+  //   // if (view === 'monthly') return getVisitorsPerMonth(data);
+  //   return { labels: [], data: [] };
+  // };
+
+  const getTodayChartData = () => {
+    return getHourlyVisitorsToday(data);
+  };
+  
   
   const visitorsChartData = getChartData();
+  const visitorTodayChartData = getTodayChartData();
   
   const barChartData = {
     labels: visitorsChartData.labels,
@@ -148,17 +253,51 @@ const Dashboard = () => {
       },
     ],
   };
+
+  const todayBarChartData = {
+    labels: visitorTodayChartData.labels,
+    datasets: [
+      {
+        label: 'Visitors',
+        data: visitorTodayChartData.data,
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        borderRadius: 6,
+      },
+    ],
+  };
   
   
   
 
+  // const options = {
+  //   responsive: true,
+  //   plugins: {
+  //     legend: { display: false, },
+  //     // title: { display: true, text: `Bar Chart - ${view.charAt(0).toUpperCase() + view.slice(1)}` },
+  //   },
+  // };
+
   const options = {
     responsive: true,
     plugins: {
-      legend: { display: false, },
-      // title: { display: true, text: `Bar Chart - ${view.charAt(0).toUpperCase() + view.slice(1)}` },
+      legend: { display: false },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 5, // ✅ Only show whole numbers
+          precision: 0, // ✅ Avoid decimals like 0.1, 0.2
+          callback: function (value) {
+            if (Number.isInteger(value)) {
+              return value;
+            }
+          },
+        },
+      },
     },
   };
+  
 
 
   const [pieView, setPieView] = useState('daily');
@@ -246,18 +385,32 @@ const Dashboard = () => {
   
   // const totalVisitors = data.length;
 
+  // const isToday = (checkInTimeStr) => {
+  //   if (!checkInTimeStr) return false;
+  
+  //   // Extract date part: "28 May 2025"
+  //   const datePart = checkInTimeStr.split(" - ")[1];
+  
+  //   // Get today's date in the same format
+  //   const today = new Date();
+  //   const options = { day: '2-digit', month: 'short', year: 'numeric' };
+  //   const todayFormatted = today.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
+  
+  //   return datePart === todayFormatted;
+  // };
+
+
   const isToday = (checkInTimeStr) => {
     if (!checkInTimeStr) return false;
   
-    // Extract date part: "28 May 2025"
     const datePart = checkInTimeStr.split(" - ")[1];
+    if (!datePart) return false;
   
-    // Get today's date in the same format
-    const today = new Date();
-    const options = { day: '2-digit', month: 'short', year: 'numeric' };
-    const todayFormatted = today.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
+    const parsedDate = parse(datePart.trim(), 'dd MMMM yyyy', new Date());
+    const todayFormatted = format(new Date(), 'dd MMMM yyyy');
+    const visitorDateFormatted = format(parsedDate, 'dd MMMM yyyy');
   
-    return datePart === todayFormatted;
+    return visitorDateFormatted === todayFormatted;
   };
   
   const todayVisitors = data.filter(visitor => isToday(visitor.dateTime));
@@ -292,7 +445,7 @@ const Dashboard = () => {
           </p>
 
           <p className='text-[2vw] font-bold'>
-            30
+            0
           </p>
         </div>
 
@@ -304,7 +457,7 @@ const Dashboard = () => {
           <div className='flex gap-[1vw]'>
             <div className='flex gap-[0.3vw]'>
               <p className='text-[2vw] font-bold'>
-                10
+                0
               </p>
 
               <p className='text-[0.9vw] mt-[1vw]'>
@@ -316,7 +469,7 @@ const Dashboard = () => {
 
             <div className='flex gap-[0.3vw]'>
               <p className='text-[2vw] font-bold'>
-                7
+                0
               </p>
 
               <p className='text-[0.9vw] mt-[1vw]'>
@@ -336,6 +489,67 @@ const Dashboard = () => {
           </p>
         </div>
       </div>
+
+    
+
+      <div className='flex gap-[1vw]'>
+        <div className='border-gray-300 border-[0.1vw] w-[53vw] mb-[2vh] rounded-[0.5vw] px-[1vw] pt-[0.8vw]'>
+          <div className='text-[0.9vw] mb-[0.5vw] flex gap-[25.3vw]'>
+            <div>
+              <p className='font-bold text-[1vw] mt-[0.2vw] mb-[0.5vw]'>
+                Visitors Checked-In Today
+              </p>
+            </div>
+
+            {/* <div className='cursor-pointer'>
+              <button onClick={() => setView('daily')} className={`border-gray-300 border-[0.1vw] rounded-l-[0.3vw] px-[1vw] py-[0.3vw] 
+          ${view === 'daily' ? 'bg-gray-200' : ''}`}>
+                Daily
+              </button>
+
+              <button onClick={() => setView('weekly')} className={`border-gray-300 border-[0.1vw] px-[1vw] py-[0.3vw] 
+          ${view === 'weekly' ? 'bg-gray-200' : ''}`}>
+                Weekly
+              </button>
+
+              <button onClick={() => setView('monthly')} className={`border-gray-300 border-[0.1vw] rounded-r-[0.3vw] px-[1vw] py-[0.3vw] 
+          ${view === 'monthly' ? 'bg-gray-200' : ''}`}>
+                Monthly
+              </button>
+            </div> */}
+          </div>
+          <Bar data={todayBarChartData} options={options} />
+        </div>
+
+        <div className='border-gray-300 border-[0.1vw] w-[28vw] h-[29vw] rounded-[0.5vw] pt-[0.7vw]'>
+          <div>  
+            {/* <p className='font-bold text-[1vw] text-center mb-[1vw]'>
+              Department Visitors: <span className='font-normal text-[0.9vw]'>{pieView.charAt(0).toUpperCase() + pieView.slice(1)}</span>
+            </p> */}
+
+            <p className='font-bold text-[1vw] text-center mb-[1vw]'>
+              Visitors per Department 
+            </p>
+
+            <div className='flex justify-center'>
+              <div className='w-[22vw]'>
+                <Pie data={pieData} options={pieOptions} />
+              </div>
+            </div>
+
+            {/* <div className='flex justify-center mt-[0.8vw] text-[0.9vw]'>
+              <button onClick={() => setPieView('daily')} className={`border-gray-300 border-[0.1vw] rounded-l-[0.3vw] px-[1vw] py-[0.3vw] 
+          ${pieView === 'daily' ? 'bg-gray-200' : ''}`}>Daily</button>
+              <button onClick={() => setPieView('weekly')} className={`border-gray-300 border-[0.1vw] px-[1vw] py-[0.3vw] 
+          ${pieView === 'weekly' ? 'bg-gray-200' : ''}`}>Weekly</button>
+              <button onClick={() => setPieView('monthly')} className={`border-gray-300 border-[0.1vw] rounded-r-[0.3vw] px-[1vw] py-[0.3vw] 
+          ${pieView === 'monthly' ? 'bg-gray-200' : ''}`}>Monthly</button>
+            </div> */}
+          </div>
+        </div>
+      </div>
+
+
 
       <div className='flex gap-[1vw]'>
         <div className='border-gray-300 border-[0.1vw] w-[53vw] mb-[2vh] rounded-[0.5vw] px-[1vw] pt-[0.8vw]'>
