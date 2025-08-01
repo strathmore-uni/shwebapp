@@ -219,11 +219,12 @@ const Dashboard = () => {
   const [data, setData] = useState([]);
   const [view, setView] = useState('monthly');
   const visitorsThisWeek = getVisitorsPerDay(data);
+  const [dataB, setDataB] = useState([]);
 
   const getChartData = () => {
-    if (view === 'daily') return getVisitorsPerDay(data);
-    if (view === 'weekly') return getVisitorsPerWeek(data);
-    if (view === 'monthly') return getVisitorsPerMonth(data);
+    if (view === 'daily') return getVisitorsPerDay(dataB);
+    if (view === 'weekly') return getVisitorsPerWeek(dataB);
+    if (view === 'monthly') return getVisitorsPerMonth(dataB);
     return { labels: [], data: [] };
   };
 
@@ -302,7 +303,8 @@ const Dashboard = () => {
 
   const [pieView, setPieView] = useState('daily');
 
-  const departmentData = getDepartmentVisitorTotals(data);
+  const departmentTodayData = getDepartmentVisitorTotals(data);
+  const departmentData = getDepartmentVisitorTotals(dataB);
 
   const pieData = {
     labels: departmentData.labels,
@@ -310,6 +312,18 @@ const Dashboard = () => {
       {
         label: 'Visitors',
         data: departmentData.counts,
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+        hoverOffset: 10,
+      },
+    ],
+  };
+
+  const pieDataToday = {
+    labels: departmentTodayData.labels,
+    datasets: [
+      {
+        label: 'Visitors',
+        data: departmentTodayData.counts,
         backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
         hoverOffset: 10,
       },
@@ -367,6 +381,27 @@ const Dashboard = () => {
       fetch(`${import.meta.env.VITE_API_URL}/api/data`)
         .then(response => response.json())
         .then(data => setData(data))
+        .catch(error => {
+          console.error("Error fetching data", error);
+          toast.error("Error fetching data");
+        });
+    };
+  
+    // Initial fetch
+    fetchData();
+  
+    // Set interval for auto-refresh
+    const intervalId = setInterval(fetchData, 30000); // refresh every 30 seconds
+  
+    // Cleanup on unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    const fetchData = () => {
+      fetch(`${import.meta.env.VITE_API_URL}/api/datab`)
+        .then(response => response.json())
+        .then(data => setDataB(data))
         .catch(error => {
           console.error("Error fetching data", error);
           toast.error("Error fetching data");
@@ -485,7 +520,7 @@ const Dashboard = () => {
           </p>
 
           <p className='text-[2vw] font-bold'>
-            {data.length}
+            {dataB.length}
           </p>
         </div>
       </div>
@@ -533,7 +568,7 @@ const Dashboard = () => {
 
             <div className='flex justify-center'>
               <div className='w-[22vw]'>
-                <Pie data={pieData} options={pieOptions} />
+                <Pie data={pieDataToday} options={pieOptions} />
               </div>
             </div>
 
