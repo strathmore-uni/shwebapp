@@ -207,8 +207,9 @@ const getDepartmentVisitorTotals = (data) => {
 const columns = [
   { name: "Visitor Name", selector: row => row.idName, sortable: true },
   { name: "ID", selector: row => row.sharedString, sortable: true },
+  { name: "Phone Number", selector: row => row.phone },
   { name: "Check-In Time", selector: row => row.dateTime, sortable: true },
-  { name: "Department", selector: row => row.department, sortable: true },
+  { name: "Destination", selector: row => row.department, sortable: true },
   { name: "Checked In By", selector: row => row.checkedInBy },
   { name: "Cleared By", selector: row => row.clearedBy },
 ];
@@ -346,12 +347,27 @@ const Dashboard = () => {
 
 
   const [filterText, setFilterText] = useState("");
-  const filteredData = data.filter(
-    item =>
-      item.name?.toLowerCase().includes(filterText.toLowerCase()) ||
-      item.nationalId?.includes(filterText) ||
-      item.department?.toLowerCase().includes(filterText.toLowerCase())
-  );
+  // const filteredData = dataB.filter(
+  //   item =>
+  //     item.name?.toLowerCase().includes(filterText.toLowerCase()) ||
+  //     item.nationalId?.includes(filterText) ||
+  //     item.department?.toLowerCase().includes(filterText.toLowerCase())
+  // );
+
+  const filteredData = [
+    ...dataB.filter(
+      item =>
+        item.name?.toLowerCase().includes(filterText.toLowerCase()) ||
+        item.nationalId?.includes(filterText) ||
+        item.department?.toLowerCase().includes(filterText.toLowerCase())
+    ),
+    ...data.filter(
+      item =>
+        item.name?.toLowerCase().includes(filterText.toLowerCase()) ||
+        item.nationalId?.includes(filterText) ||
+        item.department?.toLowerCase().includes(filterText.toLowerCase())
+    )
+  ];  
 
   const exportPDF = () => {
     const doc = new jsPDF();
