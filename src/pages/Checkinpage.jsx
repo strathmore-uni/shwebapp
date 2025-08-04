@@ -6,7 +6,7 @@ import { InputText } from 'primereact/inputtext';
 import { Toaster, toast } from 'sonner'
 import axios from 'axios';
 
-const Checkinpage = ({ myphone, sharedString, iDname, datetime, department, setFulldata }) => {
+const Checkinpage = ({ myphone, sharedString, iDname, department, setFulldata }) => {
 
   const [displayPopup, setDisplayPopup] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -15,6 +15,9 @@ const Checkinpage = ({ myphone, sharedString, iDname, datetime, department, setF
   const [documentId, setDocumentId] = useState('');
   const [reload, setReload] = useState(true);
   const [vistBadgeId, setVistBadgeId] = useState('');
+  const [datetime, setDateTime] = useState('');
+  const [showTime] = useState(getFormattedDate());
+  console.log(showTime);
 
   const displayDialogue = (visitorTag, idName, _id, badgeId) => {
     setDisplayPopup(true);
@@ -36,7 +39,7 @@ const handlePopupSubmit = async () => {
           // const response = await axios.post('http://localhost:5000/api/migrate', { id: documentId });
 
           const [postResponse, putResponse] = await Promise.all([
-            axios.post('http://localhost:5000/api/migrate', { id: documentId }),
+            axios.post('http://localhost:5000/api/migrate', { id: documentId, checkoutTime: datetime }),
             axios.put(`http://localhost:5000/api/visitorsbadges/${vistBadgeId}`, choosen)
           ]);
 
@@ -148,6 +151,36 @@ const handlePopupSubmit = async () => {
     item.idName.toLowerCase().includes(searchQuery.toLowerCase()) || 
     item.sharedString.includes(searchQuery) // Customize the search logic based on your needs
   );
+
+
+
+    //Date and Time function to update the usestate
+  function getFormattedDate() {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    const date = new Date();
+    const showTime = ('0' + date.getHours()).slice(-2) + ':' + 
+                     ('0' + date.getMinutes()).slice(-2) + ' - ' + 
+                     ('0' + date.getDate()).slice(-2) + ' ' + 
+                     monthNames[date.getMonth()] + ' ' + date.getFullYear();
+    return showTime;
+  }
+  // setDateTime(showTime);
+  // console.log(showTime)
+
+  useEffect(() => {
+    setDateTime(showTime);
+  }, [showTime, setDateTime]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setReload(prev => !prev); // Toggle to trigger data refresh
+    }, 300000); // 300,000 ms = 5 minutes
+  
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
+  
+
 
   return (
     <div>

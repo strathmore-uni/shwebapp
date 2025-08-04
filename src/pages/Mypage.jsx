@@ -5,6 +5,8 @@ import axios from 'axios';
 
 export default function Mypage({myphone, sharedString, iDname,datetime,department,setFulldata, liftvisitorTag, liftBadgeId}) {
 
+  // const [time, setTime] = 'Pending';
+
   const handleSubmit = async () => {
     // Create an object with the state variables
     const data = {
@@ -15,6 +17,7 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
       dateTime: datetime,
       visitorTag: liftvisitorTag,
       badgeId: liftBadgeId,
+      checkoutTime: 'Pending',
     };
 
     const choosen = {
