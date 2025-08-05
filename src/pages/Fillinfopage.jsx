@@ -5,7 +5,7 @@ import Select from 'react-select';
 import axios from 'axios'; // For API requests
 import { Toaster, toast } from 'sonner'
 
-const Fillinfopage = ({ sharedString, iDname,setmyphone,setDateTime,setDepartment, setliftvisitorTag, setliftBadgeId }) => {
+const Fillinfopage = ({ sharedString, iDname,setmyphone,setDateTime,setDepartment, setliftvisitorTag, setliftBadgeId, setLicencePlateNo }) => {
   // console.log(sharedString, iDname);
 const navigate = useNavigate();
   const [phoneno, setphoneno] = useState('N/a');
@@ -16,6 +16,7 @@ const navigate = useNavigate();
 
   const [visitorTag, setvisitorTag] = useState('');
   const [badgeId, setBadgeId] = useState('');
+  // const [licencePlateNo, setLicencePlateNo] = useState('');
 
   const handlesubmit = () => {
     if (dept == '') {
@@ -178,11 +179,18 @@ const navigate = useNavigate();
               <p className='mb-[1vw]'>
                 Phone number :
               </p>
-              <input name="telnumber" type="number" placeholder='Enter Phone number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setphoneno(e.target.value)} />
+              <input name="telnumber" type="number" placeholder='Enter Phone number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw] mb-[2vw]'  onChange={e => setphoneno(e.target.value)} />
             </label>
 
             <label>
-              <p className='mb-[1vw] mt-[2.5vw]'>
+              <p className='mb-[1vw]'>
+                Licence plate :
+              </p>
+              <input name="licenceplate" type="text" placeholder='Enter Licence plate information' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setLicencePlateNo(e.target.value)} />
+            </label>
+
+            <label>
+              <p className='mb-[1vw] mt-[2vw]'>
                 Destination :
               </p>
               {/* <input name="telnumber" type="text" placeholder='Department Headed' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setdept(e.target.value)}/> */}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { coatOfArms } from '../assets'
 import axios from 'axios';
 
-export default function Mypage({myphone, sharedString, iDname,datetime,department,setFulldata, liftvisitorTag, liftBadgeId}) {
+export default function Mypage({myphone, sharedString, iDname,datetime,department,setFulldata, liftvisitorTag, liftBadgeId, licencePlateNo}) {
 
   // const [time, setTime] = 'Pending';
 
@@ -18,6 +18,7 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
       visitorTag: liftvisitorTag,
       badgeId: liftBadgeId,
       checkoutTime: 'Pending',
+      licencePlateNo: licencePlateNo,
     };
 
     const choosen = {
@@ -100,17 +101,27 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
 
               <label>
                 <p className='mb-[1vw]'>
-                  Enter phone number :
+                  Phone number :
                 </p>
 
-                <p className='font-bold pl-[1.5vw]'>
+                <p className='font-bold pl-[1.5vw] mb-[0.5vw]'>
                   {myphone}
                 </p>              
               </label>
 
               <label>
+                <p className='mb-[1vw]'>
+                  Licence Plate :
+                </p>
+
+                <p className='font-bold pl-[1.5vw]'>
+                  {licencePlateNo}
+                </p>              
+              </label>
+
+              <label>
                 <p className='mb-[1vw] mt-[2.5vw]'>
-                  Enter Department Headed :
+                  Destination Headed :
                 </p>
                 
                 <p className='font-bold pl-[1.5vw]'>

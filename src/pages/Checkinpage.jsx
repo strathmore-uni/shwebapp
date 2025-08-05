@@ -316,6 +316,16 @@ const handlePopupSubmit = async () => {
                     </p>
                   </div>
 
+                  <div className='mb-[2.5vw] flex'>
+                    <p className='font-light'>
+                      Licence Plate :
+                    </p>
+
+                    <p className='font-bold pl-[1.5vw]'>
+                      {item.licencePlateNo}
+                    </p>
+                  </div>
+
                   {/* <div className='mb-[2.5vw] flex'>
                     <p className='font-light'>
                       Licence Plate :
