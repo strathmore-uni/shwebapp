@@ -38,6 +38,15 @@ const Secretaryview = () => {
         .catch(error => console.error('Error fetching data:', error));
     }, [reload]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+          setReload(prev => !prev); // Toggle reload state every 5 minutes
+        }, 300000); // 300,000 ms = 5 minutes
+      
+        return () => clearInterval(interval); // Clean up interval on unmount
+      }, []);
+      
+
     const confirmUser = (user) => {
         setSelectedUser(user);
         setDisplayPopup(true);

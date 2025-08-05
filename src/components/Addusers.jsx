@@ -78,7 +78,7 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
         const emailData = {
           email: email,
           subject: 'Access to Visitor Management System',
-          message: 'Hello ' + userName + ", you have been given access to MRTN's Visitor Management System as <strong>" + role + "</strong>. Your User Name is <strong>" + userName + "</strong> and your password is <strong>" + password + "</strong>. Please change your password after you login.",
+          message: 'Hello ' + userName + ",<br /><br /> You have been granted access to the company's <strong>Visitor Management System</strong> with the role of: <strong>" + role + "</strong>.<br /><br /> Your login credentials are as follows: <br /> User Name: <strong>" + userName + "</strong> <br /> Password: <strong>" + password + "</strong> <br /><br /> Best regards,<br /> Company Name / IT Support Team",
         };
 
         // Send the email data to the backend

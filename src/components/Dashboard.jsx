@@ -451,6 +451,15 @@ const Dashboard = () => {
   // };
 
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setReload(prev => !prev); // Toggle reload state every 5 minutes
+    }, 300000); // 300,000 ms = 5 minutes
+  
+    return () => clearInterval(interval); // Clean up interval on unmount
+  }, []);
+
+
   const isToday = (checkInTimeStr) => {
     if (!checkInTimeStr) return false;
   
@@ -465,7 +474,8 @@ const Dashboard = () => {
   };
   
   const todayVisitors = data.filter(visitor => isToday(visitor.dateTime));
-  
+  const todayCheckedOutVisitors = dataB.filter(visitor => isToday(visitor.checkoutTime));
+
 
   return (
     <div className='pt-[6vw] pl-[14vw]'>
@@ -496,7 +506,7 @@ const Dashboard = () => {
           </p>
 
           <p className='text-[2vw] font-bold'>
-            0
+            0{todayCheckedOutVisitors.length}
           </p>
         </div>
 
