@@ -131,7 +131,7 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
         const emailData = {
           email: email,
           subject: 'Scheduled Appointment',
-          message: 'Dear ' + userName + ",<br /><br />You are invited to the following event:<br /><br /> <strong>Event: </strong>"+ eventName + "<br /> <strong>Location: </strong>" + eventLocation + "<br /><br /> <strong>Date: </strong>" + formattedDate + "<br /><br /> Please mark your calendar and make the necessary arrangements to attend.<br /><br /> If you have any questions or require further information, feel free to reach out.<br /><br />Best regards,<br />Company Name",
+          message: 'Dear ' + userName + ",<br /><br />You are invited to the following event:<br /><br /> <strong>Event: </strong>"+ eventName + "<br /> <strong>Location: </strong>" + eventLocation + "<br /><br /> <strong>Date: </strong>" + formattedDate + "<br /><br />Kindly ensure you carry your original National ID for verification purposes upon arrival.<br /><br /> Please mark your calendar and make the necessary arrangements to attend.<br /><br /> If you have any questions or require further information, feel free to reach out.<br /><br />Best regards,<br />Company Name",
         };
 
         // Send the email data to the backend

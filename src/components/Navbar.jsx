@@ -18,7 +18,7 @@ const Navbar = ({profile, role}) => {
                         {role}
                     </p>
                 </div>
-                <img src={myImage} className='w-[3.7vw] rounded-[10vw] border-black border-[0.2vw]' />
+                {/* <img src={myImage} className='w-[3.7vw] rounded-[10vw] border-black border-[0.2vw]' /> */}
             </div>
         </div>
     </div>
