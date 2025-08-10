@@ -7,7 +7,7 @@ const ActivityLogPage = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/activity/logs');
+        const res = await axios.get('http://localhost:5001/api/activity/logs');
         console.log('Fetched logs:', res.data);
         if (Array.isArray(res.data)) {
           setLogs(res.data);
