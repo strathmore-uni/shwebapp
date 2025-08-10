@@ -158,7 +158,7 @@ const App = () => {
         {mobileScreen && (
           <div className='flex flex-col items-center justify-center pt-[28vh]'>
           <div className="flex flex-col">
-            <h2 className="text-white text-[8vw] font-bold text-center pb-[1vw]">Login</h2>
+            <h2 className="text-white text-[8vw] font-bold text-center pb-[1vw]">Login.</h2>
             <input
               className="border px-[12vw] py-[3vw] text-center rounded-[1vw]"
               placeholder="Enter User ID"
