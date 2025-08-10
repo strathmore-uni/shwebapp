@@ -67,7 +67,7 @@ const App = () => {
         toast.error('Enter Password')
       } else {
           try {
-            const res = await axios.post('http://localhost:5000/login', { staffid, password });
+            const res = await axios.post('http://localhost:5001/login', { staffid, password });
             const token = res.data.token;
             localStorage.setItem('token', token);
             setToken(token);
@@ -75,7 +75,7 @@ const App = () => {
             setRole(decoded.role);
 
             // ✅ Log login activity
-            await axios.post('http://localhost:5000/api/activity/log', {
+            await axios.post('${process.env.REACT_APP_API_URL}/api/activity/log', {
               staffid: decoded.staffid,
               username: decoded.name,
               role: decoded.role,
@@ -112,7 +112,7 @@ const App = () => {
     if (token) {
       const decoded = jwtDecode(token);
       try {
-        await axios.post('http://localhost:5000/api/activity/log', {
+        await axios.post('${process.env.REACT_APP_API_URL}/api/activity/log', {
           staffid: decoded.staffid,
           username: decoded.name,
           role: decoded.role,

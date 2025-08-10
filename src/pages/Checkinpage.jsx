@@ -39,8 +39,8 @@ const handlePopupSubmit = async () => {
           // const response = await axios.post('http://localhost:5000/api/migrate', { id: documentId });
 
           const [postResponse, putResponse] = await Promise.all([
-            axios.post('http://localhost:5000/api/migrate', { id: documentId, checkoutTime: datetime }),
-            axios.put(`http://localhost:5000/api/visitorsbadges/${vistBadgeId}`, choosen)
+            axios.post('${process.env.REACT_APP_API_URL}/api/migrate', { id: documentId, checkoutTime: datetime }),
+            axios.put('${process.env.REACT_APP_API_URL}/api/visitorsbadges/${vistBadgeId}', choosen)
           ]);
 
           toast.success(selectedIdName +' has been Succesfully checkedout');
