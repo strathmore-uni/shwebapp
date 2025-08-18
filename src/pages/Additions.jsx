@@ -31,21 +31,21 @@ const Additions = () => {
     })
 
     useEffect(() => {
-        fetch('http://localhost:5001/api/departmentsdata')
+        fetch('https://vms.cognitron.co.ke/api/departmentsdata')
         .then(response => response.json())
         .then(data => setData(data))
         .catch(error => toast.error('Error fetching data:', error));
     }, [departmentRefresh]);
 
     useEffect(() => {
-        fetch('http://localhost:5001/api/visitorsbadges')
+        fetch('https://vms.cognitron.co.ke/api/visitorsbadges')
         .then(response => response.json())
         .then(data => setBackendBadges(data))
         .catch(error => toast.error('Error fetching data:', error));
     }, [badgesRefresh]);
 
     useEffect(() => {
-        fetch('http://localhost:5001/api/eventvenues')
+        fetch('https://vms.cognitron.co.ke/api/eventvenues')
         .then(response => response.json())
         .then(data => setEventVenuesRes(data))
         .catch(error => toast.error('Error fetching data:', error));
@@ -65,7 +65,7 @@ const Additions = () => {
     
         try {
           // Send the data to the backend
-          const response = await axios.post('http://localhost:5001/api/departmentsdata', data);       
+          const response = await axios.post('https://vms.cognitron.co.ke/api/departmentsdata', data);       
         //   console.log(response.data); // Log the response from the server
           toast.success("Department " + depart + " has been successfully added");
           setDepart('');          
@@ -91,7 +91,7 @@ const Additions = () => {
     
         try {
           // Send the data to the backend
-          const response = await axios.post('http://localhost:5001/api/visitorsbadges', data);       
+          const response = await axios.post('https://vms.cognitron.co.ke/api/visitorsbadges', data);       
         //   console.log(response.data); // Log the response from the server
           toast.success(badge + " has been successfully added");
           setBadge('');          
@@ -117,7 +117,7 @@ const Additions = () => {
     
         try {
           // Send the data to the backend
-          const response = await axios.post('http://localhost:5001/api/eventvenues', data);       
+          const response = await axios.post('https://vms.cognitron.co.ke/api/eventvenues', data);       
         //   console.log(response.data); // Log the response from the server
           toast.success(eventVenue + " has been successfully added");
           setEventVenue('');    
@@ -132,7 +132,7 @@ const Additions = () => {
       
     const handleDelete = async (_id) => {
         try {
-            const response = await fetch(`http://localhost:5001/api/departmentsdata/${_id}`, {
+            const response = await fetch(`https://vms.cognitron.co.ke/api/departmentsdata/${_id}`, {
                 method: 'DELETE',
             });
             const result = await response.json();
@@ -148,7 +148,7 @@ const Additions = () => {
 
     const handleVisitorBadgeDelete = async (_id) => {
         try {
-            const response = await fetch(`http://localhost:5001/api/visitorsbadges/${_id}`, {
+            const response = await fetch(`https://vms.cognitron.co.ke/api/visitorsbadges/${_id}`, {
                 method: 'DELETE',
             });
             const result = await response.json();
@@ -164,7 +164,7 @@ const Additions = () => {
 
     const handleEventVenueDelete = async (_id) => {
         try {
-            const response = await fetch(`http://localhost:5001/api/eventvenues/${_id}`, {
+            const response = await fetch(`https://vms.cognitron.co.ke/api/eventvenues/${_id}`, {
                 method: 'DELETE',
             });
             const result = await response.json();

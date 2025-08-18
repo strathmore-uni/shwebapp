@@ -31,8 +31,8 @@ export default function Mypage({myphone, sharedString, iDname,datetime,departmen
       // console.log(response.data); // Log the response from the server
 
       const [postResponse, putResponse] = await Promise.all([
-        axios.post('http://localhost:5000/api/data', data),
-        axios.put(`http://localhost:5000/api/visitorsbadges/${liftBadgeId}`, choosen)
+        axios.post('https://vms.cognitron.co.ke/api/data', data),
+        axios.put(`https://vms.cognitron.co.ke/api/visitorsbadges/${liftBadgeId}`, choosen)
       ]);
 
       console.log('Post Response:', postResponse.data); // Log the response from the server

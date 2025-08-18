@@ -52,7 +52,7 @@ const navigate = useNavigate();
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/departmentsdata'); // Replace with your actual API endpoint
+        const response = await axios.get('https://vms.cognitron.co.ke/api/departmentsdata'); // Replace with your actual API endpoint
         const departments = response.data;
 
         // Map the data to the format React Select expects
@@ -75,7 +75,7 @@ const navigate = useNavigate();
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/visitorsbadges'); // Replace with your actual API endpoint
+        const response = await axios.get('https://vms.cognitron.co.ke/api/visitorsbadges'); // Replace with your actual API endpoint
         const visitors = response.data;
 
         // Filter out records where chosen is "true"

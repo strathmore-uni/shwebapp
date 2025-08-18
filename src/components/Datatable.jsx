@@ -18,7 +18,7 @@ const Datatable = (refresh) => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5001/api/userdata')
+        fetch('https://vms.cognitron.co.ke/api/userdata')
         .then(response => response.json())
         .then(data => setData(data))
         .catch(error => console.error('Error fetching data:', error));
@@ -26,7 +26,7 @@ const Datatable = (refresh) => {
 
     const handleDelete = async (_id) => {
         try {
-            const response = await fetch(`http://localhost:5001/api/userdata/${_id}`, {
+            const response = await fetch(`https://vms.cognitron.co.ke/api/userdata/${_id}`, {
                 method: 'DELETE',
             });
             const result = await response.json();

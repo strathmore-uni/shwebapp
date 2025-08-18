@@ -39,7 +39,7 @@ const handlePopupSubmit = async () => {
           // const response = await axios.post('http://localhost:5000/api/migrate', { id: documentId });
 
           const [postResponse, putResponse] = await Promise.all([
-            axios.post('http://localhost:5001/api/migrate', { id: documentId, checkoutTime: datetime }),
+            axios.post('https://vms.cognitron.co.ke/api/migrate', { id: documentId, checkoutTime: datetime }),
             axios.put(`http://localhost:5001/api/visitorsbadges/${vistBadgeId}`, choosen)
           ]);
 

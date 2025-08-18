@@ -65,7 +65,7 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
     
         try {
           // Send the data to the backend
-          const response = await axios.post('http://localhost:5000/api/userdata', data);
+          const response = await axios.post('https://vms.cognitron.co.ke/api/userdata', data);
         //   setToastResponse(response.data);
           //console.log(response.data); // Log the response from the server
           toast.success(response.data);
@@ -82,7 +82,7 @@ const Addusers = ({setShowUsersForm, refresh, setRefresh}) => {
         };
 
         // Send the email data to the backend
-        const emailResponse = await fetch('http://localhost:5000/send-email', {
+        const emailResponse = await fetch('https://vms.cognitron.co.ke/api/send-email', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

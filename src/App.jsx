@@ -67,7 +67,7 @@ const App = () => {
         toast.error('Enter Password')
       } else {
           try {
-            const res = await axios.post('http://localhost:5001/login', { staffid, password });
+            const res = await axios.post('https://vms.cognitron.co.ke/api/login', { staffid, password });
             const token = res.data.token;
             localStorage.setItem('token', token);
             setToken(token);

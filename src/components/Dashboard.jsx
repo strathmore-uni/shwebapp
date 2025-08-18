@@ -506,7 +506,7 @@ const Dashboard = () => {
           </p>
 
           <p className='text-[2vw] font-bold'>
-            0{todayCheckedOutVisitors.length}
+            {todayCheckedOutVisitors.length}
           </p>
         </div>
 
