@@ -75,7 +75,7 @@ const App = () => {
             setRole(decoded.role);
 
             // ✅ Log login activity
-            await axios.post('${process.env.REACT_APP_API_URL}/api/activity/log', {
+            await axios.post('https://vms.cognitron.co.ke/api/activity/log', {
               staffid: decoded.staffid,
               username: decoded.name,
               role: decoded.role,
@@ -112,7 +112,7 @@ const App = () => {
     if (token) {
       const decoded = jwtDecode(token);
       try {
-        await axios.post('${process.env.REACT_APP_API_URL}/api/activity/log', {
+        await axios.post('https://vms.cognitron.co.ke/api/activity/log', {
           staffid: decoded.staffid,
           username: decoded.name,
           role: decoded.role,

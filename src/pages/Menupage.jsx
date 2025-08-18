@@ -16,7 +16,7 @@ export const Menupage = () => {
         if (token) {
           const decoded = jwtDecode(token);
           try {
-            await axios.post('http://localhost:5001/api/activity/log', {
+            await axios.post('https://vms.cognitron.co.ke/api/activity/log', {
               staffid: decoded.staffid,
               username: decoded.name,
               role: decoded.role,

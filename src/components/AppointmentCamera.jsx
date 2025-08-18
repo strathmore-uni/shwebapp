@@ -91,7 +91,7 @@ const AppointmentCamera = ({setAttendeeName, setEventLocation, setAttendeeIDNo})
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/appointmentsdata')
+        fetch('https://vms.cognitron.co.ke/api/appointmentsdata')
             .then(response => response.json())
             .then(data => {
                 setData(data);

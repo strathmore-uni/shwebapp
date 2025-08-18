@@ -40,7 +40,7 @@ const handlePopupSubmit = async () => {
 
           const [postResponse, putResponse] = await Promise.all([
             axios.post('https://vms.cognitron.co.ke/api/migrate', { id: documentId, checkoutTime: datetime }),
-            axios.put(`http://localhost:5001/api/visitorsbadges/${vistBadgeId}`, choosen)
+            axios.put(`https://vms.cognitron.co.ke/api/visitorsbadges/${vistBadgeId}`, choosen)
           ]);
 
           toast.success(selectedIdName +' has been Succesfully checkedout');

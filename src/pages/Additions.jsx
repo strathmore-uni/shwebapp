@@ -185,12 +185,12 @@ const Additions = () => {
         <div className='mt-[1vw] ml-[3vw] flex gap-[3.5vw]'>
             <div>
                 <p className='mb-[0.2vw] ml-[0.3vw] text-[1vw]'>
-                    Add Department or Events:
+                    Add Destination:
                 </p>
 
                 <div className='flex gap-[1vw]'>
                     <label>
-                        <input type="text" placeholder='Enter Department Name' value={depart} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2.5vw] w-[17vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setDepart(e.target.value)} />
+                        <input type="text" placeholder='Enter Destination Name' value={depart} className='text-black rounded-[0.3vw] text-[1vw] pl-[0.5vw] h-[2.5vw] w-[17vw] border-black border-[0.2vw] mb-[0.9vw]'  onChange={e => setDepart(e.target.value)} />
                     </label>
 
                     <div className='w-[7vw] border-black bg-black text-white border-[0.15vw] rounded-[0.3vw] h-[2.5vw] flex justify-center text-[1.2vw] font-semibold cursor-pointer' onClick={handleSubmit}>
@@ -209,12 +209,12 @@ const Additions = () => {
                                 })
                             }
                             
-                            placeholder='Search for Department'
+                            placeholder='Search for Destination'
                             className='mt-[1vw] h-[2.5vw] rounded-[0.3vw] pl-[1.5vw] w-[20vw] bg-background-grey'
                         />
 
                         <DataTable className='w-[23vw] h-[30vw] mt-[1vw]' value={data} filters={filters} stripedRows placeholder='ji' rows={8}>
-                            <Column field="departmentName" header="Department" sortable />                   
+                            <Column field="departmentName" header="Destination" sortable />                   
                             <Column
                                 header="Actions"
                                 body={(rowData) => (

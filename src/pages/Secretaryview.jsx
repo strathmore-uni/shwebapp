@@ -32,7 +32,7 @@ const Secretaryview = () => {
     // const [matchResult, setMatchResult] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:5001/api/data')
+        fetch('https://vms.cognitron.co.ke/api/data')
         .then(response => response.json())
         .then(data => setData(data))
         .catch(error => console.error('Error fetching data:', error));
@@ -71,7 +71,7 @@ const Secretaryview = () => {
                 cleared: true, // Pass the cleared status
             };
             
-            fetch(`http://localhost:5001/api/data/${selectedUser._id}`, {
+            fetch(`https://vms.cognitron.co.ke/api/data/${selectedUser._id}`, {
                 method: 'PUT', // Use PUT method to update data
                 headers: {
                     'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ const Secretaryview = () => {
 
     const handleDelete = async (_id) => {
         try {
-            const response = await fetch(`http://localhost:5001/api/data/${_id}`, {
+            const response = await fetch(`https://vms.cognitron.co.ke/api/data/${_id}`, {
                 method: 'DELETE',
             });
             const result = await response.json();

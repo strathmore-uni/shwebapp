@@ -39,7 +39,7 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
   
     try {
       // 1. Update appointment record
-      const response = await fetch(`http://localhost:5000/api/appointmentsdata/${attendeeIDNo}`, {
+      const response = await fetch(`https://vms.cognitron.co.ke/api/appointmentsdata/${attendeeIDNo}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
       console.log('Appointment updated:', result);
   
       // 2. Mark badge as chosen
-      await axios.put(`http://localhost:5000/api/visitorsbadges/${badgeId}`, {
+      await axios.put(`https://vms.cognitron.co.ke/api/visitorsbadges/${badgeId}`, {
         chosen: "true"
       });
   
@@ -89,7 +89,7 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/visitorsbadges'); // Replace with your actual API endpoint
+        const response = await axios.get('https://vms.cognitron.co.ke/api/visitorsbadges'); // Replace with your actual API endpoint
         const visitors = response.data;
 
         // Filter out records where chosen is "true"

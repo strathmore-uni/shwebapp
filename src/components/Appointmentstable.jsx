@@ -26,7 +26,7 @@ const Appointmentstable = ({refresh}) => {
 
     useEffect(() => {
         const fetchData = () => {
-            fetch('http://localhost:5001/api/appointmentsdata')
+            fetch('https://vms.cognitron.co.ke/api/appointmentsdata')
                 .then(response => response.json())
                 .then(data => setData(data))
                 .catch(error => console.error('Error fetching data:', error));
@@ -42,7 +42,7 @@ const Appointmentstable = ({refresh}) => {
 
     const handleDelete = async (_id) => {
         try {
-            const response = await fetch(`http://localhost:5001/api/appointmentsdata/${_id}`, {
+            const response = await fetch(`https://vms.cognitron.co.ke/api/appointmentsdata/${_id}`, {
                 method: 'DELETE',
             });
             const result = await response.json();

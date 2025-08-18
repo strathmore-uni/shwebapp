@@ -28,7 +28,7 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
     useEffect(() => {
       const fetchVenues = async () => {
         try {
-          const response = await axios.get('http://localhost:5001/api/eventvenues'); // Replace with your actual API endpoint
+          const response = await axios.get('https://vms.cognitron.co.ke/api/eventvenues'); // Replace with your actual API endpoint
           const venues = response.data;
 
           // Map the data to the format React Select expects
@@ -112,7 +112,7 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
     
         try {
           // Send the data to the backend
-          const response = await axios.post('http://localhost:5001/api/appointmentsdata', data);
+          const response = await axios.post('https://vms.cognitron.co.ke/api/appointmentsdata', data);
         //   setToastResponse(response.data);
           console.log(response.data); // Log the response from the server
           toast.success(response.data);
@@ -135,7 +135,7 @@ const Addappointment = ({setShowUsersForm, refresh, setRefresh}) => {
         };
 
         // Send the email data to the backend
-        const emailResponse = await fetch('http://localhost:5001/send-appointment-email', {
+        const emailResponse = await fetch('https://vms.cognitron.co.ke/api/send-appointment-email', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
