@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 // import Fillinfopage from '../pages/Fillinfopage'
 import { shutter } from '../assets'
+import { useMediaQuery } from 'react-responsive';
 
 const Webcamera = ({ setSharedString, setiDname,myphone }) => {
   const [id, setId] = useState('');
@@ -21,6 +22,9 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
   const [animate, setAnimate] = useState(false);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
+  const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)' });
 
   // const handleImageChange = (e) => {
   //   setImage(e.target.files[0]);
@@ -71,6 +75,7 @@ const Webcamera = ({ setSharedString, setiDname,myphone }) => {
     } catch (error) {
       console.error('Error uploading the image', error);
       alert('Failed to upload the image. Please try again.');
+      setLoading(false);
     }
   }, [webcamRef]);
 
@@ -111,7 +116,7 @@ const navigateToNextPage = () => {
 
   return (
     <div>
-      <p className='text-white text-center pt-[4vw]'>
+      {/* <p className='text-white text-center pt-[4vw]'>
         Ensure the entire ID card fits entirely within the frame
       </p>
 
@@ -154,7 +159,108 @@ const navigateToNextPage = () => {
         <button onClick={capture}>
           <img src={shutter} className={`w-[20vw] ml-[40vw] mt-[8vw] transition-transform duration-1000 ease-in-out
           ${animate ? 'scale-125 rotate-[360deg]' : ''}`} />        
-        </button>
+        </button> */}
+
+
+        {mobileScreen && (
+          <div>
+            <p className='text-white text-center pt-[4vw]'>
+              Ensure the entire ID card fits entirely within the frame
+            </p>
+
+            {loading && (
+              <div className="flex justify-center">
+                <div className='absolute top-[50vw]'>
+                  <div className="w-[15vw] h-[15vw] border-[1.5vw] border-white border-t-transparent rounded-full animate-spin" />
+                </div>
+              </div>
+            )}
+
+            {visible && (
+              <div className='flex justify-center relative'>
+                <div className='absolute top-[15vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw] pb-[5vw] z-10'>
+                  {results?.id_number && results?.name && (
+                    <div>    
+                      <p>{myphone}</p>  
+                      <p>ID No: {results.id_number}</p>
+                      <p>Name: {results.name}</p>          
+                    </div>
+                  )}
+                  <button onClick={navigateToNextPage} className='border-[0.45vw] rounded-[1vw] text-center text-white mt-[3vw] py-[1vw] w-[40vw]'>
+                    Continue
+                  </button>
+                </div>
+              </div>      
+            )}
+
+
+              <Webcam
+                  audio={false}
+                  ref={webcamRef}
+                  screenshotFormat="image/jpeg"
+                  videoConstraints={{
+                      facingMode: 'environment',
+                  }}
+                  className='mt-[4vw]'
+              />
+
+              <button onClick={capture}>
+                <img src={shutter} className={`w-[20vw] ml-[40vw] mt-[8vw] transition-transform duration-1000 ease-in-out
+                ${animate ? 'scale-125 rotate-[360deg]' : ''}`} />        
+              </button>
+          </div>
+        )}
+
+        {notMobileScreen && (
+          <div>
+            <p className='text-white text-center pt-[4vw]'>
+              Ensure the entire ID card fits entirely within the frame
+            </p>
+
+            {loading && (
+              <div className="flex justify-center">
+                <div className='absolute top-[50vw]'>
+                  <div className="w-[15vw] h-[15vw] border-[1.5vw] border-white border-t-transparent rounded-full animate-spin" />
+                </div>
+              </div>
+            )}
+
+            {visible && (
+              <div className='flex justify-center relative'>
+                <div className='absolute top-[15vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw] pb-[5vw] z-10'>
+                  {results?.id_number && results?.name && (
+                    <div>    
+                      <p>{myphone}</p>  
+                      <p>ID No: {results.id_number}</p>
+                      <p>Name: {results.name}</p>          
+                    </div>
+                  )}
+                  <button onClick={navigateToNextPage} className='border-[0.45vw] rounded-[1vw] text-center text-white mt-[3vw] py-[1vw] w-[40vw]'>
+                    Continue
+                  </button>
+                </div>
+              </div>      
+            )}
+
+
+              <div className='flex'>
+                <Webcam
+                    audio={false}
+                    ref={webcamRef}
+                    screenshotFormat="image/jpeg"
+                    videoConstraints={{
+                        facingMode: 'environment',
+                    }}
+                    className='mt-[4vw] ml-[4vw] w-[50vw]'
+                />
+
+                <button onClick={capture}>
+                  <img src={shutter} className={`w-[18vw] ml-[10vw] mt-[5vw] transition-transform duration-1000 ease-in-out
+                  ${animate ? 'scale-125 rotate-[360deg]' : ''}`} />        
+                </button>
+              </div>
+          </div>
+        )}
     </div>
   )
 }
