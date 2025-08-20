@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios'; // For API requests
 import { Toaster, toast } from 'sonner'
+import { useMediaQuery } from 'react-responsive';
 
 const Fillinfopage = ({ sharedString, iDname,setmyphone,setDateTime,setDepartment, setliftvisitorTag, setliftBadgeId, setLicencePlateNo }) => {
   // console.log(sharedString, iDname);
@@ -17,6 +18,9 @@ const navigate = useNavigate();
   const [visitorTag, setvisitorTag] = useState('');
   const [badgeId, setBadgeId] = useState('');
   // const [licencePlateNo, setLicencePlateNo] = useState('');
+
+  const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
+  const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)' });
 
   const handlesubmit = () => {
     if (dept == '') {
@@ -130,15 +134,7 @@ const navigate = useNavigate();
 
   return (
     <div>
-      {/* <div className='flex justify-center pt-[10vw]'>
-        <div>
-          <img src={coatOfArms} className='h-[30vw]' alt='Coat of Arms' />
-        </div>
-      </div> */}
-      
-    
-
-      <div className='flex justify-center'>
+      {/* <div className='flex justify-center'>
         <div className='w-[85vw] pb-[6vw] bg-white bg-opacity-10 text-white mt-[10vw] border-[0.05vw] rounded-[6vw] pl-[4vw]'>
           <p className='text-[3.8vw] mt-[5vw] font-semibold'>
             REQUIRED
@@ -193,7 +189,6 @@ const navigate = useNavigate();
               <p className='mb-[1vw] mt-[2vw]'>
                 Destination :
               </p>
-              {/* <input name="telnumber" type="text" placeholder='Department Headed' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setdept(e.target.value)}/> */}
 
               <Select
                   options={depatmentOptions}
@@ -207,7 +202,6 @@ const navigate = useNavigate();
               <p className='mb-[1vw] mt-[2.5vw]'>
                 Visitor's Badge Number :
               </p>
-              {/* <input name="telnumber" type="text" placeholder='Enter Badge Number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setvisitorTag(e.target.value)}/> */}
 
               <Select
                   options={badges}
@@ -216,14 +210,6 @@ const navigate = useNavigate();
                   className='w-[55vw] rounded-[1vw] text-black'
               />
             </label>
-
-            {/* <div className='mt-[2.5vw]'>
-              <p className=''>
-                Take picture of Vehicle's Licence Plate :
-              </p>
-
-              <img src={cameraIcon} className='h-[13vw] mt-[2vw] pl-[1vw] cursor-pointer' />              
-            </div> */}
           </div>
 
           <div className='flex justify-center text-[3.8vw] mt-[8vw]'>
@@ -232,7 +218,198 @@ const navigate = useNavigate();
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
+
+      {mobileScreen && (
+        <div>
+          <div className='flex justify-center'>
+            <div className='w-[85vw] pb-[6vw] bg-white bg-opacity-10 text-white mt-[10vw] border-[0.05vw] rounded-[6vw] pl-[4vw]'>
+              <p className='text-[3.8vw] mt-[5vw] font-semibold'>
+                REQUIRED
+              </p>
+
+              <div className='pt-[2vw]'>
+                <div className='mb-[2.5vw]'>
+                  <p className=''>
+                    Name :
+                  </p>
+
+                  <p className='font-bold pl-[1.5vw]'>
+                    {iDname}
+                  </p>
+                </div>
+
+                <div className='mb-[2.5vw]'>
+                  <p className=''>
+                    ID Number :
+                  </p>
+
+                  <p className='font-bold pl-[1.5vw]'>
+                    {sharedString}
+                  </p>
+                </div>
+
+                <div className='mb-[2.5vw]'>
+                  <p className=''>
+                    Check-in Time :
+                  </p>
+
+                  <p className='font-bold pl-[1.5vw]'>
+                    {showTime}
+                  </p>
+                </div>
+
+                <label>
+                  <p className='mb-[1vw]'>
+                    Phone number :
+                  </p>
+                  <input name="telnumber" type="number" placeholder='Enter Phone number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw] mb-[2vw]'  onChange={e => setphoneno(e.target.value)} />
+                </label>
+
+                <label>
+                  <p className='mb-[1vw]'>
+                    Licence plate :
+                  </p>
+                  <input name="licenceplate" type="text" placeholder='Enter Licence plate information' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setLicencePlateNo(e.target.value)} />
+                </label>
+
+                <label>
+                  <p className='mb-[1vw] mt-[2vw]'>
+                    Destination :
+                  </p>
+
+                  <Select
+                      options={depatmentOptions}
+                      onChange={handleChange}
+                      placeholder="Select Destination"
+                      className='w-[55vw] rounded-[1vw] text-black'
+                  />
+                </label>
+
+                <label>
+                  <p className='mb-[1vw] mt-[2.5vw]'>
+                    Visitor's Badge Number :
+                  </p>
+
+                  <Select
+                      options={badges}
+                      onChange={handleBadgesChange}
+                      placeholder="Select Visitors Badge No."
+                      className='w-[55vw] rounded-[1vw] text-black'
+                  />
+                </label>
+              </div>
+
+              <div className='flex justify-center text-[3.8vw] mt-[8vw]'>
+                <p className='border-[0.45vw] rounded-[1vw] text-center text-white py-[1vw] cursor-pointer w-[40vw]' onClick={handlesubmit} >
+                  Done
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>    
+      )}
+
+
+      {notMobileScreen && (
+        <div>
+          <div className='flex justify-center'>
+            <div className='w-[45vw] pb-[3vw] bg-white bg-opacity-10 text-white mt-[3vw] border-[0.05vw] rounded-[3vw]'>
+              <div className='flex justify-center'>
+                <p className='text-[3vw] mt-[1.5vw] font-semibold'>
+                  REQUIRED
+                </p>
+              </div>
+
+              <div className='flex justify-center'>
+                <div className='w-[10vw] h-[0.1vw] bg-white'></div>
+              </div>
+
+              <div className='pt-[2vw] text-center'>
+                <div className='mb-[1vw] flex justify-center'>
+                  <p>
+                    Name :
+                  </p>
+
+                  <p className='font-bold pl-[1vw]'>
+                    {iDname}
+                  </p>
+                </div>
+
+                <div className='mb-[1vw] flex justify-center'>
+                  <p className=''>
+                    ID Number :
+                  </p>
+
+                  <p className='font-bold pl-[1vw]'>
+                    {sharedString}
+                  </p>
+                </div>
+
+                <div className='mb-[1.5vw] flex justify-center'>
+                  <p className=''>
+                    Check-in Time :
+                  </p>
+
+                  <p className='font-bold pl-[1vw]'>
+                    {showTime}
+                  </p>
+                </div>
+
+                <label>
+                  <p className='mb-[1vw]'>
+                    Phone number :
+                  </p>
+                  <input name="telnumber" type="number" placeholder='Enter Phone number' className='text-black rounded-[1vw] text-[2vw] pl-[2vw] h-[4vw] w-[30vw] mb-[1.5vw]'  onChange={e => setphoneno(e.target.value)} />
+                </label>
+
+                <label>
+                  <p className='mb-[1vw]'>
+                    Licence plate :
+                  </p>
+                  <input name="licenceplate" type="text" placeholder='Enter Licence plate' className='text-black rounded-[1vw] text-[2vw] pl-[2vw] h-[4vw] w-[30vw]'  onChange={e => setLicencePlateNo(e.target.value)} />
+                </label>
+
+                <label>
+                  <p className='mb-[1vw] mt-[2vw]'>
+                    Destination :
+                  </p>
+
+                  <div className='flex justify-center'>
+                    <Select
+                        options={depatmentOptions}
+                        onChange={handleChange}
+                        placeholder="Select Destination"
+                        className='w-[30vw] rounded-[1vw] text-black'
+                    />
+                  </div>
+                </label>
+
+                <label>
+                  <p className='mb-[1vw] mt-[2.5vw]'>
+                    Visitor's Badge Number :
+                  </p>
+
+                  <div className='flex justify-center'>
+                    <Select
+                        options={badges}
+                        onChange={handleBadgesChange}
+                        placeholder="Select Visitors Badge No."
+                        className='w-[30vw] rounded-[1vw] text-black'
+                    />
+                  </div>
+                </label>
+              </div>
+
+              <div className='flex justify-center text-[1.5vw] mt-[5vw]'>
+                <p className='border-[0.45vw] rounded-[1vw] text-center text-black bg-white py-[1vw] font-semibold cursor-pointer w-[25vw]' onClick={handlesubmit} >
+                  Done
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>    
+      )}
 
       <Toaster richColors position="top-center" />
     </div>

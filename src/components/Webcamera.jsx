@@ -113,6 +113,10 @@ const navigateToNextPage = () => {
   history('/shwebapp/fill', { state: { id, name } });
 };
 
+const retry = () => {
+  setVisible(false);
+};
+
 
   return (
     <div>
@@ -218,8 +222,8 @@ const navigateToNextPage = () => {
             </p>
 
             {loading && (
-              <div className="flex justify-center">
-                <div className='absolute top-[50vw]'>
+              <div className="pl-[22vw]">
+                <div className='absolute top-[22vw]'>
                   <div className="w-[15vw] h-[15vw] border-[1.5vw] border-white border-t-transparent rounded-full animate-spin" />
                 </div>
               </div>
@@ -227,7 +231,7 @@ const navigateToNextPage = () => {
 
             {visible && (
               <div className='flex justify-center relative'>
-                <div className='absolute top-[10vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw] pb-[5vw] z-10'>
+                <div className='absolute top-[3vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw] pb-[5vw] z-10'>
                   {results?.id_number && results?.name && (
                     <div>    
                       <p>{myphone}</p>  
@@ -237,6 +241,10 @@ const navigateToNextPage = () => {
                   )}
                   <button onClick={navigateToNextPage} className='border-[0.45vw] rounded-[1vw] text-center text-white mt-[3vw] py-[1vw] w-[40vw]'>
                     Continue
+                  </button>
+
+                  <button onClick={retry} className='border-[0.45vw] rounded-[1vw] text-center text-white mt-[1.5vw] py-[1vw] w-[40vw]'>
+                    Retry
                   </button>
                 </div>
               </div>      
