@@ -227,7 +227,7 @@ const navigateToNextPage = () => {
 
             {visible && (
               <div className='flex justify-center relative'>
-                <div className='absolute top-[15vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw] pb-[5vw] z-10'>
+                <div className='absolute top-[10vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw] pb-[5vw] z-10'>
                   {results?.id_number && results?.name && (
                     <div>    
                       <p>{myphone}</p>  
@@ -255,7 +255,7 @@ const navigateToNextPage = () => {
                 />
 
                 <button onClick={capture}>
-                  <img src={shutter} className={`w-[18vw] ml-[10vw] mt-[5vw] transition-transform duration-1000 ease-in-out
+                  <img src={shutter} className={`w-[18vw] ml-[13vw] mt-[5vw] transition-transform duration-1000 ease-in-out
                   ${animate ? 'scale-125 rotate-[360deg]' : ''}`} />        
                 </button>
               </div>
