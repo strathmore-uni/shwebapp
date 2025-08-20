@@ -228,6 +228,21 @@ const App = () => {
         </BrowserRouter>
       )}
 
+      {notMobileScreen && role === 'Guard' && (
+        <BrowserRouter>
+          <Routes>
+            <Route path="shwebapp/menu" element={<Menupage />} />
+            <Route path="shwebapp/checkedin" element={<Checkinpage sharedString={sharedString} iDname={iDname} datetime={datetime} department={department} myphone={myphone} />} />
+            <Route path='shwebapp/mypage' element={<Mypage myphone={myphone} sharedString={sharedString} iDname={iDname} datetime={datetime} department={department} liftvisitorTag={liftvisitorTag} liftBadgeId={liftBadgeId} licencePlateNo={licencePlateNo} />} />
+            <Route path="shwebapp/camera" element={<Webcamera setSharedString={setSharedString} setiDname={setiDname} />} />
+            <Route path="shwebapp/fill" element={<Fillinfopage sharedString={sharedString} iDname={iDname} setmyphone={setmyphone} setDateTime={setDateTime} setDepartment={setDepartment} setliftvisitorTag={setliftvisitorTag} setliftBadgeId={setliftBadgeId} setLicencePlateNo={setLicencePlateNo} />} />
+            <Route path="shwebapp/appointmentcamera" element={<AppointmentCamera setAttendeeName={setAttendeeName} setAttendeeIDNo={setAttendeeIDNo} setEventLocation={setEventLocation} />} />
+            <Route path="shwebapp/appointmentfillinfo" element={<AppointmentFillinfo attendeeName={attendeeName} eventLocation={eventLocation} attendeeIDNo={attendeeIDNo} />} />
+            <Route path="*" element={<Navigate to="/shwebapp/menu" />} />
+          </Routes>
+        </BrowserRouter>
+      )}
+
       {role === 'Admin' && (
         <div className='w-screen bg-grey absolute'>
           <Navbar profile={profile} role={role} />
