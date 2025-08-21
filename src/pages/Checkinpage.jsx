@@ -5,6 +5,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Toaster, toast } from 'sonner'
 import axios from 'axios';
+import { useMediaQuery } from 'react-responsive';
 
 const Checkinpage = ({ myphone, sharedString, iDname, department, setFulldata }) => {
 
@@ -18,6 +19,9 @@ const Checkinpage = ({ myphone, sharedString, iDname, department, setFulldata })
   const [datetime, setDateTime] = useState('');
   const [showTime] = useState(getFormattedDate());
   console.log(showTime);
+
+  const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
+  const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)' });
 
   const displayDialogue = (visitorTag, idName, _id, badgeId) => {
     setDisplayPopup(true);
@@ -184,78 +188,7 @@ const handlePopupSubmit = async () => {
 
   return (
     <div>
-      {/* <div className='flex justify-center pt-[10vw]'>
-        <div>
-          <img src={coatOfArms} className='h-[30vw] mb-[3vw]' alt='Coat of Arms' />
-        </div>
-      </div> */}
-
-      {/* {data.map((checkin, index) => (
-        <div className='flex justify-center' key={index}>
-          <div>
-            <div className='w-[85vw] pb-[3vw] bg-white bg-opacity-10 text-white mt-[10vw] border-[0.05vw] rounded-[6vw] pl-[4vw] mb-[2vw]'>
-              <p className='text-[3.8vw] mt-[5vw] font-semibold'>
-                {checkin.iDname}
-              </p>
-
-              <div className='pt-[2vw]'>
-                <div className='mb-[2.5vw] flex'>
-                  <p className='font-light'>
-                    ID :
-                  </p>
-
-                  <p className='font-bold pl-[1.5vw]'>
-                    {checkin.sharedString}
-                  </p>
-                </div>
-
-                <div className='mb-[2.5vw] flex'>
-                  <p className='font-light'>
-                    Phone Number :
-                  </p>
-
-                  <p className='font-bold pl-[1.5vw]'>
-                    {checkin.myphone}
-                  </p>
-                </div>
-
-                <div className='mb-[2.5vw] flex'>
-                  <p className='font-light'>
-                    Check-in Time :
-                  </p>
-
-                  <p className='font-bold pl-[1.5vw]'>
-                    {checkin.datetime}
-                  </p>
-                </div>
-
-                <div className='mb-[2.5vw] flex'>
-                  <p className='font-light'>
-                    Destination :
-                  </p>
-
-                  <p className='font-bold pl-[1.5vw]'>
-                    {checkin.department}
-                  </p>
-                </div>
-
-                <div className='mb-[2.5vw] flex'>
-                  <p className='font-light'>
-                    Licence Plate :
-                  </p>
-
-                  <p className='font-bold pl-[1.5vw]'>
-                    TODO
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))} */}
-
-
-      <div className='flex justify-center mt-[8vw]'>
+      {/* <div className='flex justify-center mt-[8vw]'>
         <input
           type='text'
           value={searchQuery}
@@ -325,16 +258,6 @@ const handlePopupSubmit = async () => {
                       {item.licencePlateNo}
                     </p>
                   </div>
-
-                  {/* <div className='mb-[2.5vw] flex'>
-                    <p className='font-light'>
-                      Licence Plate :
-                    </p>
-
-                    <p className='font-bold pl-[1.5vw]'>
-                      TODO
-                    </p>
-                  </div> */}
                   
                   {item.cleared ? (
                     <div className='flex justify-center py-[0.8vw]'>
@@ -384,7 +307,258 @@ const handlePopupSubmit = async () => {
             </div>
         </Dialog>
 
-        <Toaster richColors position="top-center" />
+        <Toaster richColors position="top-center" /> */}
+
+        {mobileScreen && (
+          <div>
+            <div className='flex justify-center mt-[4vw]'>
+            <input
+              type='text'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder='Search Visitor by Name or ID number'
+              className='mb-[3vw] w-[85vw] px-[2vw] py-[1.5vw] rounded-[2vw] text-black fixed'
+            />
+
+            <div className='w-[10vw] h-[5vw] mb-[9vw]'></div>
+          </div>
+          
+          {filteredData.map(item => (
+              <div className='flex justify-center' key={item._id}>
+                <div>
+                  <div className='w-[85vw] pb-[3vw] bg-white bg-opacity-10 text-white border-[0.05vw] rounded-[6vw] pl-[4vw] mb-[3vw]'>
+                    <p className='text-[3.8vw] mt-[5vw] font-semibold'>
+                      {item.idName}
+                    </p>
+
+                    <div className='pt-[2vw]'>
+                      <div className='mb-[2.5vw] flex'>
+                        <p className='font-light'>
+                          ID :
+                        </p>
+
+                        <p className='font-bold pl-[1.5vw]'>
+                          {item.sharedString}
+                        </p>
+                      </div>
+
+                      <div className='mb-[2.5vw] flex'>
+                        <p className='font-light'>
+                          Phone Number :
+                        </p>
+
+                        <p className='font-bold pl-[1.5vw]'>
+                          {item.phone}
+                        </p>
+                      </div>
+
+                      <div className='mb-[2.5vw] flex'>
+                        <p className='font-light'>
+                          Check-in Time :
+                        </p>
+
+                        <p className='font-bold pl-[1.5vw]'>
+                          {item.dateTime}
+                        </p>
+                      </div>
+
+                      <div className='mb-[2.5vw] flex'>
+                        <p className='font-light'>
+                          Destination :
+                        </p>
+
+                        <p className='font-bold pl-[1.5vw]'>
+                          {item.department}
+                        </p>
+                      </div>
+
+                      <div className='mb-[2.5vw] flex'>
+                        <p className='font-light'>
+                          Licence Plate :
+                        </p>
+
+                        <p className='font-bold pl-[1.5vw]'>
+                          {item.licencePlateNo}
+                        </p>
+                      </div>
+                      
+                      {item.cleared ? (
+                        <div className='flex justify-center py-[0.8vw]'>
+                          <Button
+                              label="Checkout Visitor" 
+                              onClick={() => displayDialogue(item.visitorTag, item.idName, item._id, item.badgeId)}                       
+                              className="bg-white text-black px-[3vw] py-[0.9vw] rounded"
+                          />
+                        </div>
+                      ):(
+                        <div className='flex justify-center py-[0.8vw]'>                      
+                          <div className="bg-gray-500 text-white px-[3vw] py-[0.9vw] rounded">
+                            <p>
+                              Visitor not Cleared
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>            
+              </div>
+            ))}
+
+            <Dialog
+                header="Visitor Clearance"
+                visible={displayPopup}
+                onHide={() => setDisplayPopup(false)}
+                className='w-[80vw]'
+            >
+                <div>
+                    <p className='text-[3.5vw] font-semibold ml-[0.3vw]'>Enter Visitor's Badge Number</p>
+
+                    <InputText
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        className='w-full text-black rounded-[1.3vw] text-[4vw] font-semibold text-center h-[7.5vw] border-black border-[0.2vw] mt-[0.2vw]'
+                    />     
+
+                    <div className="mt-[3vw] flex justify-center">
+                        <Button
+                            label="Checkout"
+                            onClick={handlePopupSubmit}
+                            className="bg-green-500 text-white px-[2vw] py-[1vw]"
+                        />
+                    </div>                           
+                </div>
+            </Dialog>
+
+            <Toaster richColors position="top-center" />
+          </div>
+        )}
+
+        {notMobileScreen && (
+          <div>
+            <div className='flex justify-center mt-[3vw]'>
+
+            <input
+              type='text'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder='Search Visitor by Name or ID number'
+              className='mb-[3vw] w-[85vw] px-[2vw] py-[1.5vw] rounded-[2vw] text-black fixed'
+            />
+
+            <div className='w-[10vw] h-[5vw] mb-[3vw]'></div>
+          </div>
+          
+          {filteredData.map(item => (
+              <div className='flex justify-center' key={item._id}>
+                <div>
+                  <div className='w-[85vw] pb-[3vw] bg-white bg-opacity-10 text-white border-[0.05vw] rounded-[6vw] pl-[4vw] mb-[3vw]'>
+                    <p className='text-[3.8vw] mt-[5vw] font-semibold'>
+                      {item.idName}
+                    </p>
+
+                    <div className='pt-[2vw]'>
+                      <div className='mb-[2.5vw] flex'>
+                        <p className='font-light'>
+                          ID :
+                        </p>
+
+                        <p className='font-bold pl-[1.5vw]'>
+                          {item.sharedString}
+                        </p>
+                      </div>
+
+                      <div className='mb-[2.5vw] flex'>
+                        <p className='font-light'>
+                          Phone Number :
+                        </p>
+
+                        <p className='font-bold pl-[1.5vw]'>
+                          {item.phone}
+                        </p>
+                      </div>
+
+                      <div className='mb-[2.5vw] flex'>
+                        <p className='font-light'>
+                          Check-in Time :
+                        </p>
+
+                        <p className='font-bold pl-[1.5vw]'>
+                          {item.dateTime}
+                        </p>
+                      </div>
+
+                      <div className='mb-[2.5vw] flex'>
+                        <p className='font-light'>
+                          Destination :
+                        </p>
+
+                        <p className='font-bold pl-[1.5vw]'>
+                          {item.department}
+                        </p>
+                      </div>
+
+                      <div className='mb-[2.5vw] flex'>
+                        <p className='font-light'>
+                          Licence Plate :
+                        </p>
+
+                        <p className='font-bold pl-[1.5vw]'>
+                          {item.licencePlateNo}
+                        </p>
+                      </div>
+                      
+                      {item.cleared ? (
+                        <div className='flex justify-center py-[0.8vw]'>
+                          <Button
+                              label="Checkout Visitor" 
+                              onClick={() => displayDialogue(item.visitorTag, item.idName, item._id, item.badgeId)}                       
+                              className="bg-white text-black px-[3vw] py-[0.9vw] rounded"
+                          />
+                        </div>
+                      ):(
+                        <div className='flex justify-center py-[0.8vw]'>                      
+                          <div className="bg-gray-500 text-white px-[3vw] py-[0.9vw] rounded">
+                            <p>
+                              Visitor not Cleared
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>            
+              </div>
+            ))}
+
+            <Dialog
+                header="Visitor Clearance"
+                visible={displayPopup}
+                onHide={() => setDisplayPopup(false)}
+                className='w-[80vw]'
+            >
+                <div>
+                    <p className='text-[3.5vw] font-semibold ml-[0.3vw]'>Enter Visitor's Badge Number</p>
+
+                    <InputText
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        className='w-full text-black rounded-[1.3vw] text-[4vw] font-semibold text-center h-[7.5vw] border-black border-[0.2vw] mt-[0.2vw]'
+                    />     
+
+                    <div className="mt-[3vw] flex justify-center">
+                        <Button
+                            label="Checkout"
+                            onClick={handlePopupSubmit}
+                            className="bg-green-500 text-white px-[2vw] py-[1vw]"
+                        />
+                    </div>                           
+                </div>
+            </Dialog>
+
+            <Toaster richColors position="top-center" />    
+          </div>
+        )}
     </div>
   );
 };
