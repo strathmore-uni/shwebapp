@@ -3,6 +3,7 @@ import { coatOfArms, cameraIcon } from '../assets';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios'; // For API requests
+import { useMediaQuery } from 'react-responsive';
 
 const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
 
@@ -18,6 +19,9 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
 
   const [visitorTag, setvisitorTag] = useState('');
   const [badgeId, setBadgeId] = useState('');
+
+  const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
+  const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)' });
 
   // const handlesubmit = () => {
   //   setDepartment(dept);
@@ -120,10 +124,10 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
 
   return (
     <div>
-        <div className='flex justify-center'>
+      {/* <div className='flex justify-center'>
         <div className='w-[85vw] pb-[6vw] bg-white bg-opacity-10 text-white mt-[10vw] border-[0.05vw] rounded-[6vw] pl-[4vw]'>
           <p className='text-[3.8vw] mt-[5vw] font-semibold'>
-            REQUIRED
+            Visitor's Information
           </p>
 
           <div className='pt-[2vw]'>
@@ -167,28 +171,10 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
               </p>
             </div>
 
-            {/* <label>
-              <p className='mb-[1vw]'>
-                Enter phone number :
-              </p>
-              <input name="telnumber" type="number" placeholder='Phone number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setphoneno(e.target.value)} />
-            </label> */}
-
-            {/* <label>
-              <p className='mb-[1vw] mt-[2.5vw]'>
-                Destination :
-              </p>
-              
-              <p className='font-bold pl-[1.5vw]'>
-                {eventLocation}
-              </p>
-            </label> */}
-
             <label>
               <p className='mb-[1vw] mt-[2.5vw]'>
                 Visitor's Badge Number :
               </p>
-              {/* <input name="telnumber" type="text" placeholder='Enter Badge Number' className='text-black rounded-[1vw] text-[3vw] pl-[2vw] h-[6vw] w-[55vw]'  onChange={e => setvisitorTag(e.target.value)}/> */}
 
               <Select
                   options={badges}
@@ -197,14 +183,6 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
                   className='w-[55vw] rounded-[1vw] text-black'
               />
             </label>
-
-            {/* <div className='mt-[2.5vw]'>
-              <p className=''>
-                Take picture of Vehicle's Licence Plate :
-              </p>
-
-              <img src={cameraIcon} className='h-[13vw] mt-[2vw] pl-[1vw] cursor-pointer' />              
-            </div> */}
           </div>
 
           <div className='flex justify-center text-[3.8vw] mt-[8vw]'>
@@ -213,7 +191,166 @@ const AppointmentFillinfo = ({attendeeName, eventLocation, attendeeIDNo}) => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
+
+
+      {mobileScreen && (
+        <div>
+          <div className='flex justify-center'>
+            <div className='w-[85vw] pb-[6vw] bg-white bg-opacity-10 text-white mt-[10vw] border-[0.05vw] rounded-[6vw] pl-[4vw]'>
+              <p className='text-[3.8vw] mt-[5vw] font-semibold'>
+                Visitor's Information
+              </p>
+
+              <div className='pt-[2vw]'>
+                <div className='mb-[2.5vw]'>
+                  <p className=''>
+                    Name :
+                  </p>
+
+                  <p className='font-bold pl-[1.5vw]'>
+                    {attendeeName}
+                  </p>
+                </div>
+
+                <div className='mb-[2.5vw]'>
+                  <p className=''>
+                    ID Number :
+                  </p>
+
+                  <p className='font-bold pl-[1.5vw]'>
+                    {attendeeIDNo}
+                  </p>
+                </div>
+
+                <label>
+                  <p className='mt-[2.5vw]'>
+                    Destination :
+                  </p>
+                  
+                  <p className='font-bold pl-[1.5vw] mb-[1vw]'>
+                    {eventLocation}
+                  </p>
+                </label>
+
+                <div className='mb-[2.5vw]'>
+                  <p className=''>
+                    Check-in Time :
+                  </p>
+
+                  <p className='font-bold pl-[1.5vw]'>
+                    {showTime}
+                  </p>
+                </div>
+
+                <label>
+                  <p className='mb-[1vw] mt-[2.5vw]'>
+                    Visitor's Badge Number :
+                  </p>
+
+                  <Select
+                      options={badges}
+                      onChange={handleBadgesChange}
+                      placeholder="Select Visitors Badge"
+                      className='w-[55vw] rounded-[1vw] text-black'
+                  />
+                </label>
+              </div>
+
+              <div className='flex justify-center text-[3.8vw] mt-[8vw]'>
+                <p className='border-[0.45vw] rounded-[1vw] text-center text-white py-[1vw] cursor-pointer w-[40vw]' onClick={handlesubmit} >
+                  Done
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {notMobileScreen && (
+        <div>
+          <div className='flex justify-center'>
+            <div className='w-[45vw] pb-[3vw] bg-white bg-opacity-10 text-white mt-[3vw] border-[0.05vw] rounded-[3vw]'>
+              {/* <p className='text-[3.8vw] mt-[5vw] font-semibold'>
+                Visitor's Information
+              </p> */}
+
+              <div className='flex justify-center'>
+                <p className='text-[3vw] mt-[1.5vw] font-semibold'>
+                  Visitor's Information
+                </p>
+              </div>
+
+              <div className='flex justify-center'>
+                <div className='w-[10vw] h-[0.1vw] bg-white'></div>
+              </div>
+
+              <div className='pt-[2vw] text-center'>
+                <div className='mb-[1vw] flex justify-center'>
+                  <p className=''>
+                    Name :
+                  </p>
+
+                  <p className='font-bold pl-[1vw]'>
+                    {attendeeName}
+                  </p>
+                </div>
+
+                <div className='mb-[1vw] flex justify-center'>
+                  <p className=''>
+                    ID Number :
+                  </p>
+
+                  <p className='font-bold pl-[1vw]'>
+                    {attendeeIDNo}
+                  </p>
+                </div>
+
+                <div className='mb-[1vw] flex justify-center'>
+                  <p className=''>
+                    Check-in Time :
+                  </p>
+
+                  <p className='font-bold pl-[1vw]'>
+                    {showTime}
+                  </p>
+                </div>
+
+                <div className='mb-[1vw] flex justify-center'>
+                  <p>
+                    Destination :
+                  </p>
+                  
+                  <p className='font-bold pl-[1.5vw]'>
+                    {eventLocation}
+                  </p>
+                </div>                
+
+                <div>
+                  <p className='mb-[1vw]'>
+                    Visitor's Badge Number :
+                  </p>
+
+                  <div className='flex justify-center'>
+                    <Select
+                        options={badges}
+                        onChange={handleBadgesChange}
+                        placeholder="Select Visitors Badge"
+                        className='w-[30vw] rounded-[1vw] text-black'
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className='flex justify-center text-[1.5vw] mt-[3vw]'>
+                <p className='border-[0.45vw] rounded-[1vw] text-center text-black bg-white py-[1vw] font-semibold cursor-pointer w-[25vw]' onClick={handlesubmit} >
+                  Done
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

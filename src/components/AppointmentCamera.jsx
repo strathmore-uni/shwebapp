@@ -3,6 +3,7 @@ import Webcam from 'react-webcam'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { shutter } from '../assets'
+import { useMediaQuery } from 'react-responsive';
 
 const AppointmentCamera = ({setAttendeeName, setEventLocation, setAttendeeIDNo}) => {
     const [id, setId] = useState('');
@@ -22,6 +23,10 @@ const AppointmentCamera = ({setAttendeeName, setEventLocation, setAttendeeIDNo})
     const [loading, setLoading] = useState(false);
 
     const [matched, setMatched] = useState(false);
+
+    const mobileScreen = useMediaQuery({ query: '(max-aspect-ratio: 3/3)' });
+    const notMobileScreen = useMediaQuery({ query: '(min-aspect-ratio: 3/3)' });
+
     // const [attendeeName, setAttendeeName] = useState('');
     // const [eventLocation, setEventLocation] = useState('');
     // const [attendeeIDNo, setAttendeeIDNo] = useState('');
@@ -125,7 +130,7 @@ const AppointmentCamera = ({setAttendeeName, setEventLocation, setAttendeeIDNo})
 
   return (
     <div>
-      <p className='text-white text-center pt-[4vw]'>
+      {/* <p className='text-white text-center pt-[4vw]'>
         Ensure the entire ID card fits entirely within the frame
       </p>
 
@@ -147,16 +152,6 @@ const AppointmentCamera = ({setAttendeeName, setEventLocation, setAttendeeIDNo})
                 <p>Name: {results.name}</p>          
               </div>
             )}
-
-            {/* <div>
-                <p className='text-green-600 mt-[1vw]'>
-                    User Found
-                </p>
-
-                <button onClick={navigateToNextPage} className='border-[0.45vw] rounded-[1vw] text-center text-white mt-[2vw] py-[1vw] w-[40vw]'>
-                    Continue
-                </button>
-            </div>*/}
 
             {matched ? (
                 <div>
@@ -197,7 +192,146 @@ const AppointmentCamera = ({setAttendeeName, setEventLocation, setAttendeeIDNo})
         <button onClick={capture}>
           <img src={shutter} className={`w-[20vw] ml-[40vw] mt-[8vw] transition-transform duration-1000 ease-in-out
           ${animate ? 'scale-125 rotate-[360deg]' : ''}`} />        
-        </button>
+        </button> */}
+
+
+        {mobileScreen && (
+          <div>
+            <p className='text-white text-center pt-[4vw]'>
+              Ensure the entire ID card fits entirely within the frame
+            </p>
+
+            {loading && (
+              <div className="flex justify-center">
+                <div className='absolute top-[50vw]'>
+                  <div className="w-[15vw] h-[15vw] border-[1.5vw] border-white border-t-transparent rounded-full animate-spin" />
+                </div>
+              </div>
+            )}
+
+            {visible && (
+              <div className='flex justify-center relative'>
+                <div className='absolute top-[15vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw] pb-[5vw] z-10'>
+                  {results?.id_number && results?.name && (
+                    <div>    
+                      <p>{myphone}</p>  
+                      <p>ID No: {results.id_number}</p>
+                      <p>Name: {results.name}</p>          
+                    </div>
+                  )}
+
+                  {matched ? (
+                      <div>
+                      <p className='text-green-600 mt-[1vw]'>
+                          User Found
+                      </p>
+
+                      <button onClick={navigateToNextPage} className='border-[0.45vw] rounded-[1vw] text-center text-white mt-[2vw] py-[1vw] w-[40vw]'>
+                          Continue
+                      </button>
+                  </div>  
+                  ) : (
+                      <div>
+                          <p className='text-red-600 mt-[1vw]'>
+                              User not found
+                          </p>
+
+                          <button onClick={handleReload} className='border-[0.45vw] rounded-[1vw] text-center text-white mt-[2vw] py-[1vw] w-[40vw]'>
+                              Retry
+                          </button>
+                      </div>
+                    )}
+                </div>
+              </div>      
+            )}
+
+
+              <Webcam
+                  audio={false}
+                  ref={webcamRef}
+                  screenshotFormat="image/jpeg"
+                  videoConstraints={{
+                      facingMode: 'environment',
+                  }}
+                  className='mt-[4vw]'
+              />
+
+              <button onClick={capture}>
+                <img src={shutter} className={`w-[20vw] ml-[40vw] mt-[8vw] transition-transform duration-1000 ease-in-out
+                ${animate ? 'scale-125 rotate-[360deg]' : ''}`} />        
+              </button>
+          </div>
+        )}
+
+        {notMobileScreen && (
+          <div>
+                <p className='text-white text-center pt-[4vw]'>
+            Ensure the entire ID card fits entirely within the frame
+          </p>
+
+          {loading && (
+            <div className="pl-[22vw]">
+              <div className='absolute top-[22vw]'>
+                <div className="w-[15vw] h-[15vw] border-[1.5vw] border-white border-t-transparent rounded-full animate-spin" />
+              </div>
+            </div>
+          )}
+
+          {visible && (
+            <div className='flex justify-center relative'>
+              <div className='absolute top-[15vw] w-[70vw] bg-black bg-opacity-70 border-[0.5vw] rounded-[1vw] text-white text-center pt-[9vw] pb-[5vw] z-10'>
+                {results?.id_number && results?.name && (
+                  <div>    
+                    <p>{myphone}</p>  
+                    <p>ID No: {results.id_number}</p>
+                    <p>Name: {results.name}</p>          
+                  </div>
+                )}
+
+                {matched ? (
+                    <div>
+                    <p className='text-green-600 mt-[1vw]'>
+                        User Found
+                    </p>
+
+                    <button onClick={navigateToNextPage} className='border-[0.45vw] rounded-[1vw] text-center text-white mt-[2vw] py-[1vw] w-[40vw]'>
+                        Continue
+                    </button>
+                </div>  
+                ) : (
+                    <div>
+                        <p className='text-red-600 mt-[1vw]'>
+                            User not found
+                        </p>
+
+                        <button onClick={handleReload} className='border-[0.45vw] rounded-[1vw] text-center text-white mt-[2vw] py-[1vw] w-[40vw]'>
+                            Retry
+                        </button>
+                    </div>
+                  )}
+              </div>
+            </div>      
+          )}
+
+
+            <div className='flex'>
+              <Webcam
+                  audio={false}
+                  ref={webcamRef}
+                  screenshotFormat="image/jpeg"
+                  videoConstraints={{
+                      facingMode: 'environment',
+                  }}
+                  className='mt-[4vw] ml-[4vw] w-[50vw]'
+              />
+
+              <button onClick={capture}>
+                <img src={shutter} className={`w-[18vw] ml-[13vw] mt-[5vw] transition-transform duration-1000 ease-in-out
+                ${animate ? 'scale-125 rotate-[360deg]' : ''}`} />        
+              </button>
+            </div>
+          </div>
+        )}
     </div> 
   )
 }

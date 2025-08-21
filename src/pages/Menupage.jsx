@@ -96,7 +96,7 @@ export const Menupage = () => {
                     </div>
                 </Link>   
 
-                <button onClick={logout} className="w-[80vw] border rounded-[1.3vw] mt-[5vw] py-[2.5vw] cursor-pointer">
+                <button onClick={logout} className="w-[80vw] rounded-[1.3vw] bg-blue-600 mt-[5vw] py-[2.5vw] cursor-pointer">
                     Logout
                 </button>         
             </div>
